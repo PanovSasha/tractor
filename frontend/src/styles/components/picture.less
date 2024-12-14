@@ -1,0 +1,63 @@
+@import 'descriptions';
+
+.picture {
+  .radius(8);
+  overflow: hidden;
+  position: relative;
+
+  &--instruction {
+    .full-width-tablet();
+    aspect-ratio: 1216/456;
+    margin-block: 120px -56px;
+
+    @media @tablet {
+      margin-block: 80px -32px;
+    }
+
+    @media @l-mobile {
+      margin-block: 60px -16px;
+    }
+  }
+
+  &--vacancy {
+    .shadow-2xl();
+    height: 304px;
+  }
+
+  &--404 {
+    aspect-ratio: 990/514;
+    max-width: 990px;
+    margin-inline: auto;
+  }
+
+  &__img {
+    .abs-alignment();
+    .object-fit();
+    .transition(scale, .2s);
+
+    .picture--scale:hover & {
+      @media @large-than-tablet {
+        scale: 1.01;
+      }
+    }
+  }
+
+  .shell__block--with-img-and-squares & {
+    .radius();
+    width: 100%;
+    border: 1px solid @blue20;
+    aspect-ratio: 592/712;
+
+    @media @tablet {
+      aspect-ratio: 336/192;
+    }
+  }
+
+  .shell--service-info-with-img & {
+    aspect-ratio: 560/248;
+
+    @media @tablet {
+
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import 'descriptions';
+
+.wrap {
+  width: 100%;
+  max-width: @layout-width;
+  padding-inline: @desktop-padding;
+  margin-inline: auto;
+
+  @media @tablet {
+    padding-inline: @tablet-padding;
+  }
+
+  @media @l-mobile {
+    padding-inline: @mobile-padding;
+  }
+}
+

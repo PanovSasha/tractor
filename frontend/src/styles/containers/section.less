@@ -1,0 +1,149 @@
+@import 'descriptions';
+
+.section {
+  padding-block: @offset96 120px;
+
+  @media @tablet {
+    padding-block: @offset56 @offset80;
+  }
+
+  @media @l-mobile {
+    padding-block: @offset24 @offset40;
+  }
+
+  &:last-child {
+    padding-bottom: 144px;
+
+    @media @tablet {
+      padding-bottom: @offset80;
+    }
+
+    @media @l-mobile {
+      padding-bottom: @offset40;
+    }
+  }
+
+  &--no-padding {
+    padding-block: 0;
+  }
+
+  &--no-tablet-padding {
+    @media @tablet {
+      padding-block: 0;
+    }
+  }
+
+  &--no-top-padding {
+    padding-top: 0;
+  }
+
+  &--spec-padding {
+    padding-block: @offset24 144px;
+
+    @media @tablet {
+      padding-block: 0 @offset80;
+    }
+
+    @media @l-mobile {
+      padding-block: 0 @offset40;
+    }
+  }
+
+  &--spec2-padding {
+    padding-block: 0 136px;
+
+    @media @tablet {
+      padding-block: 0 @offset80;
+    }
+
+    @media @l-mobile {
+      padding-block: 0 @offset40;
+    }
+  }
+
+  &--border-top {
+    border-top: 1px solid;
+    border-image-source: linear-gradient(270deg, #FFFFFF 0%, rgba(32, 205, 194, 0.5) 50%, #FFFFFF 100%);
+    border-image-slice: 1;
+  }
+
+  &--border-top-only-desktop {
+    border-top: 1px solid;
+    border-image-source: linear-gradient(270deg, #FFFFFF 0%, rgba(32, 205, 194, 0.5) 50%, #FFFFFF 100%);
+    border-image-slice: 1;
+
+    @media @tablet {
+      border-top: unset;
+    }
+  }
+
+  &--bg-grey {
+    background-color: @neutral50;
+  }
+
+  &--bg-grey-only-desktop {
+    background-color: @neutral50;
+
+    @media @tablet {
+      background-color: transparent;
+    }
+  }
+
+  &--bg-blue {
+    background-color: @blue-main;
+    color: @white;
+  }
+
+  &--pos-relative {
+    position: relative;
+  }
+
+  &--with-title-block {
+    padding-top: 0;
+  }
+
+  &__bg {
+    .radius(0);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    &--filter {
+      &::before, &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      &::before {
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(0, 25, 26, 0.665) 0%, rgba(0, 38, 54, 0.95) 100%);
+      }
+
+      &::after {
+        z-index: 2;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+      }
+    }
+  }
+
+  &__title {
+    &--center {
+
+    }
+  }
+
+  &__subtitle {
+    @media @l-mobile {
+      .fs12-16(400);
+    }
+  }
+
+  &__btn {
+    &--center {
+      display: block;
+      margin-inline: auto;
+    }
+  }
+}

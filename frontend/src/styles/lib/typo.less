@@ -1,0 +1,210 @@
+@import 'descriptions';
+
+.Montserrat() {
+  font-family: 'Montserrat', Marmelad, 'Lucida Grande', Arial, 'Hiragino Sans GB', Georgia, sans-serif;
+}
+
+.NotoSans() {
+  font-family: 'Noto Sans', Marmelad, 'Lucida Grande', Arial, 'Hiragino Sans GB', Georgia, sans-serif;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.underline--btn-tertiary {
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(180deg, #20CDC2 0%, #20B6CD 100%);
+  position: relative;
+  z-index: 2;
+
+  &::after {
+    display: block;
+    background-color: @turqs-alt-main;
+    content: '';
+    width: 100%;
+    height: 1px;
+  }
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: @blue-darker;
+
+  .shell--color-white & {
+    color: @white;
+  }
+
+  &.green {
+    color: @turqs-main;
+  }
+
+  &.montserrat {
+    .Montserrat();
+  }
+}
+
+.h1, .h2, .h3 {
+  .Montserrat();
+}
+
+.h1 {
+  .fs56-64();
+
+  @media @tablet {
+    .fs24-32();
+  }
+}
+
+.h2 {
+  .fs40-48();
+
+  @media @tablet {
+    .fs24-32();
+  }
+}
+
+.h3 {
+  .fs32-32();
+
+  @media @tablet {
+    .fs20-24();
+  }
+}
+
+.h4 {
+  .fs24-32();
+
+  @media @tablet {
+    .fs20-24();
+  }
+}
+
+.h5 {
+  .fs20-24();
+
+  @media @tablet {
+    .fs16-24();
+  }
+}
+
+.h6 {
+  .fs16-24();
+
+  @media @tablet {
+    .fs14-16();
+  }
+}
+
+.fs56-64(@weight:600) {
+  font-size: 56px;
+  line-height: 64px;
+  font-weight: @weight;
+}
+
+.fs40-48(@weight:600) {
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: @weight;
+}
+
+.fs32-32(@weight:600) {
+  font-size: 32px;
+  line-height: 32px;
+  font-weight: @weight;
+}
+
+.fs24-32(@weight:600) {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: @weight;
+}
+
+.fs20-32(@weight:600) {
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: @weight;
+}
+
+.fs20-24(@weight:600) {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: @weight;
+}
+
+.fs16-24(@weight:600) {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: @weight;
+}
+
+.fs14-16(@weight:600) {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: @weight;
+}
+
+.fs12-16(@weight:600) {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: @weight;
+}
+
+.fs10-16(@weight:600) {
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: @weight;
+}
+
+.ellipsis(@char-count:unset) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: @char-count;
+}
+
+.ellipsis-char(@char-count:unset) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: @char-count;
+}
+
+.ellipsis-max-width(@max-width:100%) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: @max-width;
+}
+
+.multiline-ellipsis(@line-count: 2) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @line-count;
+  overflow: hidden;
+}
+
+.send-success,
+.send-error {
+  display: none;
+  margin-bottom: 0;
+}
+
+.align-center {
+  display: block;
+  max-width: max-content;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.montserrat {
+  .Montserrat()
+}
+
+.notosans {
+  .NotoSans()
+}

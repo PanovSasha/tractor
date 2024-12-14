@@ -1,0 +1,52 @@
+@import "descriptions";
+
+.accord {
+  overflow: hidden;
+
+  &__btn {
+    .fs24-32();
+    color: @black;
+    position: relative;
+    white-space: initial;
+    width: 100%;
+    font-weight: 600;
+    padding-block: @offset8;
+
+    .aside-filters__block & {
+      .NotoSans();
+      .fs16-24(600);
+      display: flex;
+      width: auto;
+      gap: @offset16;
+      align-items: center;
+      text-transform: uppercase;
+      color: @blue-main;
+    }
+  }
+
+  &__btn-icon {
+    .transition(rotate);
+    rotate: -180deg;
+
+    .accord.active &, .accord.show & {
+      rotate: 0deg;
+    }
+  }
+
+  &__body {
+    display: none;
+
+    .aside-filters__block & {
+      padding-block: @offset16 @offset24;
+    }
+
+    .show & {
+      display: block;
+    }
+
+    .active & {
+      animation: showBySlide 0.3s forwards;
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+@import 'descriptions';
+
+.accessibility-link {
+  .transition(color);
+  .transition(box-shadow);
+  .transition(opacity);
+
+  .accord__body-block-text & {
+    color: @black;
+  }
+
+  &:hover {
+    @media @large-than-tablet {
+      opacity: 0.7;
+    }
+
+    .disable& {
+      opacity: unset;
+      pointer-events: none;
+    }
+
+    .topline__logo-link& {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    @media @large-than-tablet {
+      color: @black;
+    }
+
+    .disable& {
+      opacity: unset;
+      pointer-events: none;
+    }
+  }
+
+  &:focus-visible {
+    .radius(8);
+    box-shadow: 0 0 0 1px @black;
+
+    .disable& {
+      box-shadow: unset;
+    }
+  }
+
+  &--bold {
+    font-weight: 600;
+  }
+
+  &--scale {
+    .transition(scale);
+
+    &:hover {
+      @media @large-than-tablet {
+        scale: 1.07;
+      }
+    }
+  }
+
+  .houses__card&:hover {
+    @media @large-than-tablet {
+      opacity: 1;
+    }
+  }
+}
+
+.inherit-link {
+  font-size: inherit;
+  font-weight: inherit;
+  display: inline;
+}
