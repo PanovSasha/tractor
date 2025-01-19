@@ -8,6 +8,11 @@
             <path value="file://$PROJECT_DIR$/frontend/src/styles" />
             <path value="file://$PROJECT_DIR$/frontend/src/js" />
             <path value="file://$PROJECT_DIR$/frontend/src/assets" />
+            <path value="file://$PROJECT_DIR$/frontend/public" />
+            <path value="file://$PROJECT_DIR$/frontend/public/about" />
+            <path value="file://$PROJECT_DIR$/frontend/public/personal-account" />
+            <path value="file://$PROJECT_DIR$/frontend/public/press-center" />
+            <path value="file://$PROJECT_DIR$/frontend/public/technic" />
           </resourceRoots>
         </entryData>
       </entry>
