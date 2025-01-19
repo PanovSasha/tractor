@@ -126,6 +126,14 @@ module.exports = {
       },
     }),
     new HTMLWebpackPlugin({
+      template: './public/search.html',
+      inject: 'body',
+      filename: 'search.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
       template: './public/ui.html',
       inject: 'body',
       filename: 'ui.html',
@@ -133,14 +141,142 @@ module.exports = {
         collapseWhitespace: isProd,
       },
     }),
-    // new HTMLWebpackPlugin({
-    //   template: './public/catalog/catalog.html',
-    //   inject: 'body',
-    //   filename: 'catalog.html',
-    //   minify: {
-    //     collapseWhitespace: isProd,
-    //   },
-    // }),
+    new HTMLWebpackPlugin({
+      template: './public/technic/technic.html',
+      inject: 'body',
+      filename: 'technic.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/technic/technic-detail.html',
+      inject: 'body',
+      filename: 'technic-detail.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/technic/technic-equip-detail.html',
+      inject: 'body',
+      filename: 'technic-equip-detail.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/technic/configurator.html',
+      inject: 'body',
+      filename: 'configurator.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/about/vacancy.html',
+      inject: 'body',
+      filename: 'vacancy.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/about/health-and-safety.html',
+      inject: 'body',
+      filename: 'health-and-safety.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/press-center/press-center.html',
+      inject: 'body',
+      filename: 'press-center.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/press-center/press-detail.html',
+      inject: 'body',
+      filename: 'press-detail.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/press-center/magazine-archive.html',
+      inject: 'body',
+      filename: 'magazine-archive.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/press-center/magazine-archive.html',
+      inject: 'body',
+      filename: 'magazine-archive.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/press-center/counterfeit.html',
+      inject: 'body',
+      filename: 'counterfeit.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/personal-account/personal-account.html',
+      inject: 'body',
+      filename: 'personal-account.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/personal-account/reports.html',
+      inject: 'body',
+      filename: 'reports.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/buy.html',
+      inject: 'body',
+      filename: 'buy.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/contacts.html',
+      inject: 'body',
+      filename: 'contacts.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/finance.html',
+      inject: 'body',
+      filename: 'finance.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/service.html',
+      inject: 'body',
+      filename: 'service.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
     new CopyPlugin({
       patterns: [
         { from: './src/assets/favicon', to: './assets/favicon' },
@@ -158,7 +294,7 @@ module.exports = {
 
 if (isDev) {
   module.exports.devServer = {
-    port: 3010,
+    port: 3011,
     allowedHosts: 'all',
     client: {
       overlay: false,
@@ -168,16 +304,16 @@ if (isDev) {
     liveReload: false,
     historyApiFallback: true,
     proxy: {
-      '/api': {
-        target: 'http://moidom.xyz',
-        secure: false,
-        changeOrigin: true,
-      },
-      '/upload': {
-        target: 'http://moidom.xyz',
-        secure: false,
-        changeOrigin: true,
-      },
+      // '/api': {
+      //   target: 'http://moidom.xyz',
+      //   secure: false,
+      //   changeOrigin: true,
+      // },
+      // '/upload': {
+      //   target: 'http://moidom.xyz',
+      //   secure: false,
+      //   changeOrigin: true,
+      // },
     },
   }
 }
