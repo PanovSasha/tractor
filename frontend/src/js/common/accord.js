@@ -5,7 +5,9 @@ const $btns = $('.js-accord-btn')
 const toggleShowAccordionBody = () => {
   $btns.on('click', function () {
     const $btn = $(this)
-    const $accordionContainer = $btn.parent('.js-accord')
+
+    console.log($btn)
+    const $accordionContainer = $btn.parents('.js-accord')
 
     if ($accordionContainer.hasClass(SHOW_CLASS)) {
       $accordionContainer.removeClass(SHOW_CLASS)

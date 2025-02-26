@@ -4,23 +4,40 @@
   overflow: hidden;
 
   &__btn {
-    .fs24-32();
-    color: @black;
     position: relative;
     white-space: initial;
     width: 100%;
     font-weight: 600;
-    padding-block: @offset8;
 
-    .aside-filters__block & {
-      .NotoSans();
-      .fs16-24(600);
-      display: flex;
-      width: auto;
-      gap: @offset16;
-      align-items: center;
-      text-transform: uppercase;
-      color: @blue-main;
+    &::before {
+      .absY-alignment();
+      .radius(2);
+      background-color: @icon-primary;
+      content: "";
+      right: 14px;
+      width: 16px;
+      height: 2px;
+
+      .active & {
+        transform: rotate(90deg);
+        opacity: 0;
+      }
+    }
+
+    &::after {
+      .absY-alignment();
+      .transition(rotate);
+      .radius(2);
+      background-color: @icon-primary;
+      transform-origin: top;
+      content: "";
+      right: 21px;
+      width: 2px;
+      height: 16px;
+
+      .active & {
+        rotate: 90deg;
+      }
     }
   }
 
@@ -35,10 +52,6 @@
 
   &__body {
     display: none;
-
-    .aside-filters__block & {
-      padding-block: @offset16 @offset24;
-    }
 
     .show & {
       display: block;

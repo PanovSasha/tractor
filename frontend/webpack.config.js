@@ -158,14 +158,6 @@ module.exports = {
       },
     }),
     new HTMLWebpackPlugin({
-      template: './public/technic/technic-equip-detail.html',
-      inject: 'body',
-      filename: 'technic-equip-detail.html',
-      minify: {
-        collapseWhitespace: isProd,
-      },
-    }),
-    new HTMLWebpackPlugin({
       template: './public/technic/configurator.html',
       inject: 'body',
       filename: 'configurator.html',
@@ -174,9 +166,25 @@ module.exports = {
       },
     }),
     new HTMLWebpackPlugin({
+      template: './public/technic/attachments.html',
+      inject: 'body',
+      filename: 'attachments.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
       template: './public/about/vacancy.html',
       inject: 'body',
       filename: 'vacancy.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/about/production.html',
+      inject: 'body',
+      filename: 'production.html',
       minify: {
         collapseWhitespace: isProd,
       },
@@ -222,7 +230,7 @@ module.exports = {
       },
     }),
     new HTMLWebpackPlugin({
-      template: './public/press-center/counterfeit.html',
+      template: './public/about/counterfeit.html',
       inject: 'body',
       filename: 'counterfeit.html',
       minify: {
@@ -246,6 +254,15 @@ module.exports = {
       },
     }),
     new HTMLWebpackPlugin({
+      template: './public/personal-account/become-dealer.html',
+      inject: 'body',
+      filename: 'become-dealer.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+
+    new HTMLWebpackPlugin({
       template: './public/buy.html',
       inject: 'body',
       filename: 'buy.html',
@@ -262,9 +279,17 @@ module.exports = {
       },
     }),
     new HTMLWebpackPlugin({
-      template: './public/finance.html',
+      template: './public/finance/leasing.html',
       inject: 'body',
-      filename: 'finance.html',
+      filename: 'leasing.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/finance/subsidizing.html',
+      inject: 'body',
+      filename: 'subsidizing.html',
       minify: {
         collapseWhitespace: isProd,
       },
@@ -301,7 +326,7 @@ if (isDev) {
     },
     hot: isDev,
     compress: true,
-    liveReload: false,
+    liveReload: true,
     historyApiFallback: true,
     proxy: {
       // '/api': {

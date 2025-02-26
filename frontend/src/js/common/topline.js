@@ -5,27 +5,33 @@ export const topLineFunctions = () => {
     const $burger = $('.js-topline-burger')
 
     $burger.on('click', function () {
-      const $t = $(this)
-
       $TOPLINE.toggleClass(MOBILE_CLASS)
       $BODY.toggleClass(BODY_LOCK_CLASS)
-      $('.js-submenu').removeClass(SHOW_CLASS)
-      $('.js-topline-nav-item-open-btn').removeClass(ROTATE_CLASS)
+      $('.js-hover-block').removeClass(SHOW_CLASS)
     })
   }
 
   const toggleShowToplineSubmenu = () => {
-    const $navItemsWithSubMenu = $('.js-topline-nav-item-with-submenu')
+    const $navItemsWithSubMenu = $('.js-with-hover')
 
     $.each($navItemsWithSubMenu, function (_, el) {
       const $el = $(el)
 
-      const $openBtn = $el.find('.js-topline-nav-item-open-btn')
-      const $submenu = $el.find('.js-submenu')
+      const $openBtn = $el.find('.js-topline-block-arrow')
+      const $closeBtn = $el.find('.js-hover-block-back-btn')
+      const $submenu = $el.find('.js-hover-block')
+
+      const $withHoverLink = $el.find('.js-with-hover-link')
+      const $submenuTitleM = $el.find('.js-hover-block-part-name')
+
+      $submenuTitleM.text($withHoverLink.text())
 
       $openBtn.on('click', function () {
-        $submenu.toggleClass(SHOW_CLASS)
-        $openBtn.toggleClass(ROTATE_CLASS)
+        $submenu.addClass(SHOW_CLASS)
+      })
+
+      $closeBtn.on('click', function () {
+        $submenu.removeClass(SHOW_CLASS)
       })
     })
   }

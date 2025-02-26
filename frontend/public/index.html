@@ -5,15 +5,406 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="format-detection" content="telephone=no" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>ТРакторы | Главная</title>
+  <link rel="icon" type="image/png" href="/assets/favicon/favicon-96x96.png"
+        sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Agromash" />
+  <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+  <title>Тракторы | Главная</title>
 </head>
 
 <body class="body">
 
+<div class="topline js-topline">
+  <div class="wrap">
+    <div class="topline__block-shell">
+      <a class="topline__block topline__block--logo" href="/">
+        <svg class="topline__logo">
+          <use xlink:href="/assets/sprite/sprite.svg#logo"></use>
+        </svg>
+      </a>
+      
+      <div
+        class="topline__block topline__block--catalog with-hover js-with-hover">
+        <a class="topline__block-link accessibility-link js-with-hover-link"
+           href="technic.html">
+          <svg class="icon icon--20 topline__block-catalog-icon">
+            <use xlink:href="/assets/sprite/sprite.svg#catalog"></use>
+          </svg>
+          
+          Каталог
+        </a>
+        
+        <button class="topline__block-arrow-btn js-topline-block-arrow">
+          <svg
+            class="icon icon--20 topline__block-arrow js-topline-block-arrow">
+            <use xlink:href="/assets/sprite/sprite.svg#menu-arrow"></use>
+          </svg>
+        </button>
+        
+        <div
+          class="topline__hover-block hover-block hover-block--wide js-hover-block">
+          <div class="hover-block__shell">
+            <div class="hover-block__title">
+              <button class="hover-block__back-btn js-hover-block-back-btn"
+                      type="button">
+                <svg
+                  class="icon icon--20  js-topline-block-arrow">
+                  <use
+                    xlink:href="/assets/sprite/sprite.svg#mobile-back-arrow"></use>
+                </svg>
+                
+                Вернуться назад
+              </button>
+            </div>
+            
+            <a class="hover-block__part-name js-hover-block-part-name"
+               href="">
+            </a>
+            
+            <div class="hover-block__column">
+              <a class="hover-block__text accessibility-link" href="#">
+                Колесные тракторы
+              </a>
+              
+              <a class="hover-block__link accessibility-link"
+                 href="technic.html">
+                АГРОМАШ 90ТК
+              </a>
+            </div>
+            
+            <div class="hover-block__column">
+              <a class="h8 hover-block__text accessibility-link"
+                 href="technic.html">
+                Гусеничные тракторы
+              </a>
+              
+              <a class="hover-block__link accessibility-link"
+                 href="technic-detail.html">
+                АГРОМАШ 110ТГ
+              </a>
+              
+              <a class="hover-block__link accessibility-link"
+                 href="technic-detail.html">
+                АГРОМАШ 90ТГ
+              </a>
+              
+              <a class="hover-block__link accessibility-link"
+                 href="technic-detail.html">
+                АГРОМАШ-Руслан
+              </a>
+            </div>
+            
+            <!--            //TODO-->
+            <!--            <div class="">-->
+            <!--              картинки тракторов, спросить, мб завязаны на ховер по ссылке-->
+            <!--            </div>-->
+            
+            <a
+              href="attachments.html"
+              class="hover-block__content">
+              <p class="h5 hover-block__content-title">
+                Навесное и&nbsp;прицепное оборудование
+              </p>
+              
+              <div class="hover-block__content-img-shell">
+                <div class="picture hover-block__content-img">
+                  <img class="picture__img" loading="lazy"
+                       src="/assets/img/technics/equip.webp" alt="">
+                </div>
+              </div>
+              
+              <svg
+                class="icon icon--24 hover-block__content-arrow">
+                <use
+                  xlink:href="/assets/sprite/sprite.svg#black-right-arrow"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="topline__block topline__block--menu menu show js-menu">
+        <div class="menu__item with-hover js-with-hover">
+          <a class="menu__item-link accessibility-link js-with-hover-link"
+             href="service.html">
+            Сервис и&nbsp;запчасти
+          </a>
+          
+          <button class="topline__block-arrow-btn js-topline-block-arrow">
+            <svg
+              class="icon icon--20 topline__block-arrow js-topline-block-arrow">
+              <use xlink:href="/assets/sprite/sprite.svg#menu-arrow"></use>
+            </svg>
+          </button>
+          
+          <div
+            class="topline__hover-block hover-block js-hover-block">
+            <div class="hover-block__shell">
+              <div class="hover-block__title">
+                <button class="hover-block__back-btn js-hover-block-back-btn"
+                        type="button">
+                  <svg
+                    class="icon icon--20  js-topline-block-arrow">
+                    <use
+                      xlink:href="/assets/sprite/sprite.svg#mobile-back-arrow"></use>
+                  </svg>
+                  
+                  Вернуться назад
+                </button>
+              </div>
+              
+              <a class="hover-block__part-name js-hover-block-part-name"
+                 href="service.html">
+              </a>
+              
+              <div class="hover-block__column">
+                <a class="hover-block__link accessibility-link"
+                   href="technic.html">
+                  Сервисное обслуживание
+                </a>
+                
+                <a class="hover-block__link accessibility-link"
+                   href="technic.html">
+                  Запасные части
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="menu__item">
+          <a class="menu__item-link accessibility-link" href="buy.html">
+            Где купить
+          </a>
+        </div>
+        
+        <div class="menu__item with-hover js-with-hover">
+          <a class="menu__item-link accessibility-link js-with-hover-link"
+             href="leasing.html">
+            Финансирование
+          </a>
+          
+          <button
+            class="topline__block-arrow-btn js-topline-block-arrow"
+            type="button">
+            <svg
+              class="icon icon--20 topline__block-arrow js-topline-block-arrow">
+              <use xlink:href="/assets/sprite/sprite.svg#menu-arrow"></use>
+            </svg>
+          </button>
+          
+          <div
+            class="topline__hover-block hover-block js-hover-block">
+            <div class="hover-block__shell">
+              <div class="hover-block__title">
+                <button class="hover-block__back-btn js-hover-block-back-btn"
+                        type="button">
+                  <svg
+                    class="icon icon--20  js-topline-block-arrow">
+                    <use
+                      xlink:href="/assets/sprite/sprite.svg#mobile-back-arrow"></use>
+                  </svg>
+                  
+                  Вернуться назад
+                </button>
+              </div>
+              
+              <a class="hover-block__part-name js-hover-block-part-name"
+                 href="service.html">
+              </a>
+              
+              <div class="hover-block__column">
+                <a class="hover-block__link accessibility-link"
+                   href="leasing.html">
+                  Лизинг
+                </a>
+                
+                <a class="hover-block__link accessibility-link"
+                   href="subsidizing.html">
+                  Субсидирование
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="menu__item with-hover js-with-hover">
+          <a class="menu__item-link accessibility-link js-with-hover-link"
+             href="vacancy.html">
+            Компания
+          </a>
+          
+          <button
+            class="topline__block-arrow-btn js-topline-block-arrow"
+            type="button">
+            <svg
+              class="icon icon--20 topline__block-arrow js-topline-block-arrow">
+              <use xlink:href="/assets/sprite/sprite.svg#menu-arrow"></use>
+            </svg>
+          </button>
+          
+          <div
+            class="topline__hover-block hover-block js-hover-block">
+            <div class="hover-block__shell">
+              <div class="hover-block__title">
+                <button class="hover-block__back-btn js-hover-block-back-btn"
+                        type="button">
+                  <svg
+                    class="icon icon--20  js-topline-block-arrow">
+                    <use
+                      xlink:href="/assets/sprite/sprite.svg#mobile-back-arrow"></use>
+                  </svg>
+                  
+                  Вернуться назад
+                </button>
+              </div>
+              
+              <a class="hover-block__part-name js-hover-block-part-name"
+                 href="service.html">
+              </a>
+              
+              <div class="hover-block__column">
+                <a class="hover-block__link accessibility-link"
+                   href="production.html">
+                  Производство
+                </a>
+                
+                <a class="hover-block__link accessibility-link"
+                   href="vacancy.html">
+                  Вакансии
+                </a>
+                
+                <a class="hover-block__link accessibility-link"
+                   href="press-center.html">
+                  Пресс-центр
+                </a>
+                
+                <a class="hover-block__link accessibility-link"
+                   href="counterfeit.html">
+                  Контрафакт
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="menu__item">
+          <a class="menu__item-link accessibility-link" href="service.html">
+            Контакты
+          </a>
+        </div>
+      </div>
+      
+      <div
+        class="topline__block topline__block--search js-topline-block-search">
+        <div
+          class="topline__block-search-box input__box input__box--search input__box js-input-box js-input-box-search js-topline-block-search-box">
+          <label for="search"
+                 class="input__placeholder js-input-placeholder">
+            Поиск по сайту
+          </label>
+          
+          <input
+            class="input input--search js-input"
+            id="search" name="fullName" type="text">
+          
+          <button type="button"
+                  class="input__erase-btn js-input-erase-btn">
+            <svg class="icon icon--20">
+              <use xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
+            </svg>
+          </button>
+          
+          <button class="input__search-btn js-input-search-btn" type="button">
+            <svg class="icon icon--20">
+              <use xlink:href="/assets/sprite/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+        
+        <button
+          class="topline__block-search-show-btn js-topline-block-search-show-btn accessibility-link"
+          type="button">
+          <svg
+            class="icon icon--20">
+            <use xlink:href="/assets/sprite/sprite.svg#search"></use>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="topline__block topline__block--contact">
+        <p class="topline__block-title">
+          Нужна консультация специалиста?
+        </p>
+        
+        <a
+          class="topline__block-phone"
+          href="tel:+78007001089">
+          8&nbsp;800&nbsp;700 10&nbsp;89
+        </a>
+        
+        <a
+          class="topline__block-mail"
+          href="mailto:info@agromh.com">
+          info@agromh.com
+        </a>
+        
+        <button
+          data-overlay-anchor="order-call"
+          class="topline__block-order-call accessibility-link js-show-overlay-btn">
+          Заказать звонок
+        </button>
+        
+        <button
+          type="button"
+          title="открыть выпадающее меню"
+          class="topline__burger js-topline-burger accessibility-link"
+        >
+          <span class="topline__burger-line"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <header class="header js-header">
   <div class="wrap">
-    <div class="topline js-topline">
+    <div class="partition-swiper__shell">
+      <div class="swiper partition-swiper partition js-partition-swiper">
+        <div class="swiper-wrapper partition__wrapper">
+          <div class="swiper-slide partition__slide">
+            <div class="partition__slide-descr">
+              <h1 class="h1 partition__slide-title">
+                Техника чемпионов
+              </h1>
+              
+              <p class="partition__slide-text">
+                Совместно с&nbsp;АО&nbsp;&laquo;Росагролизинг&raquo; дарим
+                возможность приобрести легендарные тракторы
+              </p>
+              
+              <a href="#" class="partition__slide-link">
+                Подробнее
+              </a>
+            </div>
+            
+            <div class="picture partition__slide-picture">
+              <img class="picture__img" loading="lazy" src="" alt="">
+              
+              <p>
+                ВЫГОДА ДО&nbsp;300&nbsp;000&nbsp;₽
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    
+    <div class=""></div>
   </div>
 </header>
 
@@ -21,16 +412,382 @@
   <section
     class="section">
     <div class="wrap">
-
+      <h2 class="section__title h2">
+        Техника
+        и оборудование
+      </h2>
+    </div>
+  </section>
+  
+  <section
+    class="section">
+    <div class="wrap">
+      <h2 class="h2">
+        Новости компании
+      </h2>
+    </div>
+  </section>
+  
+  <section
+    class="section">
+    <div class="wrap">
+      <h2 class="h2">
+        Где купить
+      </h2>
+    </div>
+  </section>
+  
+  <section
+    class="section">
+    <div class="wrap">
+      <h2 class="h2">
+        Видеообзоры техники
+      </h2>
+    </div>
+  </section>
+  
+  <!--  партнеры-->
+  <section
+    class="section">
+    <div class="wrap"></div>
+  </section>
+  
+  <section
+    class="section">
+    <div class="wrap">
+      <h3 class="h3">
+        Нужна консультация специалиста?
+      </h3>
     </div>
   </section>
 </main>
 
-<footer class="footer">
+<footer class="footer js-footer">
   <div class="wrap">
-
+    <div class="footer__links f-links">
+      <div class="f-links__info">
+        <a href="/">
+          <svg
+            class="f-links__info-logo">
+            <use xlink:href="/assets/sprite/sprite.svg#logo"></use>
+          </svg>
+        </a>
+        
+        <p class="f-links__info-text">
+          Общество с&nbsp;ограниченной ответственностью &laquo;Завод &laquo;АГРОМАШ&raquo;
+        </p>
+        
+        <p class="f-links__info-socials-title">
+          Следите за&nbsp;нами в&nbsp;социальных сетях
+        </p>
+        
+        <div class="f-links__info-socials">
+          <a
+            target="_blank"
+            class="f-links__info-link accessibility-link"
+            href="https://vk.com/club75045589">
+            <svg
+              class="icon icon--24">
+              <use xlink:href="/assets/sprite/sprite.svg#vk"></use>
+            </svg>
+          </a>
+          
+          <a
+            target="_blank"
+            class="f-links__info-link accessibility-link"
+            href="https://rutube.ru/channel/49001774">
+            <svg
+              class="icon icon--24">
+              <use xlink:href="/assets/sprite/sprite.svg#rutube"></use>
+            </svg>
+          </a>
+          
+          <a
+            target="_blank"
+            class="f-links__info-link accessibility-link"
+            href="https://dzen.ru/agromashbrand">
+            <svg
+              class="icon icon--24">
+              <use xlink:href="/assets/sprite/sprite.svg#dzen"></use>
+            </svg>
+          </a>
+          
+          <a
+            target="_blank"
+            class="f-links__info-link accessibility-link"
+            href="https://t.me/s/agromashbrand">
+            <svg
+              class="icon icon--24">
+              <use xlink:href="/assets/sprite/sprite.svg#tg"></use>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="f-links__accords-columns">
+        <div class="f-links__accords-column">
+          <div class="f-links__accord accord js-accord">
+            <div class="f-links__accord-title">
+              <a class="f-links__accord-title-link accessibility-link"
+                 href="">
+                Каталог
+              </a>
+              
+              <button
+                class="f-links__accord-btn accord__btn accord__btn--title js-accord-btn">
+              </button>
+            </div>
+            
+            <div class="f-links__accord-body accord__body js-accord-body">
+              <a class="f-links__accord-link accessibility-link" href="">
+                Колесные тракторы
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link" href="">
+                Гусеничные тракторы
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link" href="">
+                Навесное и&nbsp;прицепное оборудование
+              </a>
+            </div>
+          </div>
+          
+          <div class="f-links__accord accord js-accord">
+            <div class="f-links__accord-title">
+              <a class="f-links__accord-title-link accessibility-link"
+                 href="service.html">
+                Сервис и&nbsp;запчасти
+              </a>
+              
+              <button
+                class="f-links__accord-btn accord__btn accord__btn--title js-accord-btn">
+              </button>
+            </div>
+            
+            <div class="f-links__accord-body accord__body js-accord-body">
+              <a class="f-links__accord-link accessibility-link"
+                 href="service.html">
+                Сервисное обслуживание
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link"
+                 href="service.html">
+                Запасные части
+              </a>
+            </div>
+          </div>
+          
+          <div class="f-links__accord accord js-accord">
+            <div class="f-links__accord-title">
+              <a class="f-links__accord-title-link accessibility-link"
+                 href="subsidizing.html">
+                Финансирование
+              </a>
+              
+              <button
+                class="f-links__accord-btn accord__btn accord__btn--title js-accord-btn">
+              </button>
+            </div>
+            
+            <div class="f-links__accord-body accord__body js-accord-body">
+              <a class="f-links__accord-link accessibility-link"
+                 href="leasing.html">
+                Лизинг
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link"
+                 href="subsidizing.html">
+                Субсидирование
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="f-links__accords-column">
+          <div class="f-links__accord accord js-accord">
+            <div class="f-links__accord-title">
+              <a class="f-links__accord-title-link accessibility-link"
+                 href="">
+                О&nbsp;компании
+              </a>
+              
+              <button
+                class="f-links__accord-btn accord__btn accord__btn--title js-accord-btn">
+              </button>
+            </div>
+            
+            <div class="f-links__accord-body accord__body js-accord-body">
+              <a class="f-links__accord-link accessibility-link" href="">
+                Производство
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link" href="">
+                Вакансии
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link" href="">
+                Пресс-центр
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link" href="">
+                Контрафакт
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link" href="">
+                Контакты
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="f-links__contacts">
+        <p class="f-links__contacts-title">
+          Нужна консультация специалиста?
+        </p>
+        
+        <a
+          class="f-links__phone accessibility-link"
+          href="tel:+78007001089">
+          8 800 700 10 89
+        </a>
+        
+        <a
+          class="f-links__email accessibility-link"
+          href="mailto:info@agromh.com">
+          info@agromh.com
+        </a>
+        
+        <button
+          data-overlay-anchor="order-call"
+          class="btn btn--primary f-links__order-btn js-show-overlay-btn">
+          Заказать звонок
+        </button>
+      </div>
+    </div>
+    
+    <div class="footer__terms">
+      <a
+        class="footer__terms-text accessibility-link"
+        href="#">
+        Политика обработки персональных данных
+      </a>
+      
+      <p class="footer__terms-text">
+        &copy;&nbsp;2025 Официальный сайт бренда АГРОМАШ&nbsp;&mdash; работаем
+        на&nbsp;результат
+      </p>
+    </div>
   </div>
 </footer>
+
+<aside class="overlay js-overlay" aria-label="Site overlays">
+  <div data-overlay="order-call" class="call overlay__item js-overlay-item">
+    <div class="call__form-shell js-call-form-shell">
+      <button class="call__close overlay__close-btn js-overlay-close-btn">
+      
+      </button>
+      
+      <form class="call__form js-call-form">
+        <p class="call__title">
+          Нужна консультация
+          <br>
+          специалиста?
+        </p>
+        
+        <p class="call__subtitle">
+          Оставьте свой номер, наш менеджер свяжется с&nbsp;вами и&nbsp;расскажет
+          о&nbsp;технике
+          и&nbsp;условиях приобретения
+        </p>
+        
+        <div class="call__inputs">
+          <div class="input__box js-input-box">
+            <label for="fullName"
+                   class="input__placeholder js-input-placeholder">
+              Ваше ФИО
+            </label>
+            
+            <input
+              class="input js-input"
+              id="fullName" name="fullName" type="text">
+            
+            <button type="button"
+                    class="input__erase-btn js-input-erase-btn">
+              <svg class="icon icon--20">
+                <use xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="input__box js-input-box">
+            <label for="phone"
+                   class="input__placeholder js-input-placeholder">
+              +7 (_ _ _) _ _ _ _ _ _ _
+            </label>
+            
+            <input
+              class="input js-input"
+              id="phone" name="fullName" type="text">
+            
+            <button type="button"
+                    class="input__erase-btn js-input-erase-btn">
+              <svg class="icon icon--20">
+                <use xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <button
+          class="btn btn--primary call__form-submit-btn js-call-form-submit-btn">
+          Отправить
+        </button>
+        
+        <p class="call__descr">
+          Нажимая на&nbsp;кнопку &laquo;Отправить&raquo;, я&nbsp;даю свое
+          согласие
+          с&nbsp;<a class="accessibility-link call__descr-link" href="#">
+          политикой обработки персональных данных
+        </a>
+        </p>
+      </form>
+      
+      <div class="call__form-success js-call-form-success">
+        <p class="call__title">
+          Ваш запрос отправлен!
+        </p>
+        
+        <p class="call__subtitle">
+          Постараемся связаться с вами в самое ближайшее время
+        </p>
+        
+        <button
+          class="btn btn--primary js-close-overlay-btn">
+          Отлично
+        </button>
+      </div>
+      
+      <div class="call__form-error js-call-form-error show">
+        <p class="call__title">
+          Что-то пошло не&nbsp;так
+        </p>
+        
+        <p class="call__subtitle">
+          Извините, не&nbsp;смогли отправить заявку. Мы&nbsp;работаем над
+          решением проблемы и&nbsp;делаем все возможное для восстановления
+          сервиса
+        </p>
+        
+        <button
+          class="btn btn--primary js-close-overlay-btn">
+          Отлично
+        </button>
+      </div>
+    </div>
+  </div>
+</aside>
 
 </body>
 </html>

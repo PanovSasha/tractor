@@ -1,17 +1,27 @@
 @import "descriptions";
 
 .input {
-  .radius(8);
-  .NotoSans();
-  .fs20-32(400);
-  background-color: @white;
-  border: 1px solid @neutral400;
+  .transition(border);
+  .radius(12);
+  .p2();
+  background-color: transparent;
+  color: @text-primary;
+  border: 1px solid @border-primary;
   width: 100%;
   height: 100%;
-  padding: @offset6 @offset44 @offset6 @offset12;
+  padding: 13px @offset44 13px @offset16;
+
+  &::placeholder {
+    .Inter();
+    .p2();
+  }
+
+  &:hover {
+    border: 1px solid @border-hover;
+  }
 
   &:focus-visible {
-    border: 1px solid @black;
+    border: 1px solid @border-active;
   }
 
   &--search {
@@ -22,10 +32,27 @@
     }
   }
 
+  &__placeholder {
+    .absY-alignment();
+    .p2();
+    color: @text-tertiary;
+    left: @offset16;
+    pointer-events: none;
+
+    .input__box--search & {
+      left: @offset48;
+
+      @media @tablet {
+        left: 40px;
+      }
+    }
+  }
+
   &__search-btn, &__erase-btn {
     .absY-alignment();
     .f-center();
     .transition(color);
+    flex: none;
     left: @offset16;
 
     &::before {
@@ -40,7 +67,7 @@
     }
 
     &:hover {
-      color: @neutral400;
+      opacity: 0.8;
     }
   }
 
@@ -53,11 +80,14 @@
   &__erase-btn {
     left: unset;
     display: none;
-    right: @offset8;
+    right: @offset16;
 
     .show& {
       .f-center();
     }
+  }
+
+  &__search-btn {
   }
 
   &--textarea {
@@ -66,7 +96,7 @@
   }
 
   &__box {
-    height: 44px;
+    height: 48px;
     transition: box-shadow .2s ease-in-out;
     position: relative;
   }

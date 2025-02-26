@@ -1,7 +1,7 @@
 @import 'descriptions';
 
 .btn-reset() {
-  .Montserrat();
+  .Inter();
   font-size: @offset16;
   -webkit-tap-highlight-color: transparent;
   -webkit-appearance: none;
@@ -18,6 +18,31 @@
   text-align: left;
   padding: 0;
   margin: 0;
+}
+
+.btn-default() {
+  .btn-reset();
+  .transition(background-color);
+  .transition(background);
+  .transition(border-color);
+  .transition(box-shadow);
+  .transition(color);
+  .transition(opacity);
+  .f-center(8);
+  .radius(22);
+  .h9();
+  font-weight: 600;
+  display: inline-flex;
+  background-clip: unset;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  white-space: nowrap;
+  padding: 13px @offset16;
+
+  @media @tablet {
+    padding: 9px @offset16;
+  }
 }
 
 .square(@num) {

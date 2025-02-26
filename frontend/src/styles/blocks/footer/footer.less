@@ -1,0 +1,30 @@
+@import "descriptions";
+
+.footer {
+  padding-top: 50px;
+
+  @media @tablet {
+    padding-top: @offset40;
+  }
+
+  &__terms {
+    .f-between(24);
+    border-top: 1px solid @border-primary;
+    padding-block: @offset24;
+
+    @media @tablet {
+      .f-column(24);
+      align-items: stretch;
+      border-top: none;
+      padding-top: @offset32;
+    }
+  }
+
+  &__terms-text {
+    .p3(500);
+    .Inter();
+    color: @text-tertiary;
+  }
+}
+
+

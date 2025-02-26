@@ -19,6 +19,7 @@ frontend/node_modules/
 dist
 dist/
 /.idea/
+.idea/
 .gitlab-ci.yml
 /pdf-configurator/pdf
 robots.txt

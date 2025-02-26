@@ -10,6 +10,7 @@ import { buttonsFns } from './buttons'
 import { animateSvg } from './animateSvg'
 import { orderFormFns } from './orderForm'
 import { spoilerFns } from './spoiler'
+import { searchFns } from './search'
 
 export const commonFunctions = () => {
   accordFunctions()
@@ -19,6 +20,7 @@ export const commonFunctions = () => {
   inputFunctions()
   overlaysFunctions()
   paginationFns()
+  searchFns()
   selectFunctions()
   spoilerFns()
   swiperFunctions()

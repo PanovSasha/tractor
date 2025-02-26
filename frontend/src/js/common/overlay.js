@@ -57,6 +57,8 @@ export function overlaysFunctions() {
       $overlayItems.removeClass(SHOW_CLASS)
       $(`[data-overlay="${overlayVal}"]`).addClass(SHOW_CLASS)
 
+      console.log(overlayVal, 'overlayVal')
+
       toggleOverlay()
     })
   }
@@ -79,7 +81,7 @@ export function overlaysFunctions() {
     const $closeBtn = $('.js-overlay-close-btn')
 
     $closeBtn.on('click', function () {
-      toggleOverlay()
+      closeOverlay()
     })
   }
 
