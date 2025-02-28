@@ -373,8 +373,8 @@
 
 <header class="header js-header">
   <div class="wrap">
-    <div class="partition-swiper__shell">
-      <div class="swiper partition-swiper partition js-partition-swiper">
+    <div class="partition__shell">
+      <div class="swiper partition js-partition">
         <div class="swiper-wrapper partition__wrapper">
           <div class="swiper-slide partition__slide">
             <div class="partition__slide-descr">
@@ -387,24 +387,228 @@
                 возможность приобрести легендарные тракторы
               </p>
               
-              <a href="#" class="partition__slide-link">
+              <a href="#" class="btn btn--primary partition__slide-link">
                 Подробнее
               </a>
             </div>
             
-            <div class="picture partition__slide-picture">
-              <img class="picture__img" loading="lazy" src="" alt="">
-              
-              <p>
+            <div
+              class="partition__slide-picture-shell picture picture--scale">
+              <p class="partition__slide-picture-tag">
                 ВЫГОДА ДО&nbsp;300&nbsp;000&nbsp;₽
               </p>
+              
+              <div class="picture partition__slide-picture">
+                <img class="picture__img" loading="lazy"
+                     src="/assets/img/slides/partition/slide1.webp" alt="">
+              
+              </div>
+            </div>
+          </div>
+          
+          <div class="swiper-slide partition__slide">
+            <div class="partition__slide-descr">
+              <h1 class="h1 partition__slide-title">
+                АГРОМАШ
+                90ТК
+              </h1>
+              
+              <p class="partition__slide-text">
+                Все о&nbsp;новом тракторе и&nbsp;его преимуществах
+              </p>
+              
+              <a href="technic-detail.html"
+                 class="btn btn--primary partition__slide-link">
+                Подробнее
+              </a>
+            </div>
+            
+            <div
+              class="partition__slide-picture-shell picture picture--scale">
+              <div class="picture partition__slide-picture">
+                <!--                TODO - мб видео сюда вставить-->
+                
+                <img class="picture__img" loading="lazy"
+                     src="/assets/img/slides/partition/slide2.webp" alt="">
+              
+              </div>
+            </div>
+          </div>
+          
+          <div class="swiper-slide partition__slide">
+            <div class="partition__slide-descr">
+              <h1 class="h1 partition__slide-title">
+                АГРОМАШ
+                90ТК
+              </h1>
+              
+              <p class="partition__slide-text">
+                Все о&nbsp;новом тракторе и&nbsp;его преимуществах
+              </p>
+              
+              <a href="#" class="btn btn--primary partition__slide-link">
+                Подробнее
+              </a>
+            </div>
+            
+            <div
+              class="partition__slide-picture-shell picture picture--scale">
+              <div class="picture partition__slide-picture">
+                <img class="picture__img" loading="lazy"
+                     src="/assets/img/slides/partition/slide3.webp" alt="">
+              
+              </div>
+            </div>
+          </div>
+          
+          <div class="swiper-slide partition__slide">
+            <div class="partition__slide-descr">
+              <h1 class="h1 partition__slide-title">
+                Осторожно,
+                контрафакт!
+              </h1>
+              
+              <p class="partition__slide-text">
+                Как купить оригинальный трактор АГРОМАШ 90ТГ и&nbsp;не&nbsp;попасться
+                на&nbsp;&laquo;удочку&raquo; мошенников?
+              </p>
+              
+              <a href="#" class="btn btn--primary partition__slide-link">
+                Подробнее
+              </a>
+            </div>
+            
+            <div
+              class="partition__slide-picture-shell picture picture--scale">
+              <div class="picture partition__slide-picture">
+                <img class="picture__img" loading="lazy"
+                     src="/assets/img/slides/partition/slide4.webp" alt="">
+              
+              </div>
             </div>
           </div>
         </div>
       </div>
+      
+      <div class="partition__nav">
+        <div class="partition__btns swiper-btns swiper-btns--white">
+          <button
+            class="partition__btn partition__btn--prev js-partition-btn-prev swiper-btn"
+            type="button">
+            <svg class="icon icon--30 icon--180deg">
+              <use xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+            </svg>
+          </button>
+          
+          <button
+            class="partition__btn partition__btn--next js-partition-btn-next swiper-btn"
+            type="button">
+            <svg class="icon icon--30">
+              <use xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="partition__pagination js-partition__pagination">
+        </div>
+      </div>
     </div>
     
-    <div class=""></div>
+    <div class="top-links">
+      <a
+        href="#"
+        class="top-links__block top-links__block--with-pic">
+        <div class="top-links__picture-shell">
+          <div class="top-links__picture picture">
+            <img class="picture__img" loading="lazy"
+                 src="/assets/img/preview.webp" alt="">
+          </div>
+        </div>
+        
+        <div class="top-links__text-shell">
+          <p class="top-links__text-title">
+            Выставка-форум PROАгро СКФО 2&rsquo;0
+          </p>
+          
+          <p class="top-links__text-descr">
+            Приглашаем вас на&nbsp;выставку-форум с&nbsp;20&nbsp;по&nbsp;22&nbsp;сентября
+            2025&nbsp;г.
+          </p>
+          
+          <p class="top-links__text-link">
+            Подробнее
+            
+            <svg
+              class="icon icon--20">
+              <use
+                xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+            </svg>
+          </p>
+        </div>
+      </a>
+      
+      <a
+        href="#"
+        class="top-links__block">
+        <div class="top-links__text-shell">
+          <p class="top-links__text-title">
+            Где купить нашу продукцию
+          </p>
+          
+          <p class="top-links__text-descr">
+            Список официальных дилерских центров и&nbsp;сервисов
+          </p>
+          
+          <p class="top-links__text-link">
+            Найти дилеров
+            
+            <svg
+              class="icon icon--20">
+              <use
+                xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+            </svg>
+          </p>
+        </div>
+        
+        <div class="top-links__icon-shell">
+          <svg
+            class="icon icon--24">
+            <use xlink:href="/assets/sprite/sprite.svg#cart"></use>
+          </svg>
+        </div>
+      </a>
+      
+      <a
+        href="#"
+        class="top-links__block">
+        <div class="top-links__text-shell">
+          <p class="top-links__text-title">
+            Оригинальные запасные части
+          </p>
+          
+          <p class="top-links__text-descr">
+            Широкий ассортимент оригинальных запасных частей к&nbsp;технике
+          </p>
+          
+          <p class="top-links__text-link">
+            Каталог запчастей
+            
+            <svg
+              class="icon icon--20">
+              <use
+                xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+            </svg>
+          </p>
+        </div>
+        
+        <div class="top-links__icon-shell">
+          <svg
+            class="icon icon--24">
+            <use xlink:href="/assets/sprite/sprite.svg#gear"></use>
+          </svg>
+        </div>
+      </a>
+    </div>
   </div>
 </header>
 
@@ -412,19 +616,212 @@
   <section
     class="section">
     <div class="wrap">
-      <h2 class="section__title h2">
-        Техника
-        и оборудование
-      </h2>
+      <div class="section__shell">
+        <div class="section__title-shell">
+          <h2 class="section__title h2">
+            Техника
+            и&nbsp;оборудование
+          </h2>
+          
+          <p class="section__subtitle">
+            Производим универсальные гусеничные и&nbsp;колесные тракторы, а&nbsp;также
+            навесное и&nbsp;прицепное оборудование
+          </p>
+        </div>
+        
+        <div class="section__content">
+          <div class="production">
+            <a
+              class="production__item"
+              href="production.html">
+              <div class="production__title-shell">
+                <h3 class="production__title">
+                  Колесные
+                  <br>
+                  тракторы
+                </h3>
+                
+                <svg
+                  class="icon icon--24">
+                  <use
+                    xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+                </svg>
+              </div>
+              
+              <div class="production__picture picture">
+                <img
+                  class="picture__img"
+                  loading="lazy" src="/assets/img/technics/tractor.webp" alt="">
+              </div>
+              
+              <div class="production__tags">
+                <p class="production__tag">
+                  Техника чемпионов
+                </p>
+              </div>
+            </a>
+            
+            <a
+              class="production__item"
+              href="production.html">
+              <div class="production__title-shell">
+                <h3 class="production__title">
+                  Гусеничные
+                  <br>
+                  тракторы
+                </h3>
+                
+                <svg
+                  class="icon icon--24">
+                  <use
+                    xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+                </svg>
+              </div>
+              
+              <div class="production__picture picture">
+                <img
+                  class="picture__img"
+                  loading="lazy" src="/assets/img/technics/gus-tractor.webp"
+                  alt="">
+              </div>
+              
+              <div class="production__tags">
+                <p class="production__tag">
+                  Топ&nbsp;3 в&nbsp;стране
+                </p>
+                
+                <p class="production__tag">
+                  Легенда
+                </p>
+              </div>
+            </a>
+            
+            <a
+              class="production__item"
+              href="production.html">
+              <div class="production__title-shell">
+                <h3 class="production__title">
+                  Навесное и&nbsp;прицепное
+                  <br>
+                  оборудование
+                </h3>
+                
+                <svg
+                  class="icon icon--24">
+                  <use
+                    xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+                </svg>
+              </div>
+              
+              <div class="production__picture picture">
+                <img
+                  class="picture__img"
+                  loading="lazy" src="/assets/img/technics/equip.webp" alt="">
+              </div>
+              
+              <div class="production__tags">
+                <p class="production__tag">
+                  Сделано в&nbsp;России
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        <a
+          class="section__link-btn accessibility-link"
+          href="production.html">
+          Вся продукция
+          
+          <svg
+            class="icon icon--20 section__link-btn-icon">
+            <use
+              xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
   
   <section
     class="section">
     <div class="wrap">
-      <h2 class="h2">
-        Новости компании
-      </h2>
+      <div class="section__shell">
+        <div class="section__title-shell">
+          <h2 class="section__title h2">
+            Новости компании
+          </h2>
+        </div>
+        
+        <div class="section__content">
+          <div class="news news--preview">
+            <a
+              href="press-detail.html"
+              class="news__item">
+              <div class="news__picture picture">
+                <img
+                  class="picture__img"
+                  loading="lazy" src="/assets/img/news/news-preview1.webp"
+                  alt="">
+              </div>
+              
+              <p class="news__date">06.12.2024</p>
+              
+              <h3 class="news__title">
+                Первое техническое обслуживание&nbsp;&mdash; залог долговечной
+                работы машины
+              </h3>
+            </a>
+            
+            <a
+              href="press-detail.html"
+              class="news__item">
+              <div class="news__picture picture">
+                <img
+                  class="picture__img"
+                  loading="lazy" src="/assets/img/news/news-preview2.webp"
+                  alt="">
+              </div>
+              
+              <p class="news__date">06.12.2024</p>
+              
+              <h3 class="news__title">
+                Хотите стать обладателем легендарного трактора?
+              </h3>
+            </a>
+            
+            <a
+              href="press-detail.html"
+              class="news__item">
+              <div class="news__picture picture">
+                <img
+                  class="picture__img"
+                  loading="lazy" src="/assets/img/news/news-preview3.webp"
+                  alt="">
+              </div>
+              
+              <p class="news__date">06.12.2024</p>
+              
+              <h3 class="news__title">
+                Студенты ЧГПУ им. И.&nbsp;Я.&nbsp;Яковлева посетили Завод
+                &laquo;АГРОМАШ&raquo;
+              </h3>
+            </a>
+          </div>
+        </div>
+        
+        <a
+          class="section__link-btn accessibility-link"
+          href="press-center.html">
+          Пресс-центр
+          
+          <svg
+            class="icon icon--20 section__link-btn-icon">
+            <use
+              xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
   

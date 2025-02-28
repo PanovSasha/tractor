@@ -1,0 +1,28 @@
+@import "descriptions";
+
+.swiper-btns {
+  display: flex;
+  gap: @offset12;
+
+  &--white {
+  }
+}
+
+.swiper-btn {
+  .square(44);
+  .f-center();
+
+  .swiper-btns--white & {
+    background-color: @bg-primary;
+  }
+}
+
+.swiper-pagination-bullet {
+  .width-height(8, 8);
+  background-color: @bg-primary;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: @bg-accent;
+}

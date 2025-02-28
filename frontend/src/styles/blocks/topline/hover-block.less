@@ -11,8 +11,8 @@
     overflow: hidden;
     position: absolute;
     top: 69px;
-    width: 100%;
-    left: 0;
+    width: calc(100% + 2px);
+    left: -1px;
     padding: @offset40 @offset28;
 
     &--wide {
@@ -219,6 +219,7 @@
     display: none;
 
     @media @tablet {
+      color: @icon-brand;
       display: block;
       position: absolute;
       top: @offset16;

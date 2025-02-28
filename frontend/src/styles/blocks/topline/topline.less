@@ -215,15 +215,19 @@
   }
 
   &__block-search-box {
-    flex: none;
     .v-hidden();
     .transition(width, .2s);
+    flex: none;
     width: 0;
 
     .topline__block--search.show & {
       .v-show();
       position: relative;
       width: 100%;
+
+      @media @large-than-tablet {
+        border-right: 1px solid @border-primary;
+      }
     }
 
     .mobile.topline & {
