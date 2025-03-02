@@ -1,6 +1,7 @@
 @import 'descriptions';
 
 .select {
+  .Inter();
   position: relative;
   width: 100%;
   flex: none;
@@ -11,23 +12,29 @@
   }
 
   &__current-btn {
+    .p1();
+    .Inter();
+    .radius(12);
     .transition(border-color);
     .transition(background-color);
     .transition(color);
+    border: 1px solid @border-primary;
+    width: 100%;
+    padding: 12px @offset16;
   }
 
   &__options {
     .radius(8);
     background-color: @white;
-    border: 1px solid @blue5;
-    box-shadow: 0 10px 10px -5px #0000007A, 0px 20px 25px -5px #8093BA14;
+    border: 1px solid @border-primary;
+    box-shadow: 0 4px 15px 0 #0000001A;
     overflow: auto;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     z-index: 2;
-    padding: 6px @offset16;
+    padding: @offset8;
     max-height: 204px;
     display: none;
 
@@ -37,37 +44,37 @@
 
     .select.open & {
       .smooth-show();
-      .f-column(8);
+      .f-column(4);
     }
   }
 
   &__options-title {
-    .fs14-16(400);
-    color: @neutral300;
+    //.fs14-16(400);
+    //color: @;
     padding: @offset10 @offset16;
   }
 
   &__option {
-    .NotoSans();
+    //.NotoSans();
     .radius(8);
     .f-between();
-    color: @neutral900;
-    padding: 6px @offset16;
+    //color: @neutral900;
+    padding: 9px;
 
     &:hover {
       @media @large-than-tablet {
-        background-color: @blue5;
+        //background-color: @blue5;
       }
     }
 
     &:active {
       @media @tablet {
-        background-color: @blue5;
+        //background-color: @blue5;
       }
     }
 
     .active& {
-      background-color: @blue5;
+      //background-color: @blue5;
     }
   }
 

@@ -3,7 +3,7 @@
 .input {
   .transition(border);
   .radius(12);
-  .p2();
+  .p1();
   background-color: transparent;
   color: @text-primary;
   border: 1px solid @border-primary;
@@ -13,7 +13,7 @@
 
   &::placeholder {
     .Inter();
-    .p2();
+    .p1();
   }
 
   &:hover {
@@ -42,7 +42,7 @@
 
   &__placeholder {
     .absY-alignment();
-    .p2();
+    .p1();
     color: @text-tertiary;
     left: @offset16;
     pointer-events: none;
@@ -104,6 +104,8 @@
   }
 
   &__box {
+    .radius(12);
+    background-color: @white;
     height: 48px;
     transition: box-shadow .2s ease-in-out;
     position: relative;

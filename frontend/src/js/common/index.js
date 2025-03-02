@@ -7,15 +7,16 @@ import { selectFunctions } from './select'
 import { paginationFns } from './pagination'
 import { counterUpFigures } from './counterUpFigures'
 import { buttonsFns } from './buttons'
-import { animateSvg } from './animateSvg'
 import { orderFormFns } from './orderForm'
 import { spoilerFns } from './spoiler'
 import { searchFns } from './search'
+import { videosFns } from './videos'
+import { buyFunctions } from './ymap/buy'
 
 export const commonFunctions = () => {
   accordFunctions()
-  animateSvg()
   buttonsFns()
+  buyFunctions()
   counterUpFigures()
   inputFunctions()
   overlaysFunctions()
@@ -26,4 +27,5 @@ export const commonFunctions = () => {
   swiperFunctions()
   topLineFunctions()
   orderFormFns()
+  videosFns()
 }

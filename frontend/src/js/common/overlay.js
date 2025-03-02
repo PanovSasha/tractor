@@ -27,37 +27,9 @@ export function overlaysFunctions() {
       const $btn = $(this)
       const overlayVal = $btn.attr('data-overlay-anchor')
 
-      if (overlayVal === 'video') {
-        const $video = $btn.find('.youtube__picture-img').clone()
-        console.log($video[0].nodeName.toLowerCase())
-
-        $video
-          .attr('autoplay', 'true')
-          .attr('controls', 'true')
-          .addClass('overlay-video__source')
-          .removeClass('picture__img youtube__picture-img')
-
-        $videoShell.append($video).append(`
-          <button class="btn overlay-video__close-btn js-overlay-video-close-btn">
-          </button>
-        `)
-
-        if ($video[0].nodeName.toLowerCase() === 'iframe') {
-          $videoShell.addClass('iframe-class')
-        } else {
-          $videoShell.removeClass('iframe-class')
-        }
-
-        $('.js-overlay-video-close-btn').on('click', function () {
-          closeOverlay()
-        })
-      }
-
       $overlay.addClass(SHOW_CLASS)
       $overlayItems.removeClass(SHOW_CLASS)
       $(`[data-overlay="${overlayVal}"]`).addClass(SHOW_CLASS)
-
-      console.log(overlayVal, 'overlayVal')
 
       toggleOverlay()
     })

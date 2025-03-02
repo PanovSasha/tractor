@@ -1,0 +1,43 @@
+@import "descriptions";
+
+.buy {
+  display: grid;
+  grid-template-columns: 41.2% calc(58.8% - @offset12);
+  gap: @offset12;
+  height: 736px;
+
+  @media @tablet {
+    height: 500px;
+  }
+
+  @media @s-tablet {
+    width: 100%;
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  &__actions {
+  }
+
+  &__map-shell {
+    overflow: hidden;
+  }
+
+  &__map-toolbar {
+    display: none;
+  }
+
+  &__map-toolbar-btn {
+  }
+
+  &__map {
+    height: 100%;
+
+    @media @s-tablet {
+      height: 458px;
+    }
+  }
+}
+
+.js-buy {
+}

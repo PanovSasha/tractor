@@ -11,6 +11,7 @@ require('../../assets/sprite/search.svg')
 require('../../assets/sprite/arrows/black-right-arrow.svg')
 require('../../assets/sprite/arrows/menu-arrow.svg')
 require('../../assets/sprite/arrows/mobile-back-arrow.svg')
+require('../../assets/sprite/arrows/play.svg')
 require('../../assets/sprite/arrows/right-arrow.svg')
 
 //

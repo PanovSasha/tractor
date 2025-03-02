@@ -3,14 +3,26 @@
 .call {
   &__form-shell {
     background-color: @white;
-    padding: @offset40;
     width: calc(100dvw - 140px);
     text-align: center;
     max-width: 520px;
+    padding: @offset40;
 
     @media @l-mobile {
       width: calc(100vw - 2 * @mobile-padding);
       max-width: none;
+    }
+
+    .call-sec & {
+      background-color: transparent;
+      text-align: left;
+      width: 100%;
+      max-width: 469px;
+      padding: 0;
+
+      @media @s-tablet {
+        max-width: 100%;
+      }
     }
   }
 
@@ -38,6 +50,7 @@
 
   &__descr {
     .p3();
+    color: @text-tertiary;
     margin-top: @offset16;
   }
 
@@ -45,12 +58,6 @@
     .Inter();
     .p3();
     color: @text-brand;
-  }
-
-  &__form-submit-btn {
-  }
-
-  &__text {
   }
 
   &__form-success {
@@ -62,5 +69,13 @@
   }
 
   &__form-success-btn {
+  }
+
+  &__form-error {
+    display: none;
+
+    &.show {
+      display: block;
+    }
   }
 }

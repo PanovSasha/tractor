@@ -13,6 +13,8 @@
         href="/assets/favicon/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="Agromash" />
   <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+  <script src="https://api-maps.yandex.ru/3.0/?apikey=29cb7654-187d-4cd6-a44c-18efd2b0ed1e
+&amp;lang=ru_RU"></script>
   <title>Тракторы | Главная</title>
 </head>
 
@@ -828,33 +830,776 @@
   <section
     class="section">
     <div class="wrap">
-      <h2 class="h2">
-        Где купить
-      </h2>
+      <div class="buy js-buy">
+        <div class="buy__actions buy-actions">
+          <h2 class="h2 buy-actions__title">
+            Где купить
+          </h2>
+          
+          <div data-tabs-group="buy-points"
+               class="buy-actions__tabs js-buy-actions-tabs js-tabs-container">
+            <button data-tab="list" class="buy-actions__tab active btn"
+                    type="button">
+              Списком
+            </button>
+            
+            <button data-tab="map" class="buy-actions__tab btn"
+                    type="button">
+              На&nbsp;карте
+            </button>
+          </div>
+          
+          <div class="buy-actions__types">
+            <button
+              data-action-type="equip"
+              class="btn btn--primary-inv btn--s-size buy-actions__types-btn js-buy-actions-types-btn"
+              type="button">
+              Техника
+            </button>
+            
+            <button
+              data-action-type="service"
+              class="btn btn--primary-inv btn--s-size buy-actions__types-btn js-buy-actions-types-btn"
+              type="button">
+              Сервисное обслуживание
+            </button>
+          </div>
+          
+          <div class="buy-actions__filters">
+            <div
+              class="input__box input__box--search input__box js-input-box js-input-box-search">
+              <label for="searchPoint"
+                     class="input__placeholder js-input-placeholder">
+                Поиск по&nbsp;адресу
+              </label>
+              
+              <input
+                class="input input--search js-input js-buy-actions-filters-input"
+                id="searchPoint" name="fullName" type="text">
+              
+              <button type="button"
+                      class="input__erase-btn js-input-erase-btn">
+                <svg class="icon icon--20">
+                  <use xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
+                </svg>
+              </button>
+              
+              <button class="input__search-btn js-input-search-btn"
+                      type="button">
+                <svg class="icon icon--20">
+                  <use xlink:href="/assets/sprite/sprite.svg#search"></use>
+                </svg>
+              </button>
+            </div>
+            
+            <div class="select js-select js-buy-actions-filters-select">
+              <div
+                class="select__current-btn-container js-select-current-btn-container">
+                <button
+                  class="select__current-btn js-select-current-btn"
+                  type="button">
+                  Выберите округ
+                </button>
+              </div>
+              
+              <div class="select__options">
+                <button type="button" data-id="0" data-district="all"
+                        class="select__option js-select-option">
+                  Все округа
+                </button>
+                
+                <button type="button" data-id="1" data-district="cefd"
+                        class="select__option js-select-option">
+                  Центральный федеральный округ
+                </button>
+                
+                <button type="button" data-id="2" data-district="vofd"
+                        class="select__option js-select-option">
+                  Приволжский федеральный округ
+                </button>
+                
+                <button type="button" data-id="3" data-district="nwfd"
+                        class="select__option js-select-option">
+                  Северо-западный федеральный округ
+                </button>
+                
+                <button type="button" data-id="4" data-district="urfd"
+                        class="select__option js-select-option">
+                  Уральский федеральный округ
+                </button>
+                
+                <button type="button" data-id="5" data-district="sofd"
+                        class="select__option js-select-option">
+                  Южный федеральный округ
+                </button>
+                
+                <button type="button" data-id="6" data-district="sifd"
+                        class="select__option js-select-option">
+                  Сибирский федеральный округ
+                </button>
+                
+                <button type="button" data-id="7" data-district="fefd"
+                        class="select__option js-select-option">
+                  Дальневосточный федеральный округ
+                </button>
+                
+                <button type="button" data-id="8" data-district="belo"
+                        class="select__option js-select-option">
+                  Белорусь
+                </button>
+                
+                <button type="button" data-id="9" data-district="kaza"
+                        class="select__option js-select-option">
+                  Казахстан
+                </button>
+              </div>
+              
+              <select aria-label="округа"
+                      class="select__native js-select-native-select"
+                      name="type">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+              </select>
+            </div>
+          </div>
+          
+          <div
+            data-dock-group="buy-points"
+            data-dock="list"
+            class="buy-actions__points js-buy-actions-points">
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="buy-actions__point">
+              <p class="buy-actions__point-type">
+                Техника и оборудование / Сервисное обслуживание
+              </p>
+              
+              <h3 class="buy-actions__point-name">
+                ООО «Воронежкомплект»
+              </h3>
+              
+              <p class="buy-actions__point-address">
+                г. Воронеж, ул. Дорожная 36
+              </p>
+              
+              <div class="buy-actions__point-mails">
+                <a
+                  class="buy-actions__point-mail"
+                  href="mailto:info@m-tend.ru">
+                  info@m-tend.ru
+                </a>
+              </div>
+              
+              <div class="buy-actions__point-contacts">
+                <a
+                  target="_blank"
+                  class="buy-actions__point-site btn btn--secondary"
+                  href="https://сельхозтехника74.рф">
+                  Перейти на сайт
+                </a>
+                
+                <div class="buy-actions__point-phones">
+                  <a
+                    class="btn btn--primary buy-actions__point-phone"
+                    href="tel:+78352304451">+78352304451</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div
+          class="buy__map-shell show"
+          data-dock-group="buy-points"
+          data-dock="map">
+          <div class="buy__map-toolbar">
+            <button class="buy__map-toolbar-btn" type="button"
+                    id="changeAzimuthRight">
+              <svg class="icon icon--16">
+                <use xlink:href="/assets/sprite/sprite.svg#rotate-left"></use>
+              </svg>
+            </button>
+            
+            <button class="buy__map-toolbar-btn" type="button"
+                    id="changeAzimuthLeft">
+              <svg class="icon icon--16">
+                <use xlink:href="/assets/sprite/sprite.svg#rotate-right"></use>
+              </svg>
+            </button>
+            
+            <button class="buy__map-toolbar-btn" type="button" id="downTilt">
+              Наклонить
+            </button>
+            
+            <button class="buy__map-toolbar-btn" type="button" id="upTilt">
+              Выровнять
+            </button>
+          </div>
+          
+          <div id="buy-map" class="buy__map js-buy-map"></div>
+        </div>
+      </div>
     </div>
   </section>
   
   <section
     class="section">
     <div class="wrap">
-      <h2 class="h2">
-        Видеообзоры техники
-      </h2>
+      <div class="section__shell">
+        <div class="section__title-shell">
+          <h2 class="section__title h2">
+            Видеообзоры техники
+          </h2>
+        </div>
+        
+        <div class="section__content">
+          <div class="videos">
+            <div class="videos__item-shell js-videos-item-shell">
+              <div
+                class="videos__item  picture js-videos-item">
+                <iframe
+                  data-iframe="true"
+                  class="picture__img videos__item-video"
+                  allow="clipboard-write; autoplay"
+                  src="https://rutube.ru/play/embed/cc1bc0d02fe2a5d8255de855279ed806/"
+                  webkitAllowFullScreen
+                  mozallowfullscreen
+                  allowFullScreen></iframe>
+              </div>
+              
+              <h3 class="h6 videos__item-title">
+                В&nbsp;России начнут собирать новые тракторы&nbsp;&mdash;
+                АГРОМАШ 90ТК, 75ТК и&nbsp;90ТКС
+              </h3>
+              
+              <button
+                data-overlay-anchor="videos"
+                class="videos__item-btn js-videos-item-btn js-show-overlay-btn">
+              </button>
+            </div>
+            
+            <div class="videos__item-shell js-videos-item-shell">
+              <div
+                class="videos__item videos__item--with-play-icon picture js-videos-item">
+                <video
+                  data-iframe="false"
+                  class="picture__img videos__item-video"
+                  src="/assets/files/video.mp4"></video>
+                
+                <svg
+                  class="icon icon--24 videos__item-video-play-icon">
+                  <use xlink:href="/assets/sprite/sprite.svg#play"></use>
+                </svg>
+              </div>
+              
+              <h3 class="h6 videos__item-title">
+                Как производится Российский гусеничный трактор АГРОМАШ 90ТГ&nbsp;&mdash;
+                потомок советского ДТ-75?
+              </h3>
+              
+              <button
+                data-overlay-anchor="videos"
+                class="videos__item-btn js-videos-item-btn js-show-overlay-btn">
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <a
+          target="_blank"
+          class="section__link-btn accessibility-link"
+          href="https://rutube.ru/channel/49001774">
+          Перейти на канал
+          
+          <svg
+            class="icon icon--20 section__link-btn-icon">
+            <use
+              xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
   
-  <!--  партнеры-->
   <section
-    class="section">
-    <div class="wrap"></div>
+    class="section section--partners">
+    <div class="wrap">
+      <div class="swiper partners js-partners">
+        <div class="swiper-wrapper">
+          <a
+            target="_blank"
+            href="https://minpromtorg.gov.ru"
+            class="partners__slide swiper-slide">
+            <img
+              alt=""
+              class="partners__img"
+              loading="lazy" src="/assets/img/partners/minpromtorg.webp">
+          </a>
+          
+          <a
+            target="_blank"
+            href="https://mcx.gov.ru/"
+            class="partners__slide swiper-slide">
+            <img
+              alt=""
+              class="partners__img"
+              loading="lazy" src="/assets/img/partners/minselhoz.webp">
+          </a>
+          
+          <a
+            target="_blank"
+            href="https://tplants.com/"
+            class="partners__slide swiper-slide">
+            <img
+              alt=""
+              class="partners__img"
+              loading="lazy" src="/assets/img/partners/concern.webp">
+          </a>
+          
+          <a
+            target="_blank"
+            href="https://www.rosagroleasing.ru/ "
+            class="partners__slide swiper-slide">
+            <img
+              alt=""
+              class="partners__img"
+              loading="lazy" src="/assets/img/partners/rosagrolizing.webp">
+          </a>
+          
+          <a
+            target="_blank"
+            href="https://gisp.gov.ru/gisplk/"
+            class="partners__slide swiper-slide">
+            <img
+              alt=""
+              class="partners__img"
+              loading="lazy" src="/assets/img/partners/gisp.webp">
+          </a>
+          
+          <a
+            target="_blank"
+            href="https://soyuzmash.ru/ "
+            class="partners__slide swiper-slide">
+            <img
+              alt=""
+              class="partners__img"
+              loading="lazy" src="/assets/img/partners/smr.webp">
+          </a>
+        </div>
+      </div>
+    </div>
   </section>
   
   <section
-    class="section">
+    class="section section--no-padding">
     <div class="wrap">
-      <h3 class="h3">
-        Нужна консультация специалиста?
-      </h3>
+      <div class="call-sec">
+        <div class="call-sec__descr">
+          <h2 class="h3 call-sec__descr__title">
+            Нужна консультация специалиста?
+          </h2>
+          
+          <p class="call-sec__descr-subtitle">
+            Оставьте свой номер, наш менеджер свяжется с&nbsp;вами и&nbsp;расскажет
+            о&nbsp;технике и&nbsp;условиях приобретения
+          </p>
+        </div>
+        
+        <div class="call__form-shell js-call-form-shell">
+          <button class="call__close overlay__close-btn js-overlay-close-btn">
+          
+          </button>
+          
+          <form class="call__form js-call-form show">
+            <div class="call__inputs">
+              <div class="input__box js-input-box">
+                <label for="fullNameSec"
+                       class="input__placeholder js-input-placeholder">
+                  Ваше ФИО
+                </label>
+                
+                <input
+                  class="input js-input"
+                  id="fullNameSec" name="fullName" type="text">
+                
+                <button type="button"
+                        class="input__erase-btn js-input-erase-btn">
+                  <svg class="icon icon--20">
+                    <use
+                      xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
+                  </svg>
+                </button>
+              </div>
+              
+              <div class="input__box js-input-box">
+                <label for="phoneSec"
+                       class="input__placeholder js-input-placeholder">
+                  +7 (_ _ _) _ _ _ _ _ _ _
+                </label>
+                
+                <input
+                  class="input js-input"
+                  id="phoneSec" name="fullName" type="text">
+                
+                <button type="button"
+                        class="input__erase-btn js-input-erase-btn">
+                  <svg class="icon icon--20">
+                    <use
+                      xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            <button
+              class="btn btn--primary call__form-submit-btn js-call-form-submit-btn">
+              Отправить
+            </button>
+            
+            <p class="call__descr">
+              Нажимая на&nbsp;кнопку &laquo;Отправить&raquo;, я&nbsp;даю свое
+              согласие
+              с&nbsp;<a class="accessibility-link call__descr-link" href="#">
+              политикой обработки персональных данных
+            </a>
+            </p>
+          </form>
+          
+          <div class="call__form-success js-call-form-success">
+            <p class="call__title">
+              Ваш запрос отправлен!
+            </p>
+            
+            <p class="call__subtitle">
+              Постараемся связаться с вами в самое ближайшее время
+            </p>
+            
+            <button
+              class="btn btn--primary js-close-overlay-btn">
+              Отлично
+            </button>
+          </div>
+          
+          <div class="call__form-error js-call-form-error ">
+            <p class="call__title">
+              Что-то пошло не&nbsp;так
+            </p>
+            
+            <p class="call__subtitle">
+              Извините, не&nbsp;смогли отправить заявку. Мы&nbsp;работаем над
+              решением проблемы и&nbsp;делаем все возможное для восстановления
+              сервиса
+            </p>
+            
+            <button
+              class="btn btn--primary js-close-overlay-btn">
+              Попробую позже
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -1083,10 +1828,9 @@
   <div data-overlay="order-call" class="call overlay__item js-overlay-item">
     <div class="call__form-shell js-call-form-shell">
       <button class="call__close overlay__close-btn js-overlay-close-btn">
-      
       </button>
       
-      <form class="call__form js-call-form">
+      <form class="call__form js-call-form show">
         <p class="call__title">
           Нужна консультация
           <br>
@@ -1166,7 +1910,7 @@
         </button>
       </div>
       
-      <div class="call__form-error js-call-form-error show">
+      <div class="call__form-error js-call-form-error">
         <p class="call__title">
           Что-то пошло не&nbsp;так
         </p>
@@ -1179,10 +1923,19 @@
         
         <button
           class="btn btn--primary js-close-overlay-btn">
-          Отлично
+          Попробую позже
         </button>
       </div>
     </div>
+  </div>
+  
+  <div data-overlay="videos"
+       class="videos-lay overlay__item js-overlay-item">
+    <div class="videos-lay__item"></div>
+    
+    <button
+      class="videos-lay__close-btn overlay__close-btn js-overlay-close-btn">
+    </button>
   </div>
 </aside>
 

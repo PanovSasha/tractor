@@ -23,5 +23,24 @@ export const swiperFunctions = () => {
     })
   }
 
+  const partnersSliderFns = () => {
+    if ($('.js-partners').length) {
+      const partnersSlider = new Swiper('.js-partners', {
+        slidesPerView: 'auto',
+        loop: true,
+        spaceBetween: 0,
+        grabCursor: true,
+        autoplay: {
+          delay: 1,
+          disableOnInteraction: false,
+        },
+        freeMode: true,
+        speed: 5000,
+        freeModeMomentum: false,
+      })
+    }
+  }
+
   partitionSliderFns()
+  partnersSliderFns()
 }

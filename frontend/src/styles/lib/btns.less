@@ -39,10 +39,6 @@
   border: none;
   white-space: nowrap;
   padding: 13px @offset16;
-
-  @media @tablet {
-    padding: 9px @offset16;
-  }
 }
 
 .btn-primary() {
@@ -54,7 +50,9 @@
   }
 
   &:hover {
-    background-color: @bg-hover;
+    @media @large-than-tablet {
+      background-color: @bg-hover;
+    }
   }
 
   &:active {
@@ -62,7 +60,7 @@
   }
 }
 
-.primary-inv() {
+.btn-primary-inv() {
   background-color: @bg-primary;
   color: @text-primary;
 
@@ -71,7 +69,9 @@
   }
 
   &:hover {
-    background-color: @bg-secondary;
+    @media @large-than-tablet {
+      background-color: @bg-secondary;
+    }
   }
 
   &:active {
@@ -90,7 +90,9 @@
   }
 
   &:hover {
-    border: 1px solid @border-hover;
+    @media @large-than-tablet {
+      border: 1px solid @border-hover;
+    }
   }
 
   &:active {
