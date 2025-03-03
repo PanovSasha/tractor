@@ -72,8 +72,10 @@
                 Колесные тракторы
               </a>
               
-              <a class="hover-block__link accessibility-link"
-                 href="technic.html">
+              <a
+                data-model="90tk"
+                class="hover-block__link accessibility-link"
+                href="technic.html">
                 АГРОМАШ 90ТК
               </a>
             </div>
@@ -84,26 +86,69 @@
                 Гусеничные тракторы
               </a>
               
-              <a class="hover-block__link accessibility-link"
-                 href="technic-detail.html">
+              <a
+                data-model="110tg"
+                class="hover-block__link accessibility-link"
+                href="technic-detail.html">
                 АГРОМАШ 110ТГ
               </a>
               
-              <a class="hover-block__link accessibility-link"
-                 href="technic-detail.html">
+              <a
+                data-model="90tg"
+                class="hover-block__link accessibility-link"
+                href="technic-detail.html">
                 АГРОМАШ 90ТГ
               </a>
               
-              <a class="hover-block__link accessibility-link"
-                 href="technic-detail.html">
+              <a
+                data-model="ruslan"
+                class="hover-block__link accessibility-link"
+                href="technic-detail.html">
                 АГРОМАШ-Руслан
               </a>
             </div>
             
-            <!--            //TODO-->
-            <!--            <div class="">-->
-            <!--              картинки тракторов, спросить, мб завязаны на ховер по ссылке-->
-            <!--            </div>-->
+            <div class="hover-block__picture-shell">
+              <div
+                data-model-picture="90tk"
+                class="picture hover-block__picture">
+                <img
+                  class="picture__img hover-block__picture-img"
+                  loading="lazy"
+                  src="/assets/img/tractor-models-no-bck-color/90tk.webp"
+                  alt="">
+              </div>
+              
+              <div
+                data-model-picture="110tg"
+                class="picture hover-block__picture">
+                <img
+                  class="picture__img hover-block__picture-img"
+                  loading="lazy"
+                  src="/assets/img/tractor-models-no-bck-color/110tg.webp"
+                  alt="">
+              </div>
+              
+              <div
+                data-model-picture="90tg"
+                class="picture hover-block__picture">
+                <img
+                  class="picture__img hover-block__picture-img"
+                  loading="lazy"
+                  src="/assets/img/tractor-models-no-bck-color/90tg.webp"
+                  alt="">
+              </div>
+              
+              <div
+                data-model-picture="ruslan"
+                class="picture hover-block__picture">
+                <img
+                  class="picture__img hover-block__picture-img"
+                  loading="lazy"
+                  src="/assets/img/tractor-models-no-bck-color/ruslan.webp"
+                  alt="">
+              </div>
+            </div>
             
             <a
               href="attachments.html"
@@ -974,7 +1019,7 @@
           <div
             data-dock-group="buy-points"
             data-dock="list"
-            class="buy-actions__points js-buy-actions-points">
+            class="show buy-actions__points js-buy-actions-points">
             <div class="buy-actions__point">
               <p class="buy-actions__point-type">
                 Техника и оборудование / Сервисное обслуживание
@@ -1308,10 +1353,15 @@
               </div>
             </div>
           </div>
+          
+          <button
+            class="btn btn--secondary buy-actions__show-more js-buy-actions-show-more">
+            Показать еще
+          </button>
         </div>
         
         <div
-          class="buy__map-shell show"
+          class="buy__map-shell"
           data-dock-group="buy-points"
           data-dock="map">
           <div class="buy__map-toolbar">
@@ -1508,10 +1558,6 @@
         </div>
         
         <div class="call__form-shell js-call-form-shell">
-          <button class="call__close overlay__close-btn js-overlay-close-btn">
-          
-          </button>
-          
           <form class="call__form js-call-form show">
             <div class="call__inputs">
               <div class="input__box js-input-box">
@@ -1778,6 +1824,31 @@
               
               <a class="f-links__accord-link accessibility-link" href="">
                 Контакты
+              </a>
+            </div>
+          </div>
+          
+          <div class="f-links__accord accord js-accord">
+            <div class="f-links__accord-title">
+              <a class="f-links__accord-title-link accessibility-link"
+                 href="personal-account.html">
+                Диллерам
+              </a>
+              
+              <button
+                class="f-links__accord-btn accord__btn accord__btn--title js-accord-btn">
+              </button>
+            </div>
+            
+            <div class="f-links__accord-body accord__body js-accord-body">
+              <a class="f-links__accord-link accessibility-link"
+                 href="become-dealer.html">
+                Стать дилером
+              </a>
+              
+              <a class="f-links__accord-link accessibility-link"
+                 href="personal-account.html">
+                Личный кабинет дилера
               </a>
             </div>
           </div>

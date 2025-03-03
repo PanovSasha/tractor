@@ -12,10 +12,15 @@
 
   &__slide {
     display: flex;
+    height: auto;
+    align-self: stretch;
+
+    @media @tablet {
+
+    }
 
     @media @s-tablet {
-      height: auto;
-      align-self: stretch;
+
       flex-direction: column-reverse;
     }
   }
@@ -53,7 +58,7 @@
   &__slide-picture-shell {
     width: 100%;
 
-    @media @tablet {
+    @media @s-tablet {
       height: 356px;
       margin-bottom: auto;
     }
@@ -63,7 +68,7 @@
     .aspect-ratio(821, 460);
     min-height: 460px;
 
-    @media @tablet {
+    @media @s-tablet {
       min-height: 0;
       height: 356px;
     }

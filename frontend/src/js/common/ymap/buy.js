@@ -835,8 +835,6 @@ export const buyFunctions = () => {
       const { YMapZoomControl } = await ymaps3.import('@yandex/ymaps3-controls@0.0.1')
 
       ymaps3.ready.then(() => {
-        console.log('hi')
-
         const map = new YMap(
           document.getElementById('buy-map'),
           {
@@ -862,7 +860,7 @@ export const buyFunctions = () => {
 
     const initYMapWithFetchCoords = () => {
       const url = '/bitrix/services/main/ajax.php?action=synchro:core.api.Location.getSuggest'
-      console.log('wqe')
+
       yaMaps()
       // $.ajax({
       //   url: url,
@@ -871,7 +869,6 @@ export const buyFunctions = () => {
       //   success: function (result) {
       //     if (result.data) {
       //       const { geo_lat, geo_lon } = result.data.data
-      //       console.log('wqeqe')
       //       yaMaps(geo_lat, geo_lon)
       //     } else {
       //       console.log('weqe')
@@ -882,12 +879,9 @@ export const buyFunctions = () => {
     }
 
     if ($BUY_MAP.length && navigator.geolocation && window.ymaps3) {
-      console.log('hui')
-
       navigator.geolocation.getCurrentPosition(
         function (position) {
           const { latitude, longitude } = position.coords
-          console.log('qweqe')
           yaMaps(latitude, longitude)
         },
 

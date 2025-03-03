@@ -6,7 +6,6 @@
   width: 100%;
   flex: none;
 
-
   &__current-btn-container {
     position: relative;
   }
@@ -25,6 +24,7 @@
 
   &__options {
     .radius(8);
+    width: 100%;
     background-color: @white;
     border: 1px solid @border-primary;
     box-shadow: 0 4px 15px 0 #0000001A;
@@ -55,9 +55,10 @@
   }
 
   &__option {
-    //.NotoSans();
     .radius(8);
     .f-between();
+    .ellipsis();
+    flex: none;
     //color: @neutral900;
     padding: 9px;
 

@@ -6,6 +6,8 @@ export const $BODY = $('body')
 export const $TOPLINE = $('.js-topline')
 export const $LOCAL_MENU = $('.js-topline-nav')
 
+export const IS_DEV = window.location.hostname === 'localhost'
+
 export const ACTIVE_CLASS = 'active'
 export const VALUE_CLASS = 'value'
 

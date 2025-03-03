@@ -21,6 +21,14 @@
 
   &__map-shell {
     overflow: hidden;
+
+    @media @s-tablet {
+      .v-hidden();
+
+      &.show {
+        .v-show();
+      }
+    }
   }
 
   &__map-toolbar {
@@ -37,7 +45,4 @@
       height: 458px;
     }
   }
-}
-
-.js-buy {
 }

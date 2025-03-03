@@ -1,5 +1,5 @@
 import { addQueryParamsToUrl, isEnterPressed } from '../lib/utils'
-import { SHOW_CLASS } from '../lib/constants'
+import { HIDDEN_CLASS, SHOW_CLASS } from '../lib/constants'
 
 export const inputFunctions = () => {
   const $INPUTS = $('.js-input')
@@ -8,7 +8,12 @@ export const inputFunctions = () => {
     const $input = $(el)
     const $inputBox = $(el).parent('.js-input-box')
 
-    const $eraseBtn = $inputBox.find('.js-input-erase-btn:first')
+    if (!$inputBox.hasClass('js-topline-block-search-box')) {
+      $input.val('')
+    }
+
+    const $eraseBtn = $inputBox.find('.js-input-erase-btn')
+    const $placeholder = $inputBox.find('.js-input-placeholder')
 
     const toggleShowEraseBtn = () => {
       $input.on('input', function () {
@@ -24,6 +29,7 @@ export const inputFunctions = () => {
       $eraseBtn.on('click', function () {
         $input.val('').focus()
         $eraseBtn.removeClass(SHOW_CLASS)
+        $placeholder.removeClass(HIDDEN_CLASS)
       })
     }
 
@@ -35,6 +41,17 @@ export const inputFunctions = () => {
       })
     }
 
+    const hidePlaceholder = () => {
+      $input.on('input', function () {
+        if ($input.val().trim() !== '') {
+          $placeholder.addClass(HIDDEN_CLASS)
+        } else {
+          $placeholder.removeClass(HIDDEN_CLASS)
+        }
+      })
+    }
+
+    hidePlaceholder()
     toggleShowEraseBtn()
     eraseInputValByBtn()
     showEraseBtnOnFocusInput()

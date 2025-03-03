@@ -36,6 +36,28 @@ export const topLineFunctions = () => {
     })
   }
 
+  const toggleShowModelPicture = () => {
+    const $links = $('[data-model]')
+    const $modelPictures = $('[data-model-picture]')
+
+    $links.on('mouseenter', function () {
+      const $t = $(this)
+
+      $.each($modelPictures, function (_, el) {
+        const $el = $(el)
+
+        if ($t.attr('data-model').toLowerCase() === $el.attr('data-model-picture').toLowerCase()) {
+          $el.addClass(SHOW_CLASS)
+        }
+      })
+    })
+
+    $links.on('mouseleave', function () {
+      $modelPictures.removeClass(SHOW_CLASS)
+    })
+  }
+
   toggleMobileMenu()
+  toggleShowModelPicture()
   toggleShowToplineSubmenu()
 }

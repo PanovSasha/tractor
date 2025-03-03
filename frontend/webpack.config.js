@@ -1,5 +1,8 @@
 const path = require('path')
 
+const IS_DEV = process.env.NODE_ENV === 'development'
+const IS_PROD = !IS_DEV
+
 const { ProvidePlugin } = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -8,13 +11,10 @@ const TerserWebpackPlugin = require('terser-webpack-plugin')
 const SpritePlugin = require('svg-sprite-loader/plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
-const isDev = process.env.NODE_ENV === 'development'
-const isProd = !isDev
-
 const optimization = () => {
   const config = {}
 
-  if (isProd) {
+  if (IS_PROD) {
     config.minimizer = [new miniCssExtractPlugin(), new TerserWebpackPlugin()]
   }
 
@@ -26,12 +26,12 @@ const fileLoaderConfig = (ext) => [
     loader: 'file-loader',
     options: {
       name: '[name].[ext]',
-      outputPath: `${isProd ? '/' : ''}assets/${ext}`,
+      outputPath: `${IS_PROD ? '/' : ''}assets/${ext}`,
     },
   },
 ]
 
-const filename = (ext) => (isDev ? `[name].${ext}` : `[name].[hash].${ext}`)
+const filename = (ext) => (IS_DEV ? `[name].${ext}` : `[name].[hash].${ext}`)
 
 module.exports = {
   mode: 'development',
@@ -102,7 +102,7 @@ module.exports = {
       },
     ],
   },
-  devtool: isDev ? 'source-map' : false,
+  devtool: IS_DEV ? 'source-map' : false,
   optimization: optimization(),
   plugins: [
     new SpritePlugin(),
@@ -114,7 +114,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: './public/index.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -122,7 +122,7 @@ module.exports = {
       inject: 'body',
       filename: '404.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -130,7 +130,7 @@ module.exports = {
       inject: 'body',
       filename: 'search.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -138,7 +138,7 @@ module.exports = {
       inject: 'body',
       filename: 'ui.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -146,7 +146,7 @@ module.exports = {
       inject: 'body',
       filename: 'technic.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -154,7 +154,7 @@ module.exports = {
       inject: 'body',
       filename: 'technic-detail.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -162,7 +162,7 @@ module.exports = {
       inject: 'body',
       filename: 'configurator.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -170,7 +170,7 @@ module.exports = {
       inject: 'body',
       filename: 'attachments.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -178,7 +178,7 @@ module.exports = {
       inject: 'body',
       filename: 'vacancy.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -186,7 +186,7 @@ module.exports = {
       inject: 'body',
       filename: 'production.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -194,7 +194,7 @@ module.exports = {
       inject: 'body',
       filename: 'health-and-safety.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -202,7 +202,7 @@ module.exports = {
       inject: 'body',
       filename: 'press-center.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -210,7 +210,7 @@ module.exports = {
       inject: 'body',
       filename: 'press-detail.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -218,7 +218,7 @@ module.exports = {
       inject: 'body',
       filename: 'magazine-archive.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -226,7 +226,7 @@ module.exports = {
       inject: 'body',
       filename: 'magazine-archive.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -234,7 +234,7 @@ module.exports = {
       inject: 'body',
       filename: 'counterfeit.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -242,7 +242,23 @@ module.exports = {
       inject: 'body',
       filename: 'personal-account.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/personal-account/personal-info.html',
+      inject: 'body',
+      filename: 'personal-info.html',
+      minify: {
+        collapseWhitespace: IS_PROD,
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: './public/personal-account/personal-info-detail.html',
+      inject: 'body',
+      filename: 'personal-info-detail.html',
+      minify: {
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -250,7 +266,7 @@ module.exports = {
       inject: 'body',
       filename: 'reports.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -258,16 +274,15 @@ module.exports = {
       inject: 'body',
       filename: 'become-dealer.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
-
     new HTMLWebpackPlugin({
       template: './public/buy.html',
       inject: 'body',
       filename: 'buy.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -275,7 +290,7 @@ module.exports = {
       inject: 'body',
       filename: 'contacts.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -283,7 +298,7 @@ module.exports = {
       inject: 'body',
       filename: 'leasing.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -291,7 +306,7 @@ module.exports = {
       inject: 'body',
       filename: 'subsidizing.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new HTMLWebpackPlugin({
@@ -299,7 +314,7 @@ module.exports = {
       inject: 'body',
       filename: 'service.html',
       minify: {
-        collapseWhitespace: isProd,
+        collapseWhitespace: IS_PROD,
       },
     }),
     new CopyPlugin({
@@ -317,14 +332,14 @@ module.exports = {
   ],
 }
 
-if (isDev) {
+if (IS_DEV) {
   module.exports.devServer = {
     port: 3011,
     allowedHosts: 'all',
     client: {
       overlay: false,
     },
-    hot: isDev,
+    hot: IS_DEV,
     compress: true,
     liveReload: true,
     historyApiFallback: true,

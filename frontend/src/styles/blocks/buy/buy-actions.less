@@ -65,6 +65,21 @@
     .hide-scrollbar();
     overflow: auto;
     max-height: 442px;
+
+    @media @tablet {
+      height: 242px;
+    }
+
+    @media @s-tablet {
+      .v-hidden();
+
+      &.show {
+        .v-show();
+        overflow: auto;
+        height: auto;
+        max-height: 580px;
+      }
+    }
   }
 
   &__point {
@@ -115,5 +130,17 @@
   }
 
   &__point-phone {
+  }
+
+  &__show-more {
+    display: none;
+
+    @media @s-tablet {
+      &.show {
+        display: flex;
+        width: 100%;
+        margin-top: @offset32;
+      }
+    }
   }
 }
