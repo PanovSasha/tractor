@@ -21,11 +21,15 @@ export const searchFns = () => {
   }
 
   const showSearchPanel = () => {
+    $SEARCH_PANEL.addClass(SHOW_CLASS)
+    $MENU.removeClass(SHOW_CLASS)
+  }
+
+  const showSearchPanelBySearchOpenBtnClick = () => {
     const $searchBtn = $('.js-topline-block-search-show-btn')
 
     $searchBtn.on('click', function () {
-      $SEARCH_PANEL.addClass(SHOW_CLASS)
-      $MENU.removeClass(SHOW_CLASS)
+      showSearchPanel()
     })
   }
 
@@ -72,11 +76,11 @@ export const searchFns = () => {
     })
   }
 
-  showSearchPanel()
   hideSearchPanelBy()
   searchBySearchBtn()
   searchByEnterPress()
   clearSearchInputByFirstRender()
+  showSearchPanelBySearchOpenBtnClick()
 
   //TODO - написать проверку состояния панели при ресайзе
 }
