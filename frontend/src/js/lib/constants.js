@@ -22,6 +22,8 @@ export const OPEN_CLASS = 'open'
 export const CLOSE_CLASS = 'close'
 export const TOGGLE_CLASS = 'toggle'
 export const HIDDEN_CLASS = 'hide'
+export const HOVER_CLASS = 'hover'
+export const LEAVE_CLASS = 'leave'
 
 export const LAST_ELEM_CLASS = 'last'
 export const CLICKED_CLASS = 'clicked'

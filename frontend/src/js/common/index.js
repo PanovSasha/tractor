@@ -12,6 +12,7 @@ import { spoilerFns } from './spoiler'
 import { searchFns } from './search'
 import { videosFns } from './videos'
 import { buyFunctions } from './ymap/buy'
+import { productFns } from './product'
 
 export const commonFunctions = () => {
   accordFunctions()
@@ -21,6 +22,7 @@ export const commonFunctions = () => {
   inputFunctions()
   overlaysFunctions()
   paginationFns()
+  productFns()
   searchFns()
   selectFunctions()
   spoilerFns()

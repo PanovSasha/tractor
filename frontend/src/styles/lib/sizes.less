@@ -38,3 +38,23 @@
 @offset4: 4px;
 @offset2: 2px;
 
+.mb-40 {
+  margin-bottom: @offset40;
+}
+
+.mb-64-40 {
+  margin-bottom: @offset64;
+
+  @media @tablet {
+    margin-bottom: @offset40;
+  }
+}
+
+.mt-50-40 {
+  margin-top: @offset50;
+
+  @media @tablet {
+    margin-top: @offset40;
+  }
+}
+
