@@ -21,11 +21,6 @@ export const animateScrollWhileClickToAnchor = () => {
     e.preventDefault()
     const $t = $(this)
 
-    if ($WINDOW.width() < TABLET_WIDTH) {
-      $TOPLINE.removeClass(MOBILE_CLASS)
-      $BODY.removeClass(BODY_LOCK_CLASS)
-    }
-
     const anchor = $t.attr('href')
 
     if ($(anchor).css('display') !== 'none') {
@@ -33,7 +28,7 @@ export const animateScrollWhileClickToAnchor = () => {
         .stop()
         .animate(
           {
-            scrollTop: $(anchor).offset().top,
+            scrollTop: $(anchor).offset().top - 130,
           },
           600
         )

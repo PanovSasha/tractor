@@ -9,11 +9,22 @@
 }
 
 .swiper-btn {
+  .transition(background-color);
+  .transition(color);
   .square(44);
   .f-center();
+  background-color: @bg-brand;
+  color: @white;
 
   .swiper-btns--white & {
     background-color: @bg-primary;
+    color: @black;
+  }
+
+  &.swiper-button-disabled {
+    background-color: @bg-disabled;
+    color: @icon-disabled;
+    cursor: not-allowed;
   }
 }
 

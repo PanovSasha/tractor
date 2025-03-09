@@ -1,17 +1,14 @@
 @import 'descriptions';
 
 .breadcrumbs {
+  display: flex;
+  gap: @offset8;
+  flex-wrap: wrap;
+
   &__shell {
     display: flex;
     align-items: center;
     gap: @offset12;
-  }
-
-  display: flex;
-  gap: @offset8;
-
-  @media @tablet {
-    display: none;
   }
 
   &__back-btn {
@@ -44,7 +41,7 @@
     }
 
     &:last-child {
-      .ellipsis(90ch);
+      .ellipsis();
       pointer-events: none;
 
       &::after {
@@ -53,12 +50,12 @@
 
       a {
         .h8();
-        .ellipsis(90ch);
+        .ellipsis();
       }
     }
 
-    svg {
-      margin-top: -2px;
+    .breadcrumbs__item:last-child svg {
+      display: none;
     }
   }
 

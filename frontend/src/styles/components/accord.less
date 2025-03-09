@@ -22,6 +22,14 @@
         transform: rotate(90deg);
         opacity: 0;
       }
+
+      .params__accord & {
+        right: 25px;
+
+        @media @tablet {
+          right: 14px;
+        }
+      }
     }
 
     &::after {
@@ -37,6 +45,14 @@
 
       .active & {
         rotate: 90deg;
+      }
+
+      .params__accord & {
+        right: 32px;
+
+        @media @tablet {
+          right: 21px;
+        }
       }
     }
   }

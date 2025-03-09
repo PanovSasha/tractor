@@ -11,6 +11,57 @@
     padding-block: 0;
   }
 
+  &--no-top-padding {
+    padding-bottom: 0;
+  }
+
+  &--no-bottom-padding {
+    padding-block: @offset100 0;
+
+    @media @tablet {
+      padding-block: @offset40 0;
+    }
+  }
+
+  &--small-padding {
+    padding-block: @offset50;
+
+    @media @tablet {
+      padding-block: @offset40;
+    }
+  }
+
+  &--special-padding {
+    padding-block: @offset100 @offset50;
+
+    @media @tablet {
+      padding-block: @offset40;
+    }
+  }
+
+  &--low-padding {
+    padding-block: 0 @offset50;
+
+    @media @tablet {
+      padding-bottom: 0 @offset40;
+    }
+  }
+
+  &--top {
+    padding-block: 0 @offset40;
+  }
+
+  &--sticky {
+    position: sticky;
+    top: 68px;
+    z-index: @z-index-sticky;
+    padding-block: 0;
+
+    @media @tablet {
+      top: 56px;
+    }
+  }
+
   &__shell {
     display: grid;
     grid-template-areas: 'title title btn'
@@ -19,6 +70,18 @@
 
     @media @tablet {
       .f-column(40);
+    }
+
+    &--top-title {
+      .f-column(40);
+    }
+
+    &--top-title-with-link {
+      display: grid;
+      gap: @offset16;
+      grid-template-areas: 'title'
+                           'btn'
+                           'content';
     }
   }
 
@@ -31,15 +94,25 @@
       align-items: start;
       flex-direction: column;
     }
+
+    &--top-title {
+      .f-column(40);
+      align-items: start;
+
+      @media @tablet {
+        gap: @offset24;
+      }
+    }
   }
 
   &__title {
+    .h2();
   }
 
   &__subtitle {
     .p1();
     color: @text-secondary;
-    max-width: 345px;
+    width: 345px;
     margin-inline: 20px 10%;
 
     @media @l-tablet {
@@ -49,6 +122,16 @@
     @media @tablet {
       .p1();
       margin-left: 0;
+    }
+
+    .section__shell--top-title & {
+      width: calc(50% - @offset6);
+      margin-inline: auto 0;
+
+      @media @tablet {
+        width: 100%;
+        margin-left: 0;
+      }
     }
   }
 
@@ -76,6 +159,24 @@
 
     @media @s-tablet {
       width: 100%;
+    }
+
+    .section__shell--top-title-with-link & {
+      width: calc(50% - @offset6);
+      justify-content: start;
+      margin-left: auto;
+
+      @media @tablet {
+        .btn-default();
+        .btn-secondary();
+        font-weight: 700;
+        align-self: center;
+        margin-top: @offset24;
+      }
+
+      @media @s-tablet {
+        width: 100%;
+      }
     }
   }
 
