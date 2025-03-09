@@ -109,6 +109,48 @@ export const swiperFunctions = () => {
   }
 
   const gallerySliderFns = () => {
+    const $slides = $('.js-gallery-slide')
+
+    const copyGallerySlidesToOverlay = () => {
+      const $slidesWrapper = $('.js-gallery-lay-swiper-wrapper')
+
+      const $newSlides = $slides.clone()
+
+      $.each($newSlides, function (_, el) {
+        const $slide = $(el)
+
+        const $img = $slide.find('.js-gallery-slide-img')
+        const $descr = $slide.find('.js-gallery-slide-descr')
+
+        $slide.removeClass().addClass('swiper-slide gallery-lay__slide')
+        $img.removeClass().addClass('gallery-lay__slide-img')
+
+        if ($descr.length) {
+          $descr.removeClass().addClass('gallery-lay__slide-descr')
+        }
+
+        $slidesWrapper.append($slide)
+      })
+    }
+
+    copyGallerySlidesToOverlay()
+
+    const galleryOverlaySlider = new Swiper('.js-gallery-lay-slider', {
+      spaceBetween: 12,
+      slidesPerView: 1,
+      speed: 1000,
+      loop: true,
+      navigation: {
+        prevEl: '.js-gallery-lay-btn-prev',
+        nextEl: '.js-gallery-lay-btn-next',
+      },
+      pagination: {
+        el: '.js-gallery-lay-slider-pagination',
+        type: 'bullets',
+        clickable: true,
+      },
+    })
+
     const gallerySlider = new Swiper('.js-gallery-slider', {
       spaceBetween: 12,
       slidesPerView: 'auto',
@@ -119,6 +161,17 @@ export const swiperFunctions = () => {
         nextEl: '.js-gallery-btn-next',
       },
     })
+
+    const setActiveLaySlideByGallerySlideClick = () => {
+      $slides.on('click', function () {
+        const $t = $(this)
+
+        const slideIndex = $t.attr('aria-label').split('/')[0]
+        galleryOverlaySlider.slideTo(slideIndex, 1)
+      })
+    }
+
+    setActiveLaySlideByGallerySlideClick()
   }
 
   const bonusSliderFns = () => {

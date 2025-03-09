@@ -2416,10 +2416,37 @@
   
   <div data-overlay="gallery"
        class="gallery-lay overlay__item js-overlay-item">
-    <div class="gallery-lay__shell js-gallery-lay-shell"></div>
+    <div class="swiper gallery-lay__slider js-gallery-lay-slider">
+      <div class="swiper-wrapper js-gallery-lay-swiper-wrapper">
+      
+      </div>
+    </div>
+    
+    <div class="gallery-lay__slider-nav">
+      <div class="swiper-btns gallery-lay__slider-nav-btns">
+        <button
+          class="gallery-lay__btn gallery-lay__btn--prev js-gallery-lay-btn-prev swiper-btn"
+          type="button">
+          <svg class="icon icon--30 icon--180deg">
+            <use xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+          </svg>
+        </button>
+        
+        <button
+          class="gallery-lay__btn gallery-lay__btn--next js-gallery-lay-btn-next swiper-btn"
+          type="button">
+          <svg class="icon icon--30">
+            <use xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+          </svg>
+        </button>
+      </div>
+      
+      <div
+        class="gallery-lay__slider-pagination js-gallery-lay-slider-pagination"></div>
+    </div>
     
     <button
-      class="videos-lay__close-btn overlay__close-btn js-overlay-close-btn">
+      class="gallery-lay__close-btn overlay__close-btn js-overlay-close-btn">
     </button>
   </div>
 </aside>
