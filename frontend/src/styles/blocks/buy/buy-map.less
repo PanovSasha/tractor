@@ -1,0 +1,39 @@
+@import 'descriptions';
+
+.buy-map {
+  &__geo {
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__point {
+    .absX-alignment();
+    bottom: 0;
+  }
+}
+
+.buy-map-point {
+
+
+  &__shell {
+    .width-height(68, 60);
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__icon {
+    .width-height(68, 60);
+  }
+
+  &__title {
+    .radius();
+    .h8();
+    background-color: @white;
+    border: 2px solid @border-primary;
+    white-space: nowrap;
+    position: absolute;
+    top: 10px;
+    left: calc(100% + 0px);
+    padding: 4px 6px;
+  }
+}

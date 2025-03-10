@@ -8,14 +8,14 @@ import {
   BODY_LOCK_CLASS,
   CLICKED_CLASS,
   DADATA_API_KEY,
-  L_MOBILE_WIDTH,
   SHOW_CLASS,
   TABLET_WIDTH,
   YA_POPUP_CLASS,
   Z_INDEX_CLASS,
 } from '../../lib/constants'
-import { closeOverlay, overlaysFunctions } from '../overlay'
-import { isEnterPressed, isEscPressed, swipeFunction } from '../../lib/utils'
+import { isEnterPressed, isEscPressed } from '../../lib/utils'
+
+import { pointsDataNoDistrictSort } from './config'
 
 const $BUY_SHELL = $('.js-buy')
 
@@ -194,7 +194,7 @@ export const buyFunctions = () => {
             $dropdownCity.removeClass(SHOW_CLASS)
             $regionInput.val($btn.attr('data-region'))
             getCoordsByAddressInput(marker, map)
-            queryPoints(map, marker)
+            filterPoints(map, marker)
           })
 
           $dropdownRegionBtns.on('click', function () {
@@ -210,7 +210,7 @@ export const buyFunctions = () => {
             $dropdownCity.removeClass(SHOW_CLASS)
 
             getCoordsByAddressInput(marker, map)
-            queryPoints(map, marker)
+            filterPoints(map, marker)
           }
         })
 
@@ -431,89 +431,68 @@ export const buyFunctions = () => {
       }
 
       const pointFunctions = (el, i) => {
-        const { city, country, latitude, longitude, name, network, phone, street, url } = el
+        const { name, type, phone, site, mail, district, country } = el
 
-        const renderSiteRow = (SITE) => {
-          if (SITE) {
-            return `
-          <div class="buy-map-point__info-row">
-              <span class="buy-map-point__info-title">
-                Сайт
-              </span>
-
-             ${renderSite(SITE, 'buy-map-point__info-val')}
-            </div>`
-          } else return `-`
-        }
-
-        const renderPhoneRow = (PHONE) => {
-          if (PHONE) {
-            return `
-           <div class="buy-map-point__info-row">
-              <span class="buy-map-point__info-title">
-                Телефон
-              </span>
-
-              <div class="buy-map-point__info-val">
-                ${renderPhone(PHONE)}
-              </div>
-            </div>
-        `
-          } else return ``
-        }
-
+        //     const renderSiteRow = (SITE) => {
+        //       if (SITE) {
+        //         return `
+        //       <div class="buy-map-point__info-row">
+        //           <span class="buy-map-point__info-title">
+        //             Сайт
+        //           </span>
+        //
+        //          ${renderSite(SITE, 'buy-map-point__info-val')}
+        //         </div>`
+        //       } else return `-`
+        //     }
+        //
+        //     const renderPhoneRow = (PHONE) => {
+        //       if (PHONE) {
+        //         return `
+        //        <div class="buy-map-point__info-row">
+        //           <span class="buy-map-point__info-title">
+        //             Телефон
+        //           </span>
+        //
+        //           <div class="buy-map-point__info-val">
+        //             ${renderPhone(PHONE)}
+        //           </div>
+        //         </div>
+        //     `
+        //       } else return ``
+        //     }
+        //
         const pointStr = `.js-buy-map-point-${i}`
 
         const $point = $(pointStr)
-
         $point.append(`
-       <div class="buy-map-point__popup">
-        <div class="buy-map-point__shell js-buy-map-point-shell">
-          <button class="buy-map-point__close-btn js-buy-map-point-close-btn">
-              <svg class="icon icon--24">
-                <use xlink:href="/assets/sprite/sprite.svg#cross"></use>
-              </svg>
-          </button>
-
-          <h4 class="h4 buy-map-point__name">
-            ${name}
-          </h4>
-
-          <p class="buy-map-point__adress">
-             ${country}, ${street}
-          </p>
-
-          <div class="buy-map-point__info-container">
-            ${renderSiteRow(url)}
-
-            ${renderPhoneRow(phone)}
-          </div>
-        </div>
-      </div>
-    `)
+            <div class="buy-map-point__shell">
+              <img 
+              class="buy-map-point__icon"
+              loading="lazy" src="/assets/svg/icons/point.svg" alt="">
+              
+              <div class="buy-map-point__title">
+                ${name}
+              </div>
+            </div>
+        `)
       }
 
       const renderPoint = (el, map, i) => {
-        const { latitude, longitude } = el
+        const [latitude, longitude] = el.coords
 
         const point = document.createElement('div')
         point.className = `buy-map__point js-buy-map-point js-buy-map-point-${i}`
 
         point.onclick = () => {
-          if ($WINDOW.width() > TABLET_WIDTH) {
-            map.update({
-              location: {
-                center: [Number(longitude), Number(latitude)],
-                duration: 500,
-              },
-            })
-          }
+          map.update({
+            location: {
+              center: [Number(longitude), Number(latitude)],
+              duration: 500,
+            },
+          })
 
-          if ($WINDOW.width() <= L_MOBILE_WIDTH) {
-            swipeFunction(document.querySelectorAll('.js-overlay'), () => {
-              closeOverlay()
-            })
-          }
+          //TODO - переключение вкладки и выделение карточки
         }
 
         const marker = new YMapMarker(
@@ -614,25 +593,6 @@ export const buyFunctions = () => {
         const pointsPopup = () => {
           const $points = $(`.js-buy-map-point`)
 
-          $points.on('click', function () {
-            const $t = $(this)
-
-            if ($WINDOW.width() > TABLET_WIDTH) {
-              $points.removeClass(ACTIVE_CLASS).removeClass(CLICKED_CLASS)
-              $points.parent().removeClass(Z_INDEX_CLASS)
-
-              $t.addClass(ACTIVE_CLASS).addClass(CLICKED_CLASS)
-              $t.parent().addClass(Z_INDEX_CLASS)
-            } else {
-              const $clonePopup = $t.find('.js-buy-map-point-shell').clone()
-
-              $BODY.addClass(BODY_LOCK_CLASS)
-              $OVERLAY.addClass(SHOW_CLASS).addClass(YA_POPUP_CLASS)
-              $OVERLAY_ITEM_YA.html('').append($clonePopup).addClass(SHOW_CLASS)
-              closePointPopup()
-            }
-          })
-
           $points.on('mouseenter', function () {
             const $t = $(this)
 
@@ -652,26 +612,6 @@ export const buyFunctions = () => {
               $points.removeClass(ACTIVE_CLASS)
               $points.parent().removeClass(Z_INDEX_CLASS)
             }
-          })
-        }
-
-        const closePointPopup = () => {
-          $DOCUMENT.on('click', function ({ target }) {
-            if (
-              !$(target).parents('.js-buy-map-point').length &&
-              !$(target).hasClass('js-buy-map-point') &&
-              $WINDOW.width() >= TABLET_WIDTH
-            ) {
-              $('.js-buy-map-point').removeClass(ACTIVE_CLASS).removeClass(CLICKED_CLASS)
-            }
-          })
-
-          $('.js-buy-map-point-close-btn').on('click', function () {
-            setTimeout(() => {
-              closeOverlay()
-
-              $('.js-buy-map-point').removeClass(ACTIVE_CLASS).removeClass(CLICKED_CLASS)
-            }, 100)
           })
         }
 
@@ -698,7 +638,7 @@ export const buyFunctions = () => {
           let rightTop = []
 
           $.each(data, function (i, elem) {
-            const { latitude, longitude } = elem
+            const [latitude, longitude] = elem.coords
 
             const distance = distanceBetweenPoints(coordsGeoPoint[1], coordsGeoPoint[0], latitude, longitude)
 
@@ -801,30 +741,10 @@ export const buyFunctions = () => {
           bounds: [checkedLeftBottom, checkedRightTop],
           duration: 500,
         })
-
-        closePointPopup()
       }
 
-      const queryPoints = (map, marker) => {
-        $.ajax({
-          url: '/bitrix/services/main/ajax.php?action=synchro:core.api.Products.getSalesPoints',
-          method: 'post',
-          username: 'admin',
-          password: '1234wsad',
-          success: function (result) {
-            const { data } = result
-
-            if (data.length) {
-              $NO_RESULT_SHELL.hide()
-              $RESULT_SHELL.show()
-
-              renderPointsToMap(data, map, marker)
-            } else {
-              $RESULT_SHELL.hide()
-              $NO_RESULT_SHELL.show()
-            }
-          },
-        })
+      const filterPoints = (map, marker) => {
+        renderPointsToMap(pointsDataNoDistrictSort, map, marker)
       }
 
       window.map = null
@@ -845,15 +765,15 @@ export const buyFunctions = () => {
 
         // map.addChild(new YMapControls({ position: 'right' }).addChild(new YMapZoomControl({})))
         //
-        // const marker = addCurrentUserGeoMarker(map, YMapListener)
+        const marker = addCurrentUserGeoMarker(map, YMapListener)
         //
         // controlFunctions(map)
         // addressInputWithDropdownFns(marker, map)
-        // queryPoints(map, marker)
+        filterPoints(map, marker)
 
         $SUBMIT_BTN.on('click', function () {
           getCoordsByAddressInput(marker, map)
-          queryPoints(map, marker)
+          filterPoints(map, marker)
         })
       })
     }

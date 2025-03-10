@@ -5,6 +5,7 @@ require('../../assets/sprite/cross.svg')
 require('../../assets/sprite/delete-cross.svg')
 require('../../assets/sprite/gear.svg')
 require('../../assets/sprite/logo.svg')
+require('../../assets/sprite/point.svg')
 require('../../assets/sprite/search.svg')
 
 //arrows
