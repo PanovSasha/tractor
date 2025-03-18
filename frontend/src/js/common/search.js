@@ -30,6 +30,7 @@ export const searchFns = () => {
 
     $searchBtn.on('click', function () {
       showSearchPanel()
+      $SEARCH_INPUT.focus()
     })
   }
 
@@ -69,7 +70,9 @@ export const searchFns = () => {
   }
 
   const searchByEnterPress = () => {
-    $DOCUMENT.on('keyup.select', (event) => {
+    $SEARCH_INPUT.on('keyup', (event) => {
+      console.log('hi')
+
       if (isEnterPressed(event)) {
         goToSearchPage()
       }

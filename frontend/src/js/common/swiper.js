@@ -135,7 +135,7 @@ export const swiperFunctions = () => {
 
     copyGallerySlidesToOverlay()
 
-    const galleryOverlaySlider = new Swiper('.js-gallery-lay-slider', {
+    const galleryOverlaySlider = new Swiper('.js-buy-actions-points-slider', {
       spaceBetween: 12,
       slidesPerView: 1,
       speed: 1000,

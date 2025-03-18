@@ -28,6 +28,86 @@ const $BUY_MAP = $BUY_SHELL.find('.js-buy-map')
 
 export const buyFunctions = () => {
   if ($BUY_SHELL.length) {
+    // const renderPhone = (phone, className = '') => {
+    //   let str = ''
+    //   let phoneNumber = ''
+    //
+    //   if (phone) {
+    //     let clearPhoneStr = ''
+    //     let phoneStr = ''
+    //     let clearPhone = []
+    //
+    //     phoneNumber = phone
+    //       .replaceAll('-', '')
+    //       .replaceAll('.', '')
+    //       .replaceAll("'", ',')
+    //       .replaceAll('(', '')
+    //       .replaceAll(')', '')
+    //       .replaceAll('*', '')
+    //
+    //     if (phoneNumber.indexOf('\n') >= 0) {
+    //       clearPhone = phoneNumber.replaceAll('\n', ',').split(',')
+    //     } else {
+    //       if (phoneNumber.indexOf(',') >= 0) {
+    //         clearPhone = phoneNumber.split(',')
+    //       } else {
+    //         if (phoneNumber.indexOf(';') >= 0) {
+    //           clearPhone = phoneNumber.split(';')
+    //         } else {
+    //           clearPhone.push(phoneNumber)
+    //         }
+    //       }
+    //     }
+    //
+    //     $.each(clearPhone, function (i, el) {
+    //       let elPhoneNumber
+    //
+    //       phoneStr = el.trim().replaceAll(' ', '')
+    //
+    //       if (phoneStr.length < 8 && i > 0) {
+    //         if (clearPhone[0].toString().slice(0, 1) === '+') {
+    //           phoneStr = clearPhone[0].toString().slice(0, 5) + phoneStr.toString()
+    //         } else {
+    //           phoneStr = clearPhone[0].toString().slice(0, 4) + phoneStr.toString()
+    //         }
+    //       }
+    //
+    //       if (phoneStr.slice(0, 1) === '8') {
+    //         phoneStr = '+7' + phoneStr.slice(1)
+    //       }
+    //
+    //       if (el.indexOf('доб') >= 0) {
+    //         elPhoneNumber = phoneStr.split('доб')[0]
+    //         phoneStr = phoneStr.replaceAll('доб', ' доб. ')
+    //       } else {
+    //         elPhoneNumber = phoneStr
+    //       }
+    //
+    //       if (i === clearPhone.length - 1) {
+    //         str =
+    //           str +
+    //           `<a
+    //           class="accessibility-link ${className}"
+    //           target="_blank"
+    //           href="tel:${elPhoneNumber}">
+    //           ${phoneStr}
+    //          </a>`
+    //       } else {
+    //         str =
+    //           str +
+    //           `<a
+    //           class="accessibility-link ${className}"
+    //           target="_blank"
+    //           href="tel:${elPhoneNumber}">
+    //           ${phoneStr}
+    //          </a>, `
+    //       }
+    //     })
+    //   }
+    //
+    //   return str
+    // }
+
     async function yaMaps(latitude = 55.753995, longitude = 37.614069) {
       const Y_LAT = latitude
       const Y_LON = longitude
@@ -309,6 +389,42 @@ export const buyFunctions = () => {
         return marker
       }
 
+      // const renderSite = (site, className = '') => {
+      //   if (site) {
+      //     if (site.indexOf('.') >= 0) {
+      //       let siteLink = ''
+      //       let siteStr = ''
+      //
+      //       siteStr = site
+      //         .replaceAll(`https:\\\\`, '')
+      //         .replaceAll('https://', '')
+      //         .replaceAll('http:\\\\', '')
+      //         .replaceAll('www.', '')
+      //         .replaceAll('/', '')
+      //         .replaceAll(`\\`, '')
+      //         .replaceAll(`/www`, '')
+      //         .replaceAll(`//www`, '')
+      //         .replaceAll(`http:///`, '')
+      //         .replaceAll(`http:/`, '')
+      //         .replaceAll(`http:`, '')
+      //
+      //       siteStr = 'www.' + siteStr
+      //       siteLink = 'https://' + siteStr
+      //
+      //       return `  <a
+      //            target="_blank"
+      //            href="${siteLink}"
+      //            class="${className} accessibility-link">
+      //            ${siteStr}
+      //         </a>`
+      //     } else {
+      //       return '-'
+      //     }
+      //   } else {
+      //     return '-'
+      //   }
+      // }
+
       const pointFunctions = (el, i) => {
         const { name } = el
 
@@ -358,7 +474,7 @@ export const buyFunctions = () => {
         pointFunctions(el, i)
       }
 
-      const renderNearList = (points, map) => {
+      const renderNearList = (points) => {
         const renderNearListPoints = (points) => {
           const renderType = (type) => {
             let str = ''
@@ -444,7 +560,7 @@ export const buyFunctions = () => {
           return pointsStr
         }
 
-        const nearListPointsFns = (map) => {
+        const nearListPointsFns = () => {
           const $listPointBtns = $('.js-buy-actions-point')
 
           $listPointBtns.on('click', function () {
@@ -453,12 +569,12 @@ export const buyFunctions = () => {
             $listPointBtns.removeClass(ACTIVE_CLASS)
             $t.addClass(ACTIVE_CLASS)
 
-            map.update({
-              location: {
-                center: [$t.attr('data-longitude'), $t.attr('data-latitude')],
-                duration: 500,
-              },
-            })
+            // map.update({
+            //   location: {
+            //     center: [$t.attr('data-longitude'), $t.attr('data-latitude')],
+            //     duration: 500,
+            //   },
+            // })
           })
         }
 
@@ -466,7 +582,7 @@ export const buyFunctions = () => {
             ${renderNearListPoints(points)}
        `)
 
-        nearListPointsFns(map)
+        nearListPointsFns()
 
         const pointsSlider = new Swiper('.js-buy-actions-points-slider', {
           spaceBetween: 12,
@@ -511,7 +627,7 @@ export const buyFunctions = () => {
             renderPoint(elem, map, i)
           })
 
-          renderNearList(sortedPointsByDistance, map)
+          renderNearList(sortedPointsByDistance)
 
           if (sortedPointsByDistance.length > 6) {
             sortedPointsByDistance.sort(function (a, b) {
@@ -537,8 +653,8 @@ export const buyFunctions = () => {
 
           sortedPointsByDistance.length = sortedPointsByDistanceLength
 
-          leftBottom = [sortedPointsByDistance[0].elem.coords[1], sortedPointsByDistance[0].elem.coords[0]]
-          rightTop = [sortedPointsByDistance[0].elem.coords[1], sortedPointsByDistance[0].elem.coords[0]]
+          leftBottom = [sortedPointsByDistance[0].elem.longitude, sortedPointsByDistance[0].elem.latitude]
+          rightTop = [sortedPointsByDistance[0].elem.longitude, sortedPointsByDistance[0].elem.latitude]
 
           $.each(sortedPointsByDistance, function (i, el) {
             const { longitude, latitude } = el
@@ -625,7 +741,7 @@ export const buyFunctions = () => {
           [new YMapDefaultSchemeLayer(), new YMapDefaultFeaturesLayer()]
         )
 
-        map.addChild(new YMapControls({ position: 'right' }).addChild(new YMapZoomControl({})))
+        // map.addChild(new YMapControls({ position: 'right' }).addChild(new YMapZoomControl({})))
 
         const marker = addCurrentUserGeoMarker(map, YMapListener)
 

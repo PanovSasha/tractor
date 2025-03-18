@@ -1,6 +1,9 @@
 @import 'descriptions';
 
 .buy-actions {
+  height: 100%;
+  align-self: stretch;
+
   &__title {
     margin-bottom: @offset24;
 
@@ -60,11 +63,19 @@
     margin-bottom: @offset24;
   }
 
+  &__points-slider {
+    height: 100%;
+  }
+
+  &__points-wrapper {
+    //height: 442px !important;
+  }
+
   &__points {
-    .f-column(12);
-    .hide-scrollbar();
-    overflow: auto;
-    max-height: 442px;
+    //.f-column(12);
+    //.hide-scrollbar();
+    //overflow: hidden;
+    height: 442px;
 
     @media @tablet {
       height: 242px;
@@ -83,8 +94,17 @@
   }
 
   &__point {
+    .transition(border-color);
+    //flex: 0;
+    //height: auto !important;
+    cursor: pointer;
     border: 1px solid @border-primary;
     padding: @offset16;
+    position: relative;
+
+    &.active {
+      border: 1px solid @border-active;
+    }
   }
 
   &__point-type {
@@ -92,6 +112,7 @@
     color: @text-tertiary;
     margin-bottom: @offset12;
   }
+
 
   &__point-name {
     .h7();

@@ -20,7 +20,9 @@
   }
 
   &__map-shell {
+    width: 100%;
     overflow: hidden;
+    position: relative;
 
     @media @s-tablet {
       .v-hidden();
@@ -32,10 +34,17 @@
   }
 
   &__map-toolbar {
-    display: none;
+    .f-center(8);
+    .absX-alignment();
+    top: 10px;
+    z-index: 1;
   }
 
   &__map-toolbar-btn {
+    .btn-secondary();
+    .radius();
+    padding: 4px 6px;
+    height: 36px;
   }
 
   &__map {
