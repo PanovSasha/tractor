@@ -182,6 +182,14 @@ module.exports = {
       },
     }),
     new HTMLWebpackPlugin({
+      template: './public/about/vacancy-detail.html',
+      inject: 'body',
+      filename: 'vacancy-detail.html',
+      minify: {
+        collapseWhitespace: IS_PROD,
+      },
+    }),
+    new HTMLWebpackPlugin({
       template: './public/about/production.html',
       inject: 'body',
       filename: 'production.html',
@@ -344,11 +352,12 @@ if (IS_DEV) {
     liveReload: true,
     historyApiFallback: true,
     proxy: {
-      // '/api': {
-      //   target: 'http://moidom.xyz',
-      //   secure: false,
-      //   changeOrigin: true,
-      // },
+      '/api': {
+        target: 'http://x92617p0.beget.tech',
+        secure: false,
+        changeOrigin: true,
+      },
+
       // '/upload': {
       //   target: 'http://moidom.xyz',
       //   secure: false,

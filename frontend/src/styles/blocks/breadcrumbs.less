@@ -5,6 +5,10 @@
   gap: @offset8;
   flex-wrap: wrap;
 
+  @media @tablet {
+    display: none;
+  }
+
   &__shell {
     display: flex;
     align-items: center;
@@ -17,10 +21,6 @@
     align-items: center;
     gap: @offset8;
     min-width: 226px;
-
-    @media @tablet {
-      display: none;
-    }
 
     .header--search & {
       @media @tablet {
@@ -36,12 +36,7 @@
   &__item {
     .f-center(8);
 
-    & .breadcrumbs__link {
-      white-space: nowrap;
-    }
-
     &:last-child {
-      .ellipsis();
       pointer-events: none;
 
       &::after {
@@ -50,7 +45,6 @@
 
       a {
         .h8();
-        .ellipsis();
       }
     }
 

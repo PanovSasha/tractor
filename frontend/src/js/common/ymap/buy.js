@@ -14,7 +14,8 @@ import {
 import { isEnterPressed, isEscPressed } from '../../lib/utils'
 
 import { pointsDataNoDistrictSort } from './config'
-import { bonusSlider, pointsSlider } from '../swiper'
+import { pointsSlider } from '../swiper'
+import { renderPointsToMap } from './buySortFns'
 
 const $BUY_SHELL = $('.js-buy')
 
@@ -22,7 +23,11 @@ const $CITY_INPUT = $BUY_SHELL.find('#buy-city')
 const $REGION_INPUT = $BUY_SHELL.find('#buy-region')
 const $SUBMIT_BTN = $BUY_SHELL.find('.js-buy-form-submit-btn')
 
-const $RESULT_SHELL = $BUY_SHELL.find('.js-buy-actions-points-wrapper')
+const $FILTER_TABS = $('.js-buy-actions-types-btn')
+const $OPTIONS = $('.js-buy-actions-filters-select .js-select-option')
+const $CURRENT_OPTION = $('.js-buy-actions-filters-select .js-select-current-btn')
+
+export const $RESULT_SHELL = $BUY_SHELL.find('.js-buy-actions-points-wrapper')
 
 const $BUY_MAP = $BUY_SHELL.find('.js-buy-map')
 
@@ -37,8 +42,8 @@ export const buyFunctions = () => {
       const getCoordsByAddressInput = (marker, map) => {
         if ($CITY_INPUT.val() !== 'Город не определен') {
           $.ajax({
-            url: `/bitrix/services/main/ajax.php?action=synchro:core.api.Location.getYandexGeo&geocode=${$CITY_INPUT.val()}`,
-            method: 'get',
+            url: `/api/v1/get_yandex_geo&geocode=${$CITY_INPUT.val()}`,
+            method: 'post',
             async: false,
             dataType: 'json',
             success: function (result) {
@@ -240,10 +245,17 @@ export const buyFunctions = () => {
 
         const getPointAddressByYmaps = (coordinates) => {
           $.ajax({
-            url: `/bitrix/services/main/ajax.php?action=synchro:core.api.Location.getYandexGeo&geocode=${coordinates.toString()}`,
-            method: 'get',
+            url: `/api/v1/get_yandex_geo`,
+            method: 'post',
             dataType: 'json',
+            data: `geocode=${coordinates.toString()}`,
+            contentType: 'application/x-www-form-urlencoded',
+            headers: {
+              'Api-Key': 'tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH',
+            },
             success: function (result) {
+              console.log(result)
+
               if (result.status === 'success') {
                 const point = result.data.response.GeoObjectCollection.featureMember[0]
 
@@ -309,304 +321,76 @@ export const buyFunctions = () => {
         return marker
       }
 
-      const pointFunctions = (el, i) => {
-        const { name } = el
-
-        const pointStr = `.js-buy-map-point-${i}`
-
-        const $point = $(pointStr)
-        $point.append(`
-            <div class="buy-map-point__shell">
-              <img 
-              class="buy-map-point__icon"
-              loading="lazy" src="/assets/svg/icons/point.svg" alt="">
-              
-              <div class="buy-map-point__title">
-                ${name}
-              </div>
-            </div>
-        `)
-      }
-
-      const renderPoint = (el, map, i) => {
-        const [latitude, longitude] = el.coords
-
-        const point = document.createElement('div')
-        point.className = `buy-map__point js-buy-map-point js-buy-map-point-${i}`
-
-        point.onclick = () => {
-          map.update({
-            location: {
-              center: [Number(longitude), Number(latitude)],
-              duration: 500,
-            },
-          })
-
-          //TODO - переключение вкладки и выделение карточки
-        }
-
-        const marker = new YMapMarker(
-          {
-            coordinates: [longitude, latitude],
-            draggable: false,
-          },
-          point
-        )
-
-        map.addChild(marker)
-
-        pointFunctions(el, i)
-      }
-
-      const renderNearList = (points, map) => {
-        const renderNearListPoints = (points) => {
-          const renderType = (type) => {
-            let str = ''
-
-            $.each(type, function (i, el) {
-              let elStr = ''
-
-              switch (el) {
-                case 'equip':
-                  elStr = 'Техника и оборудование'
-                  break
-                case 'service':
-                  elStr = 'Сервисное обслуживание'
-                  break
-                default:
-                  elStr = 'Техника и оборудование'
-              }
-
-              if (i === 0) {
-                str = elStr
-              } else {
-                str = str + ` / ${elStr}`
-              }
-            })
-
-            return str
-          }
-
-          let pointsStr = ''
-
-          $.each(points, function (_, el) {
-            const { elem } = el
-
-            const { name, type, phone, address, site, mail, district, country, coords } = elem
-
-            pointsStr =
-              pointsStr +
-              `
-                  <div 
-                  data-latitude="${coords[0]}" 
-                  data-longitude="${coords[1]}"
-                  class="buy-actions__point swiper-slide js-buy-actions-point">
-           
-                   
-              <p class="buy-actions__point-type">
-                ${renderType(type)}
-              </p>
-              
-              <h3 class="buy-actions__point-name">
-                ${name}
-              </h3>
-              
-              <p class="buy-actions__point-address">
-                ${address}
-              </p>
-              
-              <div class="buy-actions__point-mails">
-                <a
-                  class="buy-actions__point-mail accessibility-link"
-                  href="mailto:info@m-tend.ru">
-                  info@m-tend.ru
-                </a>
-              </div>
-              
-              <div class="buy-actions__point-contacts">
-                <a
-                  target="_blank"
-                  class="buy-actions__point-site btn btn--secondary"
-                  href="${site}">
-                  Перейти на сайт
-                </a>
-                
-                <div class="buy-actions__point-phones">
-                  <a
-                    class="btn btn--primary buy-actions__point-phone"
-                    href="tel:+78352304451">+78352304451</a>
-                </div>
-              </div>
-            </div>
-            `
-          })
-
-          return pointsStr
-        }
-
-        const nearListPointsFns = (map) => {
-          const $listPointBtns = $('.js-buy-actions-point')
-
-          $listPointBtns.on('click', function () {
-            const $t = $(this)
-
-            $listPointBtns.removeClass(ACTIVE_CLASS)
-            $t.addClass(ACTIVE_CLASS)
-
-            map.update({
-              location: {
-                center: [$t.attr('data-longitude'), $t.attr('data-latitude')],
-                duration: 500,
-              },
-            })
-          })
-        }
-
-        $RESULT_SHELL.text('').append(`
-            ${renderNearListPoints(points)}
-       `)
-
-        nearListPointsFns(map)
-
-        const pointsSlider = new Swiper('.js-buy-actions-points-slider', {
-          spaceBetween: 12,
-          direction: 'vertical',
-          speed: 100,
-          slidesPerView: 2,
-          freeMode: true,
-          mousewheel: true,
-        })
-      }
-
-      const renderPointsToMap = (data, map, marker) => {
-        const distanceBetweenPoints = (lat1, lon1, lat2, lon2) => {
-          const deg2rad = (deg) => {
-            return deg * (Math.PI / 180)
-          }
-
-          const R = 6371 // Radius of the earth in km
-          const dLat = deg2rad(lat2 - lat1) // deg2rad below
-          const dLon = deg2rad(lon2 - lon1)
-          const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
-          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-
-          return R * c
-        }
-
-        const sortNearPoints = (data, coordsGeoPoint) => {
-          const sortedPointsByDistance = []
-
-          let leftBottom = []
-          let rightTop = []
-
-          $.each(data, function (i, elem) {
-            const [latitude, longitude] = elem.coords
-
-            const distance = distanceBetweenPoints(coordsGeoPoint[1], coordsGeoPoint[0], latitude, longitude)
-
-            sortedPointsByDistance[i] = { distance, elem }
-
-            renderPoint(elem, map, i)
-          })
-
-          renderNearList(sortedPointsByDistance, map)
-
-          if (sortedPointsByDistance.length > 6) {
-            sortedPointsByDistance.sort(function (a, b) {
-              return a.distance - b.distance
-            }).length = 7
-          } else {
-            sortedPointsByDistance.sort(function (a, b) {
-              return a.distance - b.distance
-            })
-          }
-
-          let sortedPointsByDistanceLength = sortedPointsByDistance.length
-
-          $.each(sortedPointsByDistance, function (i, el) {
-            if (
-              i + 2 <= sortedPointsByDistance.length - 1 &&
-              sortedPointsByDistance[i].distance + sortedPointsByDistance[i + 1].distance <=
-                sortedPointsByDistance[i + 2].distance
-            ) {
-              sortedPointsByDistanceLength = i + 2
-            }
-          })
-
-          sortedPointsByDistance.length = sortedPointsByDistanceLength
-
-          leftBottom = [sortedPointsByDistance[0].elem.coords[1], sortedPointsByDistance[0].elem.coords[0]]
-          rightTop = [sortedPointsByDistance[0].elem.coords[1], sortedPointsByDistance[0].elem.coords[0]]
-
-          $.each(sortedPointsByDistance, function (i, el) {
-            const { longitude, latitude } = el
-
-            if (latitude < leftBottom[0]) {
-              leftBottom[0] = longitude
-            }
-
-            if (latitude > rightTop[0]) {
-              rightTop[0] = longitude
-            }
-
-            if (longitude < leftBottom[1]) {
-              leftBottom[1] = latitude
-            }
-
-            if (latitude > rightTop[1]) {
-              rightTop[1] = latitude
-            }
-          })
-
-          return { leftBottom, rightTop }
-        }
-
-        const changeGeoCoordsForBoundsMap = (leftBottom, rightTop, coordsGeoPoint) => {
-          let checkedLeftBottom = leftBottom
-          let checkedRightTop = rightTop
-
-          if (coordsGeoPoint[0] < checkedLeftBottom[0]) {
-            checkedLeftBottom[0] = coordsGeoPoint[0]
-          }
-
-          if (coordsGeoPoint[1] < checkedLeftBottom[1]) {
-            checkedLeftBottom[1] = coordsGeoPoint[1]
-          }
-
-          if (coordsGeoPoint[0] > checkedRightTop[0]) {
-            checkedRightTop[0] = coordsGeoPoint[0]
-          }
-
-          if (coordsGeoPoint[1] > checkedRightTop[1]) {
-            checkedRightTop[1] = coordsGeoPoint[1]
-          }
-
-          checkedLeftBottom[0] = Number(checkedLeftBottom[0]) - 0.4
-          checkedLeftBottom[1] = Number(checkedLeftBottom[1]) - 0.4
-
-          checkedRightTop[0] = Number(checkedRightTop[0]) + 0.4
-          checkedRightTop[1] = Number(checkedRightTop[1]) + 0.4
-
-          return { checkedLeftBottom, checkedRightTop }
-        }
-
-        $(`.js-buy-map-point`).hide()
-
-        const coordsGeoPoint = marker._props.coordinates
-        const { leftBottom, rightTop } = sortNearPoints(data, coordsGeoPoint)
-
-        const { checkedLeftBottom, checkedRightTop } = changeGeoCoordsForBoundsMap(leftBottom, rightTop, coordsGeoPoint)
-
-        map.setLocation({
-          bounds: [checkedLeftBottom, checkedRightTop],
-          duration: 500,
-        })
-      }
-
       const filterPoints = (map, marker, points = pointsDataNoDistrictSort) => {
-        renderPointsToMap(points, map, marker)
+        renderPointsToMap(points, map, marker, YMapMarker)
+      }
+
+      const filterByTypeTabPress = (map, marker) => {
+        $FILTER_TABS.on('click', function () {
+          const $t = $(this)
+
+          let pointsDataTypeSort = []
+          const filter = $t.attr('data-action-type')
+
+          $FILTER_TABS.removeClass(ACTIVE_CLASS)
+          $t.addClass(ACTIVE_CLASS)
+
+          $.each(pointsDataNoDistrictSort, function (_, el) {
+            $.each(el.type, function (_, type) {
+              if (type === filter) {
+                if ($CURRENT_OPTION.attr('data-district') === el.district) {
+                  pointsDataTypeSort.push(el)
+                } else {
+                  pointsDataTypeSort.push(el)
+                }
+              }
+            })
+          })
+
+          filterPoints(map, marker, pointsDataTypeSort)
+          pointsSlider.slideTo(0, 200)
+        })
+      }
+
+      const filterByDistrictSelectPress = (map, marker) => {
+        $OPTIONS.on('click', function () {
+          let pointsDataDistrictSort = []
+
+          let activeFilterTab
+
+          $.each($FILTER_TABS, function (_, el) {
+            const $el = $(el)
+
+            if ($el.hasClass(ACTIVE_CLASS)) {
+              activeFilterTab = $el.attr('data-action-type')
+            }
+          })
+
+          const $t = $(this)
+          const district = $t.attr('data-district')
+
+          if (district === 'all') {
+            filterPoints(map, marker, pointsDataNoDistrictSort)
+          } else {
+            $.each(pointsDataNoDistrictSort, function (_, el) {
+              if (district === el.district) {
+                if (!!activeFilterTab) {
+                  $.each(el.type, function (_, typeEl) {
+                    if (typeEl === activeFilterTab) {
+                      pointsDataDistrictSort.push(el)
+                    }
+                  })
+                } else {
+                  pointsDataDistrictSort.push(el)
+                }
+              }
+            })
+
+            filterPoints(map, marker, pointsDataDistrictSort)
+          }
+
+          pointsSlider.slideTo(0, 200)
+        })
       }
 
       window.map = null
@@ -630,6 +414,8 @@ export const buyFunctions = () => {
         const marker = addCurrentUserGeoMarker(map, YMapListener)
 
         controlFunctions(map)
+        filterByTypeTabPress(map, marker)
+        filterByDistrictSelectPress(map, marker)
         // addressInputWithDropdownFns(marker, map)
         filterPoints(map, marker)
 
@@ -641,23 +427,23 @@ export const buyFunctions = () => {
     }
 
     const initYMapWithFetchCoords = () => {
-      const url = '/bitrix/services/main/ajax.php?action=synchro:core.api.Location.getSuggest'
+      const url = '/api/v1/getSuggest'
 
       yaMaps()
-      // $.ajax({
-      //   url: url,
-      //   method: 'get',
-      //   dataType: 'json',
-      //   success: function (result) {
-      //     if (result.data) {
-      //       const { geo_lat, geo_lon } = result.data.data
-      //       yaMaps(geo_lat, geo_lon)
-      //     } else {
-      //       console.log('weqe')
-      //       yaMaps()
-      //     }
-      //   },
-      // })
+      $.ajax({
+        url: url,
+        method: 'get',
+        dataType: 'json',
+        success: function (result) {
+          if (result.data) {
+            const { geo_lat, geo_lon } = result.data.data
+            yaMaps(geo_lat, geo_lon)
+          } else {
+            console.log('weqe')
+            yaMaps()
+          }
+        },
+      })
     }
 
     if ($BUY_MAP.length && navigator.geolocation && window.ymaps3) {

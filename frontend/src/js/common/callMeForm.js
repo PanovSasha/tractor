@@ -1,6 +1,16 @@
 import { DISABLE_CLASS, ERROR_CLASS } from '../lib/constants'
 
-export const orderFormFns = () => {
+export const CallMeFormFns = () => {
+  // http://x92617p0.beget.tech/api/v1/add_consultation
+  //
+  //   это для формы принимает массив params - в нем поля fullName и phone и bot - проверка на бота если пользователь вводил что-то с клавиатуры тогда 0 иначе 1
+  //
+  // в заголовке Api-Key - tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH
+  //
+  //   Content-Type - application/json
+  //
+  // параметры отправлять в x-www-from-urlencoded
+
   const $form = $('.js-order-form')
 
   if ($form.length) {

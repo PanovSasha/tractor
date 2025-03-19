@@ -233,3 +233,13 @@ export const swiperFunctions = () => {
   gallerySliderFns()
   bonusSliderFns()
 }
+
+export const pointsSlider = new Swiper('.js-buy-actions-points-slider', {
+  spaceBetween: 12,
+  direction: 'vertical',
+  speed: 100,
+  slidesPerView: 'auto',
+  autoHeight: true,
+  freeMode: true,
+  mousewheel: true,
+})

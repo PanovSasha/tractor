@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,9 +13,7 @@
         href="/assets/favicon/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="Agromash" />
   <link rel="manifest" href="/assets/favicon/site.webmanifest" />
-  <script src="https://api-maps.yandex.ru/3.0/?apikey=29cb7654-187d-4cd6-a44c-18efd2b0ed1e
-&amp;lang=ru_RU"></script>
-  <title>Тракторы | Главная</title>
+  <title>Тракторы | Детальная страница вакансии</title>
 </head>
 
 <body class="body">
@@ -418,811 +416,194 @@
   </div>
 </div>
 
-<header class="header js-header">
+<header class="header header--with-breadcrumbs js-header">
   <div class="wrap">
-    <div class="partition__shell">
-      <div class="swiper partition js-partition">
-        <div class="swiper-wrapper partition__wrapper">
-          <div class="swiper-slide partition__slide">
-            <div class="partition__slide-descr">
-              <h1 class="h1 partition__slide-title">
-                Техника чемпионов
-              </h1>
-              
-              <p class="partition__slide-text">
-                Совместно с&nbsp;АО&nbsp;&laquo;Росагролизинг&raquo; дарим
-                возможность приобрести легендарные тракторы
-              </p>
-              
-              <a href="#" class="btn btn--primary partition__slide-link">
-                Подробнее
-              </a>
-            </div>
-            
-            <div
-              class="partition__slide-picture-shell picture picture--scale">
-              <p class="partition__slide-picture-tag">
-                ВЫГОДА ДО&nbsp;300&nbsp;000&nbsp;₽
-              </p>
-              
-              <div class="picture partition__slide-picture">
-                <img class="picture__img" loading="lazy"
-                     src="/assets/img/slides/partition/slide1.webp" alt="">
-              
-              </div>
-            </div>
-          </div>
-          
-          <div class="swiper-slide partition__slide">
-            <div class="partition__slide-descr">
-              <h1 class="h1 partition__slide-title">
-                АГРОМАШ
-                90ТК
-              </h1>
-              
-              <p class="partition__slide-text">
-                Все о&nbsp;новом тракторе и&nbsp;его преимуществах
-              </p>
-              
-              <a href="technic-detail.html"
-                 class="btn btn--primary partition__slide-link">
-                Подробнее
-              </a>
-            </div>
-            
-            <div
-              class="partition__slide-picture-shell picture picture--scale">
-              <div class="picture partition__slide-picture">
-                <!--                TODO - мб видео сюда вставить-->
-                
-                <img class="picture__img" loading="lazy"
-                     src="/assets/img/slides/partition/slide2.webp" alt="">
-              
-              </div>
-            </div>
-          </div>
-          
-          <div class="swiper-slide partition__slide">
-            <div class="partition__slide-descr">
-              <h1 class="h1 partition__slide-title">
-                АГРОМАШ
-                90ТК
-              </h1>
-              
-              <p class="partition__slide-text">
-                Все о&nbsp;новом тракторе и&nbsp;его преимуществах
-              </p>
-              
-              <a href="#" class="btn btn--primary partition__slide-link">
-                Подробнее
-              </a>
-            </div>
-            
-            <div
-              class="partition__slide-picture-shell picture picture--scale">
-              <div class="picture partition__slide-picture">
-                <img class="picture__img" loading="lazy"
-                     src="/assets/img/slides/partition/slide3.webp" alt="">
-              
-              </div>
-            </div>
-          </div>
-          
-          <div class="swiper-slide partition__slide">
-            <div class="partition__slide-descr">
-              <h1 class="h1 partition__slide-title">
-                Осторожно,
-                контрафакт!
-              </h1>
-              
-              <p class="partition__slide-text">
-                Как купить оригинальный трактор АГРОМАШ 90ТГ и&nbsp;не&nbsp;попасться
-                на&nbsp;&laquo;удочку&raquo; мошенников?
-              </p>
-              
-              <a href="#" class="btn btn--primary partition__slide-link">
-                Подробнее
-              </a>
-            </div>
-            
-            <div
-              class="partition__slide-picture-shell picture picture--scale">
-              <div class="picture partition__slide-picture">
-                <img class="picture__img" loading="lazy"
-                     src="/assets/img/slides/partition/slide4.webp" alt="">
-              
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="partition__nav">
-        <div class="partition__btns swiper-btns swiper-btns--white">
-          <button
-            class="partition__btn partition__btn--prev js-partition-btn-prev swiper-btn"
-            type="button">
-            <svg class="icon icon--30 icon--180deg">
-              <use xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-            </svg>
-          </button>
-          
-          <button
-            class="partition__btn partition__btn--next js-partition-btn-next swiper-btn"
-            type="button">
-            <svg class="icon icon--30">
-              <use xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-            </svg>
-          </button>
-        </div>
-        
-        <div class="partition__pagination js-partition__pagination">
-        </div>
-      </div>
-    </div>
-    
-    <div class="top-links">
+    <div class="breadcrumbs__shell">
       <a
-        href="#"
-        class="top-links__block top-links__block--with-pic">
-        <div class="top-links__picture-shell">
-          <div class="top-links__picture picture">
-            <img class="picture__img" loading="lazy"
-                 src="/assets/img/preview.webp" alt="">
-          </div>
-        </div>
+        href="vacancy.html"
+        class="breadcrumbs__back-btn accessibility-link">
+        <svg
+          class="icon icon--20  js-topline-block-arrow">
+          <use
+            xlink:href="/assets/sprite/sprite.svg#mobile-back-arrow"></use>
+        </svg>
         
-        <div class="top-links__text-shell">
-          <p class="top-links__text-title">
-            Выставка-форум PROАгро СКФО 2&rsquo;0
-          </p>
-          
-          <p class="top-links__text-descr">
-            Приглашаем вас на&nbsp;выставку-форум с&nbsp;20&nbsp;по&nbsp;22&nbsp;сентября
-            2025&nbsp;г.
-          </p>
-          
-          <p class="top-links__text-link">
-            Подробнее
-            
-            <svg
-              class="icon icon--20">
-              <use
-                xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-            </svg>
-          </p>
-        </div>
+        Вернуться назад
       </a>
       
-      <a
-        href="#"
-        class="top-links__block">
-        <div class="top-links__text-shell">
-          <p class="top-links__text-title">
-            Где купить нашу продукцию
-          </p>
+      <ul class="breadcrumbs" itemscope
+          itemtype="https://schema.org/BreadcrumbList">
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope
+            itemtype="https://schema.org/ListItem">
+          <a class="breadcrumbs__link accessibility-link"
+             href="index.html"
+             itemprop="item">
+            <span itemprop="name">Главная</span>
+          </a>
           
-          <p class="top-links__text-descr">
-            Список официальных дилерских центров и&nbsp;сервисов
-          </p>
-          
-          <p class="top-links__text-link">
-            Найти дилеров
-            
-            <svg
-              class="icon icon--20">
-              <use
-                xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-            </svg>
-          </p>
-        </div>
-        
-        <div class="top-links__icon-shell">
           <svg
             class="icon icon--24">
-            <use xlink:href="/assets/sprite/sprite.svg#cart"></use>
+            <use xlink:href="/assets/sprite/sprite.svg#menu-arrow"></use>
           </svg>
-        </div>
-      </a>
-      
-      <a
-        href="#"
-        class="top-links__block">
-        <div class="top-links__text-shell">
-          <p class="top-links__text-title">
-            Оригинальные запасные части
-          </p>
           
-          <p class="top-links__text-descr">
-            Широкий ассортимент оригинальных запасных частей к&nbsp;технике
-          </p>
-          
-          <p class="top-links__text-link">
-            Каталог запчастей
-            
-            <svg
-              class="icon icon--20">
-              <use
-                xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-            </svg>
-          </p>
-        </div>
+          <meta itemprop="position" content="1" />
+        </li>
         
-        <div class="top-links__icon-shell">
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope
+            itemtype="https://schema.org/ListItem">
+          <a class="breadcrumbs__link accessibility-link"
+             href="#"
+             itemprop="item">
+            <span itemprop="name">Компания</span>
+          </a>
+          
           <svg
             class="icon icon--24">
-            <use xlink:href="/assets/sprite/sprite.svg#gear"></use>
+            <use xlink:href="/assets/sprite/sprite.svg#menu-arrow"></use>
           </svg>
-        </div>
-      </a>
+          
+          <meta itemprop="position" content="2" />
+        </li>
+        
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope
+            itemtype="https://schema.org/ListItem">
+          <a href="vacancy.html" class="breadcrumbs__link accessibility-link"
+             itemprop="item">
+            <span itemprop="name">Вакансии</span>
+          </a>
+          
+          <svg
+            class="icon icon--24">
+            <use xlink:href="/assets/sprite/sprite.svg#menu-arrow"></use>
+          </svg>
+          
+          <meta itemprop="position" content="3" />
+        </li>
+        
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope
+            itemtype="https://schema.org/ListItem">
+          <a href="#" class="breadcrumbs__link accessibility-link"
+             itemprop="item">
+            <span itemprop="name">Руководитель дирекции региональных продаж техники</span>
+          </a>
+          
+          <meta itemprop="position" content="4" />
+        </li>
+      </ul>
     </div>
   </div>
 </header>
 
 <main class="main js-main">
   <section
-    class="section">
+    class="section section--top">
     <div class="wrap">
-      <div class="section__shell">
-        <div class="section__title-shell">
-          <h2 class="section__title h2">
-            Техника
-            и&nbsp;оборудование
-          </h2>
-          
-          <p class="section__subtitle">
-            Производим универсальные гусеничные и&nbsp;колёсные тракторы, а&nbsp;также
-            навесное и&nbsp;прицепное оборудование
-          </p>
-        </div>
+      <div class="detail">
+        <h1>
+          Руководитель дирекции региональных продаж техники
+        </h1>
         
-        <div class="section__content">
-          <div class="production">
+        <div class="detail__shell">
+          <div class="detail__aside">
+            <p class="detail__aside-title">
+              Телефон для&nbsp;справок
+            </p>
+            
             <a
-              class="production__item"
-              href="production.html">
-              <div class="production__title-shell">
-                <h3 class="production__title">
-                  Колёсные
-                  <br>
-                  тракторы
-                </h3>
-                
-                <svg
-                  class="icon icon--24">
-                  <use
-                    xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-                </svg>
-              </div>
-              
-              <div class="production__picture picture">
-                <img
-                  class="picture__img"
-                  loading="lazy" src="/assets/img/technics/tractor.webp" alt="">
-              </div>
-              
-              <div class="production__tags">
-                <p class="production__tag">
-                  Техника чемпионов
-                </p>
-              </div>
+              target="_blank"
+              class="detail__aside-phone accessibility-link"
+              href="tel:+78352304646">
+              +7 8352 30-46-46
             </a>
             
             <a
-              class="production__item"
-              href="production.html">
-              <div class="production__title-shell">
-                <h3 class="production__title">
-                  Гусеничные
-                  <br>
-                  тракторы
-                </h3>
-                
-                <svg
-                  class="icon icon--24">
-                  <use
-                    xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-                </svg>
-              </div>
-              
-              <div class="production__picture picture">
-                <img
-                  class="picture__img"
-                  loading="lazy" src="/assets/img/technics/gus-tractor.webp"
-                  alt="">
-              </div>
-              
-              <div class="production__tags">
-                <p class="production__tag">
-                  Топ&nbsp;3 в&nbsp;стране
-                </p>
-                
-                <p class="production__tag">
-                  Легенда
-                </p>
-              </div>
-            </a>
-            
-            <a
-              class="production__item"
-              href="production.html">
-              <div class="production__title-shell">
-                <h3 class="production__title">
-                  Навесное и&nbsp;прицепное
-                  <br>
-                  оборудование
-                </h3>
-                
-                <svg
-                  class="icon icon--24">
-                  <use
-                    xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-                </svg>
-              </div>
-              
-              <div class="production__picture picture">
-                <img
-                  class="picture__img"
-                  loading="lazy" src="/assets/img/technics/equip.webp" alt="">
-              </div>
-              
-              <div class="production__tags">
-                <p class="production__tag">
-                  Сделано в&nbsp;России
-                </p>
-              </div>
+              target="_blank"
+              class="btn btn--primary detail__aside-mail"
+              href="mailto:info@agromh.com">
+              Откликнуться
             </a>
           </div>
-        </div>
-        
-        <a
-          class="section__link-btn accessibility-link"
-          href="production.html">
-          Вся продукция
           
-          <svg
-            class="icon icon--20 section__link-btn-icon">
-            <use
-              xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-  
-  <section
-    class="section">
-    <div class="wrap">
-      <div class="section__shell">
-        <div class="section__title-shell">
-          <h2 class="section__title h2">
-            Новости компании
-          </h2>
-        </div>
-        
-        <div class="section__content">
-          <div class="news news--preview">
-            <a
-              href="press-detail.html"
-              class="news__item">
-              <div class="news__picture picture">
-                <img
-                  class="picture__img"
-                  loading="lazy" src="/assets/img/news/news-preview1.webp"
-                  alt="">
-              </div>
-              
-              <p class="news__date">06.12.2024</p>
-              
-              <h3 class="news__title">
-                Первое техническое обслуживание&nbsp;&mdash; залог долговечной
-                работы машины
-              </h3>
-            </a>
+          <div class="detail__body">
+            <h2>
+              Обязанности
+            </h2>
             
-            <a
-              href="press-detail.html"
-              class="news__item">
-              <div class="news__picture picture">
-                <img
-                  class="picture__img"
-                  loading="lazy" src="/assets/img/news/news-preview2.webp"
-                  alt="">
-              </div>
+            <ul>
+              <li>
+                Организация продаж с/х техники, запчастей, сервисных услуг;
+              </li>
               
-              <p class="news__date">06.12.2024</p>
+              <li> Выполнение планов продаж и&nbsp;ПДС;</li>
               
-              <h3 class="news__title">
-                Хотите стать обладателем легендарного трактора?
-              </h3>
-            </a>
+              <li> Ведение клиентской базы, холодны и&nbsp;теплые звонки,
+                развитие партнерских отношений;
+              </li>
+              
+              <li>
+                Ведение и&nbsp;расширение дилерской сети;
+              </li>
+              
+              <li>
+                Активный поиск и&nbsp;привлечение новых покупателей;
+              </li>
+              
+              <li>
+                Ведение переговоров, презентация продукции;
+              </li>
+              
+              <li>
+                Контроль оплаты, отгрузок, оформление сопутствующей
+                сопроводительной документации;
+              </li>
+            </ul>
             
-            <a
-              href="press-detail.html"
-              class="news__item">
-              <div class="news__picture picture">
-                <img
-                  class="picture__img"
-                  loading="lazy" src="/assets/img/news/news-preview3.webp"
-                  alt="">
-              </div>
+            <h2>
+              Требования
+            </h2>
+            
+            <ul>
+              <li>
+                Высшее образование (технико-экономическое, менеджмент,
+                маркетинг)
+              </li>
               
-              <p class="news__date">06.12.2024</p>
+              <li>
+                Знание правил, принципов организации продаж и&nbsp;поставок
+                продукции автомобилей и&nbsp;с/х техники;
+              </li>
               
-              <h3 class="news__title">
-                Студенты ЧГПУ им. И.&nbsp;Я.&nbsp;Яковлева посетили Завод
-                &laquo;АГРОМАШ&raquo;
-              </h3>
-            </a>
+              <li>
+                Внимательность, умение работать в&nbsp;режиме многозадачности,
+                коммуникабельность, стрессоустойчивость;
+              </li>
+            </ul>
+            
+            <h2>
+              Условия
+            </h2>
+            
+            <ul>
+              <li>
+                Официальное трудоустройство, соц. пакет;
+              </li>
+              
+              <li>
+                Зарплата по&nbsp;итогам собеседования;
+              </li>
+            </ul>
           </div>
-        </div>
-        
-        <a
-          class="section__link-btn accessibility-link"
-          href="press-center.html">
-          Пресс-центр
-          
-          <svg
-            class="icon icon--20 section__link-btn-icon">
-            <use
-              xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-  
-  <section
-    class="section">
-    <div class="wrap">
-      <div class="buy js-buy">
-        <div class="buy__actions buy-actions">
-          <h2 class="h2 buy-actions__title">
-            Где купить
-          </h2>
-          
-          <div data-tabs-group="buy-points"
-               class="buy-actions__tabs js-buy-actions-tabs js-tabs-container">
-            <button data-tab="list" class="buy-actions__tab active btn"
-                    type="button">
-              Списком
-            </button>
-            
-            <button data-tab="map" class="buy-actions__tab btn"
-                    type="button">
-              На&nbsp;карте
-            </button>
-          </div>
-          
-          <div class="buy-actions__types">
-            <button
-              data-action-type="equip"
-              class="btn btn--primary-inv btn--s-size buy-actions__types-btn js-buy-actions-types-btn"
-              type="button">
-              Техника
-            </button>
-            
-            <button
-              data-action-type="service"
-              class="btn btn--primary-inv btn--s-size buy-actions__types-btn js-buy-actions-types-btn"
-              type="button">
-              Сервисное обслуживание
-            </button>
-          </div>
-          
-          <div class="buy-actions__filters">
-            <div
-              class="input__box input__box--search input__box js-input-box js-input-box-search">
-              <label for="searchPoint"
-                     class="input__placeholder js-input-placeholder">
-                Поиск по&nbsp;адресу
-              </label>
-              
-              <input
-                class="input input--search js-input js-buy-actions-filters-input"
-                id="searchPoint" name="fullName" type="text">
-              
-              <button type="button"
-                      class="input__erase-btn js-input-erase-btn">
-                <svg class="icon icon--20">
-                  <use xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
-                </svg>
-              </button>
-              
-              <button class="input__search-btn js-input-search-btn"
-                      type="button">
-                <svg class="icon icon--20">
-                  <use xlink:href="/assets/sprite/sprite.svg#search"></use>
-                </svg>
-              </button>
-            </div>
-            
-            <div class="select js-select js-buy-actions-filters-select">
-              <div
-                class="select__current-btn-container js-select-current-btn-container">
-                <button
-                  data-district="all"
-                  class="select__current-btn js-select-current-btn"
-                  type="button">
-                  Выберите округ
-                </button>
-              </div>
-              
-              <div class="select__options">
-                <button type="button" data-id="0" data-district="all"
-                        class="select__option js-select-option">
-                  Все округа
-                </button>
-                
-                <button type="button" data-id="1" data-district="cefd"
-                        class="select__option js-select-option">
-                  Центральный федеральный округ
-                </button>
-                
-                <button type="button" data-id="2" data-district="vofd"
-                        class="select__option js-select-option">
-                  Приволжский федеральный округ
-                </button>
-                
-                <button type="button" data-id="3" data-district="nwfd"
-                        class="select__option js-select-option">
-                  Северо-западный федеральный округ
-                </button>
-                
-                <button type="button" data-id="4" data-district="urfd"
-                        class="select__option js-select-option">
-                  Уральский федеральный округ
-                </button>
-                
-                <button type="button" data-id="5" data-district="sofd"
-                        class="select__option js-select-option">
-                  Южный федеральный округ
-                </button>
-                
-                <button type="button" data-id="6" data-district="sifd"
-                        class="select__option js-select-option">
-                  Сибирский федеральный округ
-                </button>
-                
-                <button type="button" data-id="7" data-district="fefd"
-                        class="select__option js-select-option">
-                  Дальневосточный федеральный округ
-                </button>
-                
-                <button type="button" data-id="8" data-district="belo"
-                        class="select__option js-select-option">
-                  Белорусь
-                </button>
-                
-                <button type="button" data-id="9" data-district="kaza"
-                        class="select__option js-select-option">
-                  Казахстан
-                </button>
-              </div>
-              
-              <select aria-label="округа"
-                      class="select__native js-select-native-select"
-                      name="type">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-              </select>
-            </div>
-          </div>
-          
-          <div
-            data-dock-group="buy-points"
-            data-dock="list"
-            class="show buy-actions__points">
-            <div
-              class="swiper buy-actions__points-slider js-buy-actions-points-slider">
-              <div
-                class="buy-actions__points-wrapper swiper-wrapper js-buy-actions-points-wrapper">
-              
-              </div>
-            </div>
-          </div>
-          
-          <button
-            class="btn btn--secondary buy-actions__show-more js-buy-actions-show-more">
-            Показать еще
-          </button>
-        </div>
-        
-        <div
-          class="buy__map-shell"
-          data-dock-group="buy-points"
-          data-dock="map">
-          <div class="buy__map-toolbar">
-            <button class="buy__map-toolbar-btn" type="button"
-                    id="changeAzimuthRight">
-              <svg class="icon icon--16">
-                <use xlink:href="/assets/sprite/sprite.svg#rotate-left"></use>
-              </svg>
-            </button>
-            
-            <button class="buy__map-toolbar-btn" type="button"
-                    id="changeAzimuthLeft">
-              <svg class="icon icon--16">
-                <use xlink:href="/assets/sprite/sprite.svg#rotate-right"></use>
-              </svg>
-            </button>
-            
-            <button class="buy__map-toolbar-btn" type="button" id="downTilt">
-              Наклонить
-            </button>
-            
-            <button class="buy__map-toolbar-btn" type="button" id="upTilt">
-              Выровнять
-            </button>
-          </div>
-          
-          <div id="buy-map" class="buy__map js-buy-map"></div>
         </div>
       </div>
     </div>
   </section>
   
   <section
-    class="section">
+    data-page-anchor="contacts"
+    class="section section--no-bottom-padding">
     <div class="wrap">
-      <div class="section__shell">
-        <div class="section__title-shell">
-          <h2 class="section__title h2">
-            Видеообзоры
-            <br>
-            техники
-          </h2>
-        </div>
-        
-        <div class="section__content">
-          <div class="videos">
-            <div class="videos__item-shell js-videos-item-shell">
-              <div
-                class="videos__item  picture js-videos-item">
-                <iframe
-                  data-iframe="true"
-                  class="picture__img videos__item-video"
-                  allow="clipboard-write; autoplay"
-                  src="https://rutube.ru/play/embed/cc1bc0d02fe2a5d8255de855279ed806/"
-                  webkitAllowFullScreen
-                  mozallowfullscreen
-                  allowFullScreen></iframe>
-              </div>
-              
-              <h3 class="h6 videos__item-title">
-                В&nbsp;России начнут собирать новые тракторы&nbsp;&mdash;
-                АГРОМАШ 90ТК, 75ТК и&nbsp;90ТКС
-              </h3>
-              
-              <button
-                data-overlay-anchor="videos"
-                class="videos__item-btn js-videos-item-btn js-show-overlay-btn">
-              </button>
-            </div>
-            
-            <div class="videos__item-shell js-videos-item-shell">
-              <div
-                class="videos__item videos__item--with-play-icon picture js-videos-item">
-                <video
-                  data-iframe="false"
-                  class="picture__img videos__item-video"
-                  src="/assets/files/video.mp4"></video>
-                
-                <svg
-                  class="icon icon--24 videos__item-video-play-icon">
-                  <use xlink:href="/assets/sprite/sprite.svg#play"></use>
-                </svg>
-              </div>
-              
-              <h3 class="h6 videos__item-title">
-                Как производится Российский гусеничный трактор АГРОМАШ 90ТГ&nbsp;&mdash;
-                потомок советского ДТ-75?
-              </h3>
-              
-              <button
-                data-overlay-anchor="videos"
-                class="videos__item-btn js-videos-item-btn js-show-overlay-btn">
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <a
-          target="_blank"
-          class="section__link-btn accessibility-link"
-          href="https://rutube.ru/channel/49001774">
-          Перейти на канал
-          
-          <svg
-            class="icon icon--20 section__link-btn-icon">
-            <use
-              xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-  
-  <section
-    class="section section--partners">
-    <div class="wrap">
-      <div class="swiper partners js-partners">
-        <div class="swiper-wrapper">
-          <a
-            target="_blank"
-            href="https://minpromtorg.gov.ru"
-            class="partners__slide swiper-slide">
-            <img
-              alt=""
-              class="partners__img"
-              loading="lazy" src="/assets/img/partners/minpromtorg.webp">
-          </a>
-          
-          <a
-            target="_blank"
-            href="https://mcx.gov.ru/"
-            class="partners__slide swiper-slide">
-            <img
-              alt=""
-              class="partners__img"
-              loading="lazy" src="/assets/img/partners/minselhoz.webp">
-          </a>
-          
-          <a
-            target="_blank"
-            href="https://tplants.com/"
-            class="partners__slide swiper-slide">
-            <img
-              alt=""
-              class="partners__img"
-              loading="lazy" src="/assets/img/partners/concern.webp">
-          </a>
-          
-          <a
-            target="_blank"
-            href="https://www.rosagroleasing.ru/ "
-            class="partners__slide swiper-slide">
-            <img
-              alt=""
-              class="partners__img"
-              loading="lazy" src="/assets/img/partners/rosagrolizing.webp">
-          </a>
-          
-          <a
-            target="_blank"
-            href="https://gisp.gov.ru/gisplk/"
-            class="partners__slide swiper-slide">
-            <img
-              alt=""
-              class="partners__img"
-              loading="lazy" src="/assets/img/partners/gisp.webp">
-          </a>
-          
-          <a
-            target="_blank"
-            href="https://soyuzmash.ru/ "
-            class="partners__slide swiper-slide">
-            <img
-              alt=""
-              class="partners__img"
-              loading="lazy" src="/assets/img/partners/smr.webp">
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section
-    class="section section--no-padding">
-    <div class="wrap">
+      <div id="contacts" class="v-hidden"></div>
+      
       <div class="call-sec">
         <div class="call-sec__descr">
           <h2 class="h3 call-sec__descr__title">
@@ -1684,6 +1065,42 @@
     
     <button
       class="videos-lay__close-btn overlay__close-btn js-overlay-close-btn">
+    </button>
+  </div>
+  
+  <div data-overlay="gallery"
+       class="gallery-lay overlay__item js-overlay-item">
+    <div class="swiper gallery-lay__slider js-gallery-lay-slider">
+      <div class="swiper-wrapper js-gallery-lay-swiper-wrapper">
+      
+      </div>
+    </div>
+    
+    <div class="gallery-lay__slider-nav">
+      <div class="swiper-btns gallery-lay__slider-nav-btns">
+        <button
+          class="gallery-lay__btn gallery-lay__btn--prev js-gallery-lay-btn-prev swiper-btn"
+          type="button">
+          <svg class="icon icon--30 icon--180deg">
+            <use xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+          </svg>
+        </button>
+        
+        <button
+          class="gallery-lay__btn gallery-lay__btn--next js-gallery-lay-btn-next swiper-btn"
+          type="button">
+          <svg class="icon icon--30">
+            <use xlink:href="/assets/sprite/sprite.svg#right-arrow"></use>
+          </svg>
+        </button>
+      </div>
+      
+      <div
+        class="gallery-lay__slider-pagination js-gallery-lay-slider-pagination"></div>
+    </div>
+    
+    <button
+      class="gallery-lay__close-btn overlay__close-btn js-overlay-close-btn">
     </button>
   </div>
 </aside>

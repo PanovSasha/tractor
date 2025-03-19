@@ -5,9 +5,8 @@ import { swiperFunctions } from './swiper'
 import { inputFunctions } from './input'
 import { selectFunctions } from './select'
 import { paginationFns } from './pagination'
-import { counterUpFigures } from './counterUpFigures'
 import { buttonsFns } from './buttons'
-import { orderFormFns } from './orderForm'
+import { CallMeFormFns } from './callMeForm'
 import { spoilerFns } from './spoiler'
 import { searchFns } from './search'
 import { videosFns } from './videos'
@@ -18,7 +17,6 @@ export const commonFunctions = () => {
   accordFunctions()
   buttonsFns()
   buyFunctions()
-  counterUpFigures()
   inputFunctions()
   overlaysFunctions()
   paginationFns()
@@ -28,6 +26,6 @@ export const commonFunctions = () => {
   spoilerFns()
   swiperFunctions()
   topLineFunctions()
-  orderFormFns()
+  CallMeFormFns()
   videosFns()
 }

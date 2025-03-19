@@ -49,12 +49,19 @@
   }
 
   &__types-btn {
+    .transition(background-color);
+    .transition(color);
     background-color: @bg-secondary;
 
     &:hover {
       @media @large-than-tablet {
         background-color: @bg-hover;
       }
+    }
+
+    &.active {
+      background-color: @bg-active;
+      color: @white;
     }
   }
 
@@ -67,14 +74,7 @@
     height: 100%;
   }
 
-  &__points-wrapper {
-    //height: 442px !important;
-  }
-
   &__points {
-    //.f-column(12);
-    //.hide-scrollbar();
-    //overflow: hidden;
     height: 442px;
 
     @media @tablet {
@@ -95,8 +95,6 @@
 
   &__point {
     .transition(border-color);
-    //flex: 0;
-    //height: auto !important;
     cursor: pointer;
     border: 1px solid @border-primary;
     padding: @offset16;
@@ -112,7 +110,6 @@
     color: @text-tertiary;
     margin-bottom: @offset12;
   }
-
 
   &__point-name {
     .h7();
@@ -141,13 +138,6 @@
   }
 
   &__point-site {
-  }
-
-  &__point-phones {
-    display: flex;
-    align-items: center;
-    gap: @offset12;
-    flex-wrap: wrap;
   }
 
   &__point-phone {
