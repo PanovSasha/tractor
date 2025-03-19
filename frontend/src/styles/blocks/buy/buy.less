@@ -4,15 +4,9 @@
   display: grid;
   grid-template-columns: 41.2% calc(58.8% - @offset12);
   gap: @offset12;
-  height: 736px;
 
   @media @tablet {
-    height: 500px;
-  }
-
-  @media @s-tablet {
     width: 100%;
-    height: auto;
     grid-template-columns: 1fr;
   }
 
@@ -24,11 +18,22 @@
     overflow: hidden;
     position: relative;
 
-    @media @s-tablet {
-      .v-hidden();
+    @media @tablet {
+      position: absolute;
+      margin: -1px;
+      border: 0;
+      padding: 0;
+      clip: rect(0 0 0 0);
+      overflow: hidden;
+      height: 458px;
 
       &.show {
-        .v-show();
+        margin: initial;
+        border: initial;
+        padding: initial;
+        clip: unset;
+        position: relative;
+        height: 458px;
       }
     }
   }
@@ -43,14 +48,16 @@
   &__map-toolbar-btn {
     .btn-secondary();
     .radius();
-    padding: 4px 6px;
+    flex: none;
     height: 36px;
+    padding: 4px 6px;
   }
 
   &__map {
+    width: 100%;
     height: 100%;
 
-    @media @s-tablet {
+    @media @tablet {
       height: 458px;
     }
   }

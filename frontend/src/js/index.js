@@ -1,5 +1,4 @@
 //Styles
-// import 'air-datepicker/air-datepicker.css'
 import 'paginationjs/dist/pagination.less'
 import 'suggestions-jquery/less/suggestions.less'
 import 'swiper/css/bundle'

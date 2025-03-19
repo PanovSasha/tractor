@@ -71,8 +71,6 @@ export const searchFns = () => {
 
   const searchByEnterPress = () => {
     $SEARCH_INPUT.on('keyup', (event) => {
-      console.log('hi')
-
       if (isEnterPressed(event)) {
         goToSearchPage()
       }

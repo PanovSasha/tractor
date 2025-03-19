@@ -1,6 +1,9 @@
 import { pointsSlider } from '../swiper'
 import { $RESULT_SHELL } from './buy'
-import { ACTIVE_CLASS } from '../../lib/constants'
+import { $WINDOW, ACTIVE_CLASS, TABLET_WIDTH } from '../../lib/constants'
+
+const $MAP_TAB = $('[data-tab="map"]')
+const $LIST_TAB = $('[data-tab="list"]')
 
 export const pointFunctions = (el, i) => {
   const { name } = el
@@ -37,6 +40,10 @@ export const renderPoint = (el, map, i, YMapMarker) => {
 
     pointsSlider.slideTo(i, 1)
     $('.buy-actions__point.swiper-slide-active').addClass(ACTIVE_CLASS)
+
+    if ($WINDOW.width() < TABLET_WIDTH) {
+      $LIST_TAB.click()
+    }
   }
 
   const marker = new YMapMarker(
@@ -85,16 +92,28 @@ export const renderNearList = (points, map) => {
       let phonesStr = ''
 
       $.each(phones, function (_, el) {
-        phonesStr =
-          phonesStr +
-          `
+        if (el !== '') {
+          phonesStr =
+            phonesStr +
+            `
                    <a
                     class="btn btn--primary buy-actions__point-phone"
                     href="tel:${el}">${el}</a>
                 `
+        }
       })
 
       return phonesStr
+    }
+
+    const renderSite = (site) => {
+      if (site) {
+        return `
+          <a target="_blank" class="buy-actions__point-site btn btn--secondary" href=${site}>
+            Перейти на сайт
+          </a>
+          `
+      } else return ''
     }
 
     const renderMail = (mails) => {
@@ -122,7 +141,7 @@ export const renderNearList = (points, map) => {
     $.each(points, function (_, el) {
       const { elem } = el
 
-      const { name, type, phone, address, site, mail, district, country, coords } = elem
+      const { name, type, phone, address, site, mail, coords } = elem
 
       pointsStr =
         pointsStr +
@@ -150,12 +169,7 @@ export const renderNearList = (points, map) => {
               </div>
               
               <div class="buy-actions__point-contacts">
-                <a
-                  target="_blank"
-                  class="buy-actions__point-site btn btn--secondary"
-                  href="${site}">
-                  Перейти на сайт
-                </a>
+                ${renderSite(site)}
 
                   ${renderPhones(phone)}
               </div>
@@ -175,6 +189,10 @@ export const renderNearList = (points, map) => {
       $listPointBtns.removeClass(ACTIVE_CLASS)
       $t.addClass(ACTIVE_CLASS)
 
+      if ($WINDOW.width() < TABLET_WIDTH) {
+        $MAP_TAB.click()
+      }
+
       map.update({
         location: {
           center: [$t.attr('data-longitude'), $t.attr('data-latitude')],
@@ -190,6 +208,7 @@ export const renderNearList = (points, map) => {
 
   nearListPointsFns(map)
 
+  pointsSlider.slideTo(0, 200)
   pointsSlider.update()
 }
 
@@ -222,20 +241,20 @@ export const renderPointsToMap = (data, map, marker, YMapMarker) => {
       const distance = distanceBetweenPoints(coordsGeoPoint[1], coordsGeoPoint[0], latitude, longitude)
 
       sortedPointsByDistance[i] = { distance, elem }
+    })
 
-      renderPoint(elem, map, i, YMapMarker)
+    sortedPointsByDistance.sort(function (a, b) {
+      return a.distance - b.distance
+    })
+
+    $.each(sortedPointsByDistance, function (i, el) {
+      renderPoint(el.elem, map, i, YMapMarker)
     })
 
     renderNearList(sortedPointsByDistance, map)
 
     if (sortedPointsByDistance.length > 6) {
-      sortedPointsByDistance.sort(function (a, b) {
-        return a.distance - b.distance
-      }).length = 7
-    } else {
-      sortedPointsByDistance.sort(function (a, b) {
-        return a.distance - b.distance
-      })
+      sortedPointsByDistance.length = 7
     }
 
     let sortedPointsByDistanceLength = sortedPointsByDistance.length

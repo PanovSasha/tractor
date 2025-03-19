@@ -18,7 +18,7 @@
     gap: 4px;
     margin-bottom: @offset40;
 
-    @media @s-tablet {
+    @media @tablet {
       margin-bottom: @offset24;
     }
   }
@@ -26,7 +26,7 @@
   &__tabs {
     display: none;
 
-    @media @s-tablet {
+    @media @tablet {
       .radius(12);
       background-color: @bg-secondary;
       display: flex;
@@ -77,18 +77,16 @@
   &__points {
     height: 442px;
 
-    @media @tablet {
+    @media @l-tablet {
       height: 242px;
     }
 
-    @media @s-tablet {
+    @media @tablet {
       .v-hidden();
 
       &.show {
         .v-show();
-        overflow: auto;
-        height: auto;
-        max-height: 580px;
+        height: 580px;
       }
     }
   }
@@ -100,8 +98,15 @@
     padding: @offset16;
     position: relative;
 
+    @media @tablet {
+      background-color: @bg-tertiary;
+      border-color: transparent;
+    }
+
     &.active {
-      border: 1px solid @border-active;
+      @media @large-than-tablet {
+        border: 1px solid @border-active;
+      }
     }
   }
 
@@ -146,7 +151,7 @@
   &__show-more {
     display: none;
 
-    @media @s-tablet {
+    @media @tablet {
       &.show {
         display: flex;
         width: 100%;

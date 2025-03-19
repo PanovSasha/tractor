@@ -1,27 +1,18 @@
 import 'suggestions-jquery/dist/js/jquery.suggestions.min'
-import Swiper from 'swiper/bundle'
 
-import {
-  $WINDOW,
-  ACTIVE_CLASS,
-  BODY_LOCK_CLASS,
-  CLICKED_CLASS,
-  DADATA_API_KEY,
-  SHOW_CLASS,
-  TABLET_WIDTH,
-  Z_INDEX_CLASS,
-} from '../../lib/constants'
-import { isEnterPressed, isEscPressed } from '../../lib/utils'
+import { ACTIVE_CLASS, HIDDEN_CLASS } from '../../lib/constants'
 
 import { pointsDataNoDistrictSort } from './config'
 import { pointsSlider } from '../swiper'
-import { renderPointsToMap } from './buySortFns'
+import { renderPointsToMap } from './buyRenderFns'
+import { isEnterPressed } from '../../lib/utils'
 
 const $BUY_SHELL = $('.js-buy')
 
-const $CITY_INPUT = $BUY_SHELL.find('#buy-city')
-const $REGION_INPUT = $BUY_SHELL.find('#buy-region')
-const $SUBMIT_BTN = $BUY_SHELL.find('.js-buy-form-submit-btn')
+const $CITY_INPUT = $BUY_SHELL.find('.js-buy-actions-filters-input')
+const $CITY_INPUT_PLACEHOLDER = $BUY_SHELL.find('.js-input-placeholder')
+
+const $SUBMIT_BTN = $BUY_SHELL.find('.js-input-search-btn')
 
 const $FILTER_TABS = $('.js-buy-actions-types-btn')
 const $OPTIONS = $('.js-buy-actions-filters-select .js-select-option')
@@ -34,18 +25,20 @@ const $BUY_MAP = $BUY_SHELL.find('.js-buy-map')
 export const buyFunctions = () => {
   if ($BUY_SHELL.length) {
     async function yaMaps(latitude = 55.753995, longitude = 37.614069) {
-      const Y_LAT = latitude
-      const Y_LON = longitude
-
       await ymaps3.ready
 
       const getCoordsByAddressInput = (marker, map) => {
         if ($CITY_INPUT.val() !== 'Город не определен') {
           $.ajax({
-            url: `/api/v1/get_yandex_geo&geocode=${$CITY_INPUT.val()}`,
+            url: `/api/v1/get_yandex_geo`,
             method: 'post',
             async: false,
             dataType: 'json',
+            data: `geocode=${$CITY_INPUT.val()}`,
+            contentType: 'application/x-www-form-urlencoded',
+            headers: {
+              'Api-Key': 'tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH',
+            },
             success: function (result) {
               if (result) {
                 let coords = result.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')
@@ -62,137 +55,6 @@ export const buyFunctions = () => {
           })
         }
       }
-
-      // const addressInputWithDropdownFns = (marker, map) => {
-      //   const $selectInputShell = $('.js-contact-form-input-elem')
-      //   const $cityShell = $('.js-contact-form-input-elem-city')
-      //   const $cityInput = $cityShell.find('.js-buy-form-input')
-      //   const $cityInputEraseBtn = $cityShell.find('.js-input-erase-btn')
-      //   const $dropdownCityBtns = $cityShell.find('.js-contact-form-input-dropdown-btn')
-      //   const $dropdownCity = $cityShell.find('.js-contact-form-input-dropdown-shell')
-      //
-      //   const $regionShell = $('.js-contact-form-input-elem-region')
-      //   const $regionInput = $regionShell.find('.js-buy-form-input')
-      //   const $dropdownRegionBtns = $regionShell.find('.js-contact-form-input-dropdown-btn')
-      //   const $dropdownRegion = $regionShell.find('.js-contact-form-input-dropdown-shell')
-      //   $.each($selectInputShell, function (_, shell) {
-      //     const toggleShowDropdown = () => {
-      //       $Input.on('focus', function () {
-      //         const $t = $(this)
-      //
-      //         $dropdownShell.addClass(SHOW_CLASS)
-      //       })
-      //
-      //       $DOCUMENT.on('click', ({ target }) => {
-      //         if ($(target).closest($shell).length) {
-      //           return false
-      //         }
-      //
-      //         $dropdownShell.removeClass(SHOW_CLASS)
-      //       })
-      //
-      //       $DOCUMENT.on('keyup', (event) => {
-      //         if (isEscPressed(event)) {
-      //           $dropdownShell.removeClass(SHOW_CLASS)
-      //         }
-      //       })
-      //     }
-      //
-      //     const $shell = $(shell)
-      //     const $Input = $shell.find('.js-buy-form-input')
-      //     const $dropdownShell = $shell.find('.js-contact-form-input-dropdown-shell')
-      //     const $dropdownBtns = $shell.find('.js-contact-form-input-dropdown-btn')
-      //
-      //     toggleShowDropdown()
-      //   })
-      //
-      //   const writePressBntDataValtoInput = () => {
-      //     $dropdownCityBtns.on('click', function () {
-      //       const $btn = $(this)
-      //
-      //       $cityInput.val($btn.attr('data-city'))
-      //       $dropdownCity.removeClass(SHOW_CLASS)
-      //       $regionInput.val($btn.attr('data-region'))
-      //       getCoordsByAddressInput(marker, map)
-      //       filterPoints(map, marker)
-      //     })
-      //
-      //     $dropdownRegionBtns.on('click', function () {
-      //       const $btn = $(this)
-      //
-      //       $regionInput.val($btn.attr('data-btn-region'))
-      //       $dropdownRegion.removeClass(SHOW_CLASS)
-      //     })
-      //   }
-      //
-      //   $CITY_INPUT.on('keyup', (event) => {
-      //     if (isEnterPressed(event)) {
-      //       $dropdownCity.removeClass(SHOW_CLASS)
-      //
-      //       getCoordsByAddressInput(marker, map)
-      //       filterPoints(map, marker)
-      //     }
-      //   })
-      //
-      //   const filterCityDropdownBtnsByRegionInput = () => {
-      //     const checkRegionInput = (cityClick = false) => {
-      //       if (!cityClick) {
-      //         $cityInput.val('')
-      //       }
-      //
-      //       if ($regionInput.val().trim() !== '') {
-      //         $dropdownCityBtns.hide()
-      //       }
-      //
-      //       if ($regionInput.val().trim().toLowerCase() === 'все') {
-      //         $dropdownCityBtns.show()
-      //       }
-      //
-      //       if ($regionInput.val().trim() !== '') {
-      //         $.each($dropdownCityBtns, function (_, btn) {
-      //           const $btn = $(btn)
-      //
-      //           if ($btn.attr('data-region').toLowerCase() === $regionInput.val().trim().toLowerCase()) {
-      //             $btn.show()
-      //           }
-      //         })
-      //       }
-      //     }
-      //
-      //     $dropdownRegionBtns.on('click', function () {
-      //       checkRegionInput()
-      //     })
-      //
-      //     $dropdownCityBtns.on('click', function () {
-      //       checkRegionInput(true)
-      //     })
-      //
-      //     $regionInput.on('input', function () {
-      //       checkRegionInput()
-      //     })
-      //
-      //     $cityInput.on('input', function () {
-      //       if ($cityInput.val().trim() !== '') {
-      //         $dropdownCityBtns.hide()
-      //       }
-      //
-      //       $.each($dropdownCityBtns, function (_, btn) {
-      //         const $btn = $(btn)
-      //
-      //         if ($btn.attr('data-city').toLowerCase().indexOf($cityInput.val().trim().toLowerCase()) >= 0) {
-      //           $btn.show()
-      //         }
-      //       })
-      //     })
-      //
-      //     $cityInputEraseBtn.on('click', function () {
-      //       checkRegionInput()
-      //     })
-      //   }
-      //
-      //   writePressBntDataValtoInput()
-      //   filterCityDropdownBtnsByRegionInput()
-      // }
 
       const controlFunctions = (map) => {
         function rotateCamera(angle) {
@@ -237,7 +99,7 @@ export const buyFunctions = () => {
       const addCurrentUserGeoMarker = (map) => {
         const renderGeoIcon = () => {
           $('.js-map-geo').html(`
-            <svg class="icon icon--32">
+            <svg>
                 <use xlink:href="/assets/sprite/sprite.svg#geo"></use>
             </svg>
          `)
@@ -254,27 +116,11 @@ export const buyFunctions = () => {
               'Api-Key': 'tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH',
             },
             success: function (result) {
-              console.log(result)
-
               if (result.status === 'success') {
-                const point = result.data.response.GeoObjectCollection.featureMember[0]
+                const region = result.data.response.GeoObjectCollection.featureMember[0].GeoObject.description
 
-                let region = point.GeoObject.metaDataProperty.GeocoderMetaData.Address.Components[0].name
-
-                if (region.toLowerCase() === 'россия') {
-                  region = 'РФ'
-                }
-
-                const addressComponents = point.GeoObject.metaDataProperty.GeocoderMetaData.Address.Components
-
-                let city = 'Город не определен'
-
-                if (addressComponents.filter((x) => x.kind === 'locality')[0]) {
-                  city = addressComponents.filter((x) => x.kind === 'locality')[0].name
-                }
-
-                $REGION_INPUT.val(region)
-                $CITY_INPUT.val(city)
+                $CITY_INPUT_PLACEHOLDER.addClass(HIDDEN_CLASS)
+                $CITY_INPUT.val(region)
               }
             },
           })
@@ -321,6 +167,20 @@ export const buyFunctions = () => {
         return marker
       }
 
+      const onInputFns = (marker, map) => {
+        $SUBMIT_BTN.on('click', function () {
+          getCoordsByAddressInput(marker, map)
+          filterPoints(map, marker)
+        })
+
+        $CITY_INPUT.on('keyup', (event) => {
+          if (isEnterPressed(event)) {
+            getCoordsByAddressInput(marker, map)
+            filterPoints(map, marker)
+          }
+        })
+      }
+
       const filterPoints = (map, marker, points = pointsDataNoDistrictSort) => {
         renderPointsToMap(points, map, marker, YMapMarker)
       }
@@ -332,23 +192,36 @@ export const buyFunctions = () => {
           let pointsDataTypeSort = []
           const filter = $t.attr('data-action-type')
 
-          $FILTER_TABS.removeClass(ACTIVE_CLASS)
-          $t.addClass(ACTIVE_CLASS)
+          if ($t.hasClass(ACTIVE_CLASS)) {
+            $FILTER_TABS.removeClass(ACTIVE_CLASS)
 
-          $.each(pointsDataNoDistrictSort, function (_, el) {
-            $.each(el.type, function (_, type) {
-              if (type === filter) {
-                if ($CURRENT_OPTION.attr('data-district') === el.district) {
-                  pointsDataTypeSort.push(el)
-                } else {
-                  pointsDataTypeSort.push(el)
-                }
+            $.each(pointsDataNoDistrictSort, function (_, el) {
+              if (
+                $CURRENT_OPTION.attr('data-district') === el.district ||
+                $CURRENT_OPTION.attr('data-district') === 'all'
+              ) {
+                pointsDataTypeSort.push(el)
               }
             })
-          })
+          } else {
+            $FILTER_TABS.removeClass(ACTIVE_CLASS)
+            $t.addClass(ACTIVE_CLASS)
+
+            $.each(pointsDataNoDistrictSort, function (_, el) {
+              $.each(el.type, function (_, type) {
+                if (type === filter) {
+                  if (
+                    $CURRENT_OPTION.attr('data-district') === el.district ||
+                    $CURRENT_OPTION.attr('data-district') === 'all'
+                  ) {
+                    pointsDataTypeSort.push(el)
+                  }
+                }
+              })
+            })
+          }
 
           filterPoints(map, marker, pointsDataTypeSort)
-          pointsSlider.slideTo(0, 200)
         })
       }
 
@@ -370,7 +243,19 @@ export const buyFunctions = () => {
           const district = $t.attr('data-district')
 
           if (district === 'all') {
-            filterPoints(map, marker, pointsDataNoDistrictSort)
+            $.each(pointsDataNoDistrictSort, function (_, el) {
+              if (!!activeFilterTab) {
+                $.each(el.type, function (_, typeEl) {
+                  if (typeEl === activeFilterTab) {
+                    pointsDataDistrictSort.push(el)
+                  }
+                })
+              } else {
+                pointsDataDistrictSort.push(el)
+              }
+            })
+
+            filterPoints(map, marker, pointsDataDistrictSort)
           } else {
             $.each(pointsDataNoDistrictSort, function (_, el) {
               if (district === el.district) {
@@ -388,6 +273,8 @@ export const buyFunctions = () => {
 
             filterPoints(map, marker, pointsDataDistrictSort)
           }
+
+          $CURRENT_OPTION.attr('data-district', district)
 
           pointsSlider.slideTo(0, 200)
         })
@@ -416,13 +303,8 @@ export const buyFunctions = () => {
         controlFunctions(map)
         filterByTypeTabPress(map, marker)
         filterByDistrictSelectPress(map, marker)
-        // addressInputWithDropdownFns(marker, map)
         filterPoints(map, marker)
-
-        $SUBMIT_BTN.on('click', function () {
-          // getCoordsByAddressInput(marker, map)
-          // filterPoints(map, marker)
-        })
+        onInputFns(marker, map)
       })
     }
 
@@ -439,7 +321,6 @@ export const buyFunctions = () => {
             const { geo_lat, geo_lon } = result.data.data
             yaMaps(geo_lat, geo_lon)
           } else {
-            console.log('weqe')
             yaMaps()
           }
         },

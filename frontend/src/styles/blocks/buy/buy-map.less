@@ -1,11 +1,17 @@
 @import 'descriptions';
 
 .buy-map {
-
   &__geo {
-    .square(32);
     position: relative;
     cursor: pointer;
+    z-index: 1;
+
+    svg {
+      .absX-alignment();
+      .width-height(34, 42);
+      bottom: 0;
+      max-width: unset;
+    }
   }
 
   &__point {
