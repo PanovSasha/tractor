@@ -8,6 +8,7 @@ import { renderPointsToMap } from './buyRenderFns'
 import { isEnterPressed } from '../../lib/utils'
 
 const $BUY_SHELL = $('.js-buy')
+const FORM_TYPE = $BUY_SHELL.attr('data-buy-type')
 
 const $CITY_INPUT = $BUY_SHELL.find('.js-buy-actions-filters-input')
 const $CITY_INPUT_PLACEHOLDER = $BUY_SHELL.find('.js-input-placeholder')
@@ -182,6 +183,10 @@ export const buyFunctions = () => {
       }
 
       const filterPoints = (map, marker, points = pointsDataNoDistrictSort) => {
+        // FORM_TYPE
+        const activeTypeTab = $('.js-buy-actions-types-btn.active').attr('data-action-type') || 'none'
+        const activeSelectOption = $CURRENT_OPTION.attr('data-district')
+
         renderPointsToMap(points, map, marker, YMapMarker)
       }
 
