@@ -170,118 +170,70 @@ export const buyFunctions = () => {
 
       const onInputFns = (marker, map) => {
         $SUBMIT_BTN.on('click', function () {
-          getCoordsByAddressInput(marker, map)
           filterPoints(map, marker)
         })
 
         $CITY_INPUT.on('keyup', (event) => {
           if (isEnterPressed(event)) {
-            getCoordsByAddressInput(marker, map)
             filterPoints(map, marker)
           }
         })
       }
 
-      const filterPoints = (map, marker, points = pointsDataNoDistrictSort) => {
-        // FORM_TYPE
+      const filterPoints = (map, marker) => {
         const activeTypeTab = $('.js-buy-actions-types-btn.active').attr('data-action-type') || 'none'
         const activeSelectOption = $CURRENT_OPTION.attr('data-district')
 
-        renderPointsToMap(points, map, marker, YMapMarker)
+        let pointsSort = []
+
+        $.each(pointsDataNoDistrictSort, function (_, el) {
+          if ($FILTER_TABS.hasClass(ACTIVE_CLASS)) {
+            $.each(el.type, function (_, type) {
+              if ((el.district === activeSelectOption || activeSelectOption === 'all') && type === activeTypeTab) {
+                pointsSort.push(el)
+              }
+            })
+          } else {
+            if (FORM_TYPE === 'service' && (el.district === activeSelectOption || activeSelectOption === 'all')) {
+              $.each(el.type, function (_, type) {
+                if (type === 'service') {
+                  pointsSort.push(el)
+                }
+              })
+            } else {
+              if (el.district === activeSelectOption || activeSelectOption === 'all') {
+                pointsSort.push(el)
+              }
+            }
+          }
+        })
+
+        renderPointsToMap(pointsSort, map, marker, YMapMarker)
+        pointsSlider.slideTo(0, 200)
       }
 
       const filterByTypeTabPress = (map, marker) => {
         $FILTER_TABS.on('click', function () {
           const $t = $(this)
 
-          let pointsDataTypeSort = []
-          const filter = $t.attr('data-action-type')
-
           if ($t.hasClass(ACTIVE_CLASS)) {
             $FILTER_TABS.removeClass(ACTIVE_CLASS)
-
-            $.each(pointsDataNoDistrictSort, function (_, el) {
-              if (
-                $CURRENT_OPTION.attr('data-district') === el.district ||
-                $CURRENT_OPTION.attr('data-district') === 'all'
-              ) {
-                pointsDataTypeSort.push(el)
-              }
-            })
           } else {
             $FILTER_TABS.removeClass(ACTIVE_CLASS)
             $t.addClass(ACTIVE_CLASS)
-
-            $.each(pointsDataNoDistrictSort, function (_, el) {
-              $.each(el.type, function (_, type) {
-                if (type === filter) {
-                  if (
-                    $CURRENT_OPTION.attr('data-district') === el.district ||
-                    $CURRENT_OPTION.attr('data-district') === 'all'
-                  ) {
-                    pointsDataTypeSort.push(el)
-                  }
-                }
-              })
-            })
           }
 
-          filterPoints(map, marker, pointsDataTypeSort)
+          filterPoints(map, marker)
         })
       }
 
       const filterByDistrictSelectPress = (map, marker) => {
         $OPTIONS.on('click', function () {
-          let pointsDataDistrictSort = []
-
-          let activeFilterTab
-
-          $.each($FILTER_TABS, function (_, el) {
-            const $el = $(el)
-
-            if ($el.hasClass(ACTIVE_CLASS)) {
-              activeFilterTab = $el.attr('data-action-type')
-            }
-          })
-
           const $t = $(this)
           const district = $t.attr('data-district')
 
-          if (district === 'all') {
-            $.each(pointsDataNoDistrictSort, function (_, el) {
-              if (!!activeFilterTab) {
-                $.each(el.type, function (_, typeEl) {
-                  if (typeEl === activeFilterTab) {
-                    pointsDataDistrictSort.push(el)
-                  }
-                })
-              } else {
-                pointsDataDistrictSort.push(el)
-              }
-            })
-
-            filterPoints(map, marker, pointsDataDistrictSort)
-          } else {
-            $.each(pointsDataNoDistrictSort, function (_, el) {
-              if (district === el.district) {
-                if (!!activeFilterTab) {
-                  $.each(el.type, function (_, typeEl) {
-                    if (typeEl === activeFilterTab) {
-                      pointsDataDistrictSort.push(el)
-                    }
-                  })
-                } else {
-                  pointsDataDistrictSort.push(el)
-                }
-              }
-            })
-
-            filterPoints(map, marker, pointsDataDistrictSort)
-          }
-
           $CURRENT_OPTION.attr('data-district', district)
-
-          pointsSlider.slideTo(0, 200)
+          filterPoints(map, marker)
         })
       }
 

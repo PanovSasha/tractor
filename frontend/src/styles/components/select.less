@@ -6,6 +6,10 @@
   width: 100%;
   flex: none;
 
+  &.disabled, &.disable {
+    pointer-events: none;
+  }
+
   &__current-btn-container {
     position: relative;
   }
@@ -19,7 +23,32 @@
     .transition(color);
     border: 1px solid @border-primary;
     width: 100%;
+    position: relative;
     padding: 12px @offset16;
+
+    &::after {
+      .absY-alignment();
+      .width-height(20, 20);
+      .transition(rotate);
+      right: @offset16;
+      content: "";
+      transform-origin: top center;
+      background: url("/assets/svg/icons/arrow-down.svg") center center /  20px 20px no-repeat;
+    }
+
+    .select.open &:after {
+      rotate: -180deg;
+    }
+
+    .select.disable &, .select.disabled & {
+      background-color: @bg-disabled;
+      color: @text-disabled;
+      border-color: transparent;
+
+      &::after {
+        opacity: 0.4;
+      }
+    }
   }
 
   &__options {
