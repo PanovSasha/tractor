@@ -4,12 +4,30 @@
   &__shell {
     display: grid;
     grid-template-columns: auto 1fr;
-    align-items: start;
     gap: @offset12;
 
     @media @tablet {
       .f-column(40);
       flex-direction: column-reverse;
+    }
+
+    &--with-slider {
+      grid-template-areas: 'aside body'
+                           'slider slider';
+
+      @media @tablet {
+        display: grid;
+        gap: @offset40 0;
+        grid-template-areas: 'body'
+                             'slider'
+                             'aside';
+      }
+    }
+  }
+
+  &__aside-shell {
+    .detail__shell--with-slider & {
+      grid-area: aside;
     }
   }
 
@@ -40,18 +58,17 @@
   &__aside-mail {
   }
 
-  &__body, & {
-    h1 {
-      .h2();
-      margin-bottom: @offset64;
+  &__body {
+    min-width: 0;
+    width: 100%;
 
-      @media @tablet {
-        margin-bottom: @offset40;
-      }
+    .detail__shell--with-slider & {
+      grid-area: body;
     }
+  }
 
-    h2 {
-      .h4();
+  &__body, & {
+    h2, h3, h4, h5, h6 {
       margin-block: @offset64 @offset32;
 
       @media @tablet {
@@ -63,8 +80,50 @@
       }
     }
 
+    h1 {
+      .h2();
+      margin-bottom: @offset64;
+
+      @media @tablet {
+        margin-bottom: @offset40;
+      }
+    }
+
+    h2 {
+      .h4();
+    }
+
+    h3 {
+      .h5();
+    }
+
+    h4 {
+      .h6();
+    }
+
     ol, ul {
       .f-column(16);
+
+      li {
+        .f-column(16);
+      }
+    }
+
+    ol {
+      counter-reset: listitems;
+
+      li {
+        position: relative;
+        padding-left: @offset20;
+
+        &::before {
+          position: absolute;
+          left: 0;
+          top: 0;
+          content: counter(listitems) '. ';
+          counter-increment: listitems;
+        }
+      }
     }
 
     ul {
@@ -79,6 +138,50 @@
           left: 8px;
         }
       }
+    }
+
+    p, b, i, q {
+      margin-top: @offset32;
+
+      @media @tablet {
+        margin-top: @offset24;
+      }
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    img {
+      margin-top: @offset64;
+
+      @media @tablet {
+        margin-top: @offset40;
+      }
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+
+    q {
+      background: @bg-secondary;
+      border-left: 4px solid @border-brand;
+      display: block;
+      padding: @offset24 @offset24 @offset24 @offset20;
+
+      @media @tablet {
+        padding: @offset16 @offset16 @offset16 @offset12;
+      }
+
+      &::before, &::after {
+        content: none;
+      }
+    }
+
+    i {
+      display: block;
     }
   }
 }
