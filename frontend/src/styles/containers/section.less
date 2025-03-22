@@ -116,13 +116,22 @@
   &__title {
     .h2();
 
+    @media @m-mobile {
+      .fs24-24();
+    }
+
     &.h1 {
       .h1();
+
+      @media @m-mobile {
+        .fs28-28();
+      }
     }
   }
 
   &__subtitle {
     .p1();
+    .f-column(16);
     color: @text-secondary;
     width: 345px;
     margin-inline: 20px 10%;
@@ -146,6 +155,11 @@
         margin-left: 0;
       }
     }
+  }
+
+  &__subtitle-link {
+    .h5();
+    color: @black;
   }
 
   &__content {
