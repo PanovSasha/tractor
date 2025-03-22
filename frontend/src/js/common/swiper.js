@@ -35,8 +35,8 @@ export const swiperFunctions = () => {
         disableOnInteraction: false,
       },
       freeMode: true,
-      speed: 5000,
       freeModeMomentum: false,
+      speed: 5000,
     })
   }
 
@@ -45,9 +45,7 @@ export const swiperFunctions = () => {
       spaceBetween: 0,
       mousewheel: true,
       slidesPerView: 'auto',
-      freeMode: {
-        enabled: true,
-      },
+      freeMode: true,
       speed: 100,
     })
 

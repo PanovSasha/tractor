@@ -56,6 +56,36 @@
   }
 }
 
+.accessibility-link() {
+  .transition(color);
+  .transition(box-shadow);
+  .transition(opacity);
+  .h8();
+
+  &:hover {
+    .disable& {
+      opacity: unset;
+      pointer-events: none;
+    }
+  }
+
+  &:active {
+    .disable& {
+      opacity: unset;
+      pointer-events: none;
+    }
+  }
+
+  &:focus-visible {
+    .radius(8);
+    box-shadow: 0 0 0 1px @black;
+
+    .disable& {
+      box-shadow: unset;
+    }
+  }
+}
+
 .abs-alignment() {
   .offset();
   position: absolute;
