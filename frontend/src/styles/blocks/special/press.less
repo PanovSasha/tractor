@@ -40,7 +40,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: @offset64;
   }
 
   &__news {
@@ -56,6 +55,37 @@
     @media @s-tablet {
       gap: @offset32;
       grid-template-columns: 1fr;
+    }
+
+    &.hide {
+      display: none;
+    }
+  }
+
+  &__news-no-result {
+    display: none;
+
+    &.show {
+      .smooth-show(flex);
+      flex-direction: column;
+      gap: @offset12;
+      align-self: start;
+    }
+  }
+
+  &__news-no-result-subtitle {
+    color: @text-tertiary;
+  }
+
+  &__news-next-page-btn {
+    margin-top: @offset64;
+
+    @media @tablet {
+      margin-top: @offset32;
+    }
+
+    &.hide {
+      display: none;
     }
   }
 }

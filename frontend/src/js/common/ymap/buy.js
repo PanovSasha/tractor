@@ -186,6 +186,8 @@ export const buyFunctions = () => {
 
         let pointsSort = []
 
+        // http://x92617p0.beget.tech/api/v1/dealers
+
         $.each(pointsDataNoDistrictSort, function (_, el) {
           if ($FILTER_TABS.hasClass(ACTIVE_CLASS)) {
             $.each(el.type, function (_, type) {
