@@ -4,6 +4,8 @@ import 'suggestions-jquery/less/suggestions.less'
 import 'swiper/css/bundle'
 import '../styles/styles.less'
 
+import './common/share'
+
 import 'paginationjs/dist/pagination.min'
 import './common/swiper.js'
 import './ui/icons'
