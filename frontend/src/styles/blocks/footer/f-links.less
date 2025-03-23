@@ -49,9 +49,15 @@
     @media @tablet {
       margin-bottom: @offset32;
     }
-    
-    .detail__aside & {
+
+    .detail__aside &, .contacts__descr & {
       margin-bottom: 0;
+    }
+
+    .contacts__descr & {
+      @media @tablet {
+        margin-top: @offset24;
+      }
     }
   }
 
@@ -63,6 +69,14 @@
 
     &:hover {
       scale: 1.04;
+    }
+
+    .contacts__descr & {
+      .circle(56);
+    }
+
+    .detail__aside & {
+      .circle(52);
     }
   }
 

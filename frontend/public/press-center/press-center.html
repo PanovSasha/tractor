@@ -570,7 +570,7 @@
             <div
               class="select__current-btn-container js-select-current-btn-container">
               <button
-                data-month="none"
+                data-month="0"
                 class="select__current-btn js-select-current-btn"
                 type="button">
                 Месяц
@@ -578,12 +578,17 @@
             </div>
             
             <div class="select__options">
-              <button type="button" data-id="0" data-month="1"
+              <button type="button" data-id="0" data-month="0"
+                      class="select__option js-select-option">
+                Весь год
+              </button>
+              
+              <button type="button" data-id="1" data-month="1"
                       class="select__option js-select-option">
                 Январь
               </button>
               
-              <button type="button" data-id="1" data-month="2"
+              <button type="button" data-id="2" data-month="2"
                       class="select__option js-select-option">
                 Ферваль
               </button>
@@ -593,6 +598,7 @@
                     class="select__native js-select-native-select"
                     name="type">
               <option value="0">1</option>
+              <option value="1">2</option>
               <option value="1">2</option>
             </select>
           </div>

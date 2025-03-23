@@ -165,6 +165,7 @@ export const swiperFunctions = () => {
         const $t = $(this)
 
         const slideIndex = $t.attr('aria-label').split('/')[0]
+        galleryOverlaySlider.update()
         galleryOverlaySlider.slideTo(slideIndex, 1)
       })
     }

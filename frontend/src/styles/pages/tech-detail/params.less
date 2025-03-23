@@ -57,10 +57,6 @@
     }
   }
 
-  &__accord {
-
-  }
-
   &__accord-title {
     .f-between(24);
     .h6();
@@ -72,7 +68,6 @@
       padding: 15px @offset12;
     }
   }
-
 
   &__accord-btn {
     .abs-alignment();
@@ -123,6 +118,23 @@
     &:last-child {
       border-bottom: none;
     }
+
+    .params__accord--contacts & {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      @media @l-mobile {
+        .f-column(5);
+        align-items: start;
+      }
+
+      &--no-column {
+        @media @l-mobile {
+          display: grid;
+          grid-template-columns: repeat(2, auto);
+        }
+      }
+    }
   }
 
   &__accord-body-row-name {
@@ -136,6 +148,19 @@
 
   &__accord-body-row-value {
     .h7();
+    .f-column();
     text-align: right;
+
+    .params__accord--contacts & {
+      text-align: left;
+
+      & * {
+        max-width: max-content;
+      }
+
+      & .p1 {
+        font-weight: 400;
+      }
+    }
   }
 }

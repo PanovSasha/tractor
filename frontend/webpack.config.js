@@ -358,11 +358,11 @@ if (IS_DEV) {
         changeOrigin: true,
       },
 
-      // '/upload': {
-      //   target: 'http://moidom.xyz',
-      //   secure: false,
-      //   changeOrigin: true,
-      // },
+      '/upload': {
+        target: 'http://x92617p0.beget.tech',
+        secure: false,
+        changeOrigin: true,
+      },
     },
   }
 }

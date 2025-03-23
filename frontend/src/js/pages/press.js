@@ -16,11 +16,11 @@ export const pressFns = () => {
   const $PRESS_INPUT_SUBMIT_BTN = $PRESS.find('.js-input-search-btn')
 
   const $PRESS_SELECT_YEARS = $PRESS.find('.js-press-filters-select-year')
-  const $PRESS_SELECT_YEARS_CURRENT_BTN = $PRESS.find('.js-select-current-btn')
+  const $PRESS_SELECT_YEARS_CURRENT_BTN = $PRESS_SELECT_YEARS.find('.js-select-current-btn')
   const $PRESS_SELECT_YEARS_OPTIONS = $PRESS_SELECT_YEARS.find('.js-select-option')
 
   const $PRESS_SELECT_MONTH = $PRESS.find('.js-press-filters-select-month')
-  const $PRESS_SELECT_MONTH_CURRENT_BTN = $PRESS.find('.js-select-current-btn')
+  const $PRESS_SELECT_MONTH_CURRENT_BTN = $PRESS_SELECT_MONTH.find('.js-select-current-btn')
   const $PRESS_SELECT_MONTH_OPTIONS = $PRESS_SELECT_MONTH.find('.js-select-option')
 
   const renderNews = (items, page) => {
@@ -31,7 +31,7 @@ export const pressFns = () => {
     $.each(items, function (_, el) {
       const { activeFrom, name, previewPicture, url } = el
 
-      const preview = previewPicture.length ? previewPicture : '/assets/img/prev-news.webp'
+      const preview = previewPicture?.src ? previewPicture.src : '/assets/img/prev-news.webp'
 
       $NEWS.append(`
           <a
@@ -119,6 +119,8 @@ export const pressFns = () => {
       const $t = $(this)
 
       $PRESS_SELECT_YEARS_CURRENT_BTN.attr('data-year', $t.attr('data-year'))
+      $PRESS_SELECT_MONTH_CURRENT_BTN.attr('data-month', 0)
+      $PRESS_SELECT_MONTH_CURRENT_BTN.text('Месяц')
 
       $PRESS_SELECT_YEARS_CURRENT_BTN.attr('data-year') === '0'
         ? $PRESS_SELECT_MONTH.addClass(DISABLE_CLASS)
