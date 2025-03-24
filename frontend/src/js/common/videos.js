@@ -1,42 +1,42 @@
 export const videosFns = () => {
   // autoplay, playsinline (чтобы не на всю страницу на МС), poster="*.jpg"
-  const $videoShell = $('.js-videos-item-shell')
+  const $VIDEO_SHELL = $('.js-videos-item-shell')
+  const $VIDEOS_LAY_ITEM = $('.js-videos-lay-item')
 
-  $.each($videoShell, function (_, el) {
+  $.each($VIDEO_SHELL, function (_, el) {
+    const copyVideoToOverlayShell = () => {
+      const $videoEl = $($videoFileCopy[0])
+
+      $VIDEOS_LAY_ITEM.text('').append($videoFileCopy)
+
+      if ($videoFile[0].outerHTML.toLowerCase().includes('iframe')) {
+        if ($videoEl.attr('src').toLowerCase().includes('rutube')) {
+          $videoFile[0].contentWindow.postMessage(
+            JSON.stringify({
+              type: 'player:play',
+              data: {},
+            }),
+            '*'
+          )
+        }
+      }
+
+      if ($videoFileCopy[0].outerHTML.toLowerCase().includes('<video')) {
+        $videoEl.attr('controls', true).attr('autoplay', true)
+      }
+    }
+
     const openVideoOverlay = () => {
-      $video.on('click', function () {})
+      $btn.on('click', function () {
+        copyVideoToOverlayShell()
+      })
     }
 
     const $el = $(el)
-    const $video = $el.find('.js-videos-item')
     const $btn = $el.find('.js-videos-item-btn')
+    const $videoFile = $el.find('.videos__item-video')
+    const $videoFileCopy = $videoFile.clone().removeClass().addClass('videos-lay__item-video')
 
     openVideoOverlay()
-
-    // if (overlayVal === 'video') {
-    //   const $video = $btn.find('.youtube__picture-img').clone()
-    //   console.log($video[0].nodeName.toLowerCase())
-    //
-    //   $video
-    //     .attr('autoplay', 'true')
-    //     .attr('controls', 'true')
-    //     .addClass('overlay-video__source')
-    //     .removeClass('picture__img youtube__picture-img')
-    //
-    //   $videoShell.append($video).append(`
-    //       <button class="btn overlay-video__close-btn js-overlay-video-close-btn">
-    //       </button>
-    //     `)
-    //
-    //   if ($video[0].nodeName.toLowerCase() === 'iframe') {
-    //     $videoShell.addClass('iframe-class')
-    //   } else {
-    //     $videoShell.removeClass('iframe-class')
-    //   }
-    //
-    //   $('.js-overlay-video-close-btn').on('click', function () {
-    //     closeOverlay()
-    //   })
-    // }
   })
 }

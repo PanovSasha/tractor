@@ -896,14 +896,14 @@
           
           <div class="buy-actions__types">
             <button
-              data-action-type="equip"
+              data-action-type="e4131f859779923526ce0fc4a1e55cd0"
               class="btn btn--primary-inv btn--s-size buy-actions__types-btn js-buy-actions-types-btn"
               type="button">
               Техника
             </button>
             
             <button
-              data-action-type="service"
+              data-action-type="abd526f075a324cdd3f4da129a915474"
               class="btn btn--primary-inv btn--s-size buy-actions__types-btn js-buy-actions-types-btn"
               type="button">
               Сервисное обслуживание
@@ -940,10 +940,9 @@
             <div class="select js-select js-buy-actions-filters-select">
               <div
                 class="select__current-btn-container js-select-current-btn-container">
-                <button
-                  data-district="all"
-                  class="select__current-btn js-select-current-btn"
-                  type="button">
+                <button data-district="all"
+                        class="select__current-btn js-select-current-btn"
+                        type="button">
                   Выберите округ
                 </button>
               </div>
@@ -953,50 +952,50 @@
                         class="select__option js-select-option">
                   Все округа
                 </button>
-                
-                <button type="button" data-id="1" data-district="cefd"
-                        class="select__option js-select-option">
-                  Центральный федеральный округ
-                </button>
-                
-                <button type="button" data-id="2" data-district="vofd"
-                        class="select__option js-select-option">
-                  Приволжский федеральный округ
-                </button>
-                
-                <button type="button" data-id="3" data-district="nwfd"
-                        class="select__option js-select-option">
-                  Северо-западный федеральный округ
-                </button>
-                
-                <button type="button" data-id="4" data-district="urfd"
-                        class="select__option js-select-option">
-                  Уральский федеральный округ
-                </button>
-                
-                <button type="button" data-id="5" data-district="sofd"
+                <button type="button" data-id="9"
+                        data-district="04353eefb5fe08d25ba069d1b587826a"
                         class="select__option js-select-option">
                   Южный федеральный округ
                 </button>
-                
-                <button type="button" data-id="6" data-district="sifd"
+                <button type="button" data-id="3"
+                        data-district="274f5d777d93cab5f9abd8c6c48f4ff1"
                         class="select__option js-select-option">
-                  Сибирский федеральный округ
+                  Центральный федеральный округ
                 </button>
-                
-                <button type="button" data-id="7" data-district="fefd"
+                <button type="button" data-id="7"
+                        data-district="3439afef7244f1f4ebcd6083eb134ddf"
+                        class="select__option js-select-option">
+                  Уральский федеральный округ
+                </button>
+                <button type="button" data-id="4"
+                        data-district="39366bf4f18e7a902e4556ff8b026a05"
+                        class="select__option js-select-option">
+                  Приволжский федеральный округ
+                </button>
+                <button type="button" data-id="10"
+                        data-district="48d873f6db42a5836be59133c56aea0a"
+                        class="select__option js-select-option">
+                  Белоруссия
+                </button>
+                <button type="button" data-id="6"
+                        data-district="8bcf128a47d89925bb15afe0b43e9921"
+                        class="select__option js-select-option">
+                  Сибирский и Дальневосточный федеральные округа
+                </button>
+                <button type="button" data-id="8"
+                        data-district="977623d37a5689aab7d67f07d70844f0"
                         class="select__option js-select-option">
                   Дальневосточный федеральный округ
                 </button>
-                
-                <button type="button" data-id="8" data-district="belo"
-                        class="select__option js-select-option">
-                  Белорусь
-                </button>
-                
-                <button type="button" data-id="9" data-district="kaza"
+                <button type="button" data-id="11"
+                        data-district="b62a07b4f103b1320b39701e0c4c182d"
                         class="select__option js-select-option">
                   Казахстан
+                </button>
+                <button type="button" data-id="5"
+                        data-district="c3554af68eb23179dfabb8b96d510fdd"
+                        class="select__option js-select-option">
+                  Северо-западный федеральный округ
                 </button>
               </div>
               
@@ -1004,15 +1003,15 @@
                       class="select__native js-select-native-select"
                       name="type">
                 <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
                 <option value="9">9</option>
+                <option value="3">3</option>
+                <option value="7">7</option>
+                <option value="4">4</option>
+                <option value="10">10</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="11">11</option>
+                <option value="5">5</option>
               </select>
             </div>
           </div>
@@ -1086,7 +1085,7 @@
           <div class="videos">
             <div class="videos__item-shell js-videos-item-shell">
               <div
-                class="videos__item  picture js-videos-item">
+                class="videos__item videos__item--with-preview videos__item--with-play-icon picture js-videos-item">
                 <iframe
                   data-iframe="true"
                   class="picture__img videos__item-video"
@@ -1095,6 +1094,16 @@
                   webkitAllowFullScreen
                   mozallowfullscreen
                   allowFullScreen></iframe>
+                
+                <img
+                  class="picture__img videos__item-preview"
+                  loading="lazy" src="/assets/img/news/news-preview2.webp"
+                  alt="">
+                
+                <svg
+                  class="icon icon--24 videos__item-video-play-icon">
+                  <use xlink:href="/assets/sprite/sprite.svg#play"></use>
+                </svg>
               </div>
               
               <h3 class="h6 videos__item-title">
@@ -1679,8 +1688,8 @@
   </div>
   
   <div data-overlay="videos"
-       class="videos-lay overlay__item js-overlay-item">
-    <div class="videos-lay__item"></div>
+       class="videos-lay overlay__item js-overlay-item js-videos-lay">
+    <div class="videos-lay__item js-videos-lay-item"></div>
     
     <button
       class="videos-lay__close-btn overlay__close-btn js-overlay-close-btn">

@@ -25,7 +25,7 @@ export const pointFunctions = (el, i) => {
 }
 
 export const renderPoint = (el, map, i, YMapMarker) => {
-  const [latitude, longitude] = el.coords
+  const [latitude, longitude] = el.coordinates
 
   const point = document.createElement('div')
   point.className = `buy-map__point js-buy-map-point js-buy-map-point-${i}`
@@ -39,6 +39,7 @@ export const renderPoint = (el, map, i, YMapMarker) => {
     })
 
     pointsSlider.slideTo(i, 1)
+    $('.buy-actions__point').removeClass(ACTIVE_CLASS)
     $('.buy-actions__point.swiper-slide-active').addClass(ACTIVE_CLASS)
 
     if ($WINDOW.width() < TABLET_WIDTH) {
@@ -65,40 +66,27 @@ export const renderNearList = (points, map) => {
       let str = ''
 
       $.each(type, function (i, el) {
-        let elStr = ''
-
-        switch (el) {
-          case 'equip':
-            elStr = 'Техника и оборудование'
-            break
-          case 'service':
-            elStr = 'Сервисное обслуживание'
-            break
-          default:
-            elStr = 'Техника и оборудование'
-        }
-
         if (i === 0) {
-          str = elStr
+          str = el
         } else {
-          str = str + ` / ${elStr}`
+          str = str + ` / ${el}`
         }
       })
 
       return str
     }
 
-    const renderPhones = (phones) => {
+    const renderPhones = (phones, formattedPhone) => {
       let phonesStr = ''
 
-      $.each(phones, function (_, el) {
+      $.each(phones, function (i, el) {
         if (el !== '') {
           phonesStr =
             phonesStr +
             `
                    <a
                     class="btn btn--primary buy-actions__point-phone"
-                    href="tel:${el}">${el}</a>
+                    href="tel:${el}">${formattedPhone[i]}</a>
                 `
         }
       })
@@ -141,19 +129,19 @@ export const renderNearList = (points, map) => {
     $.each(points, function (_, el) {
       const { elem } = el
 
-      const { name, type, phone, address, site, mail, coords } = elem
+      const { name, typeText, phone, formattedPhone, address, site, mail, coordinates } = elem
 
       pointsStr =
         pointsStr +
         `
                   <div 
-                  data-latitude="${coords[0]}" 
-                  data-longitude="${coords[1]}"
+                  data-latitude="${coordinates[0]}" 
+                  data-longitude="${coordinates[1]}"
                   class="buy-actions__point swiper-slide js-buy-actions-point">
            
                    
               <p class="buy-actions__point-type">
-                ${renderType(type)}
+                ${renderType(typeText)}
               </p>
               
               <h3 class="buy-actions__point-name">
@@ -171,7 +159,7 @@ export const renderNearList = (points, map) => {
               <div class="buy-actions__point-contacts">
                 ${renderSite(site)}
 
-                  ${renderPhones(phone)}
+                  ${renderPhones(phone, formattedPhone)}
               </div>
             </div>
             `
@@ -236,7 +224,7 @@ export const renderPointsToMap = (data, map, marker, YMapMarker) => {
     let rightTop = []
 
     $.each(data, function (i, elem) {
-      const [latitude, longitude] = elem.coords
+      const [latitude, longitude] = elem.coordinates
 
       const distance = distanceBetweenPoints(coordsGeoPoint[1], coordsGeoPoint[0], latitude, longitude)
 
@@ -271,8 +259,8 @@ export const renderPointsToMap = (data, map, marker, YMapMarker) => {
 
     sortedPointsByDistance.length = sortedPointsByDistanceLength
 
-    leftBottom = [sortedPointsByDistance[0].elem.coords[1], sortedPointsByDistance[0].elem.coords[0]]
-    rightTop = [sortedPointsByDistance[0].elem.coords[1], sortedPointsByDistance[0].elem.coords[0]]
+    leftBottom = [sortedPointsByDistance[0].elem.coordinates[1], sortedPointsByDistance[0].elem.coordinates[0]]
+    rightTop = [sortedPointsByDistance[0].elem.coordinates[1], sortedPointsByDistance[0].elem.coordinates[0]]
 
     $.each(sortedPointsByDistance, function (i, el) {
       const { longitude, latitude } = el

@@ -66,9 +66,26 @@
     padding: @offset8;
     max-height: 204px;
     display: none;
+    scrollbar-gutter: stable;
 
     @media @large-than-tablet {
-      .hide-scrollbar();
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-button {
+        display: none;
+      }
     }
 
     .select.open & {

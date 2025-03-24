@@ -71,4 +71,12 @@
   &__item-title {
     padding-inline: @offset8;
   }
+
+  &__item-preview {
+    display: none;
+
+    .videos__item--with-preview & {
+      display: block;
+    }
+  }
 }
