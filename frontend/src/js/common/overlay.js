@@ -5,11 +5,11 @@ export function overlaysFunctions() {
   const $overlay = $('.js-overlay')
   const $overlayItems = $('.js-overlay-item')
   const $BTNS = $('.js-show-overlay-btn')
-  const $videoShell = $('.js-overlay-video-shell')
+  const $videoShell = $('.js-videos-lay-item')
 
   const closeOverlay = () => {
     $BODY.removeClass(BODY_LOCK_CLASS)
-    $videoShell.text('')
+    $videoShell.html('')
     $overlay.removeClass(SHOW_CLASS)
     $overlayItems.removeClass(SHOW_CLASS)
   }
