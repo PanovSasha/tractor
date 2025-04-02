@@ -39,11 +39,20 @@
         }
       }
     }
+
+    .detail__body & {
+      width: 100%;
+
+      &:hover {
+        color: initial;
+      }
+    }
   }
 
   &__picture {
     .transition(scale, .13s);
     .aspect-ratio(345, 229);
+    margin-bottom: 15px;
 
     @media @tablet {
       .aspect-ratio(343, 228);
@@ -63,16 +72,24 @@
       }
     }
 
-    margin-bottom: 15px;
+    .detail__body & {
+      .aspect-ratio(940, 443);
+    }
   }
 
   &__date {
-    .p3(600);
-    color: @text-tertiary;
-    margin-bottom: @offset12;
+    .detail__body &, &p {
+      .p3(600);
+      color: @text-tertiary;
+      margin-block: 0 @offset12;
+    }
   }
 
   &__title {
     .h6();
+
+    .detail__body &, & {
+      margin-block: 0;
+    }
   }
 }

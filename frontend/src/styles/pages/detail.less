@@ -51,8 +51,11 @@
   }
 
   &__aside-phone {
-    .h5();
-    margin-bottom: @offset24;
+    .detail a&, .detail & {
+      .h5();
+      font-weight: 600;
+      margin-bottom: @offset24;
+    }
   }
 
   &__aside-mail {
@@ -61,6 +64,11 @@
   &__body {
     min-width: 0;
     width: 100%;
+    padding-right: 20%;
+
+    @media @tablet {
+      padding-right: 0;
+    }
 
     .detail__shell--with-slider & {
       grid-area: body;
@@ -114,7 +122,6 @@
       }
 
       li {
-        .f-column(16);
       }
     }
 
@@ -213,5 +220,11 @@
       .accessibility-link();
       .p1();
     }
+
+    b a {
+      font-weight: 700;
+    }
   }
 }
+
+
