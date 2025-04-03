@@ -23,6 +23,12 @@
                              'aside';
       }
     }
+
+    .years-slider__slide & {
+      @media @tablet {
+        .f-column(40);
+      }
+    }
   }
 
   &__aside-shell {
@@ -33,13 +39,17 @@
 
   &__aside {
     .f-column();
-    align-items: start;
+    align-items: flex-start;
     min-width: 226px;
     position: sticky;
     top: 80px;
 
     @media @tablet {
       position: static;
+    }
+
+    .years-slider__slide & {
+      max-width: 226px;
     }
   }
 
@@ -48,6 +58,10 @@
     color: @text-tertiary;
     font-weight: 600;
     margin-bottom: @offset16;
+  }
+
+  &__aside-date {
+    .h4();
   }
 
   &__aside-phone {
@@ -72,6 +86,14 @@
 
     .detail__shell--with-slider & {
       grid-area: body;
+    }
+
+    .years-slider__slide & {
+      padding-bottom: 98px;
+
+      @media @tablet {
+        padding-bottom: 60px;
+      }
     }
   }
 

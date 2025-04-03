@@ -163,8 +163,8 @@ export const swiperFunctions = () => {
     const setActiveLaySlideByGallerySlideClick = () => {
       $slides.on('click', function () {
         const $t = $(this)
-
         const slideIndex = $t.attr('aria-label').split('/')[0]
+
         galleryOverlaySlider.update()
         galleryOverlaySlider.slideTo(slideIndex, 1)
       })
@@ -226,10 +226,61 @@ export const swiperFunctions = () => {
     toggleActiveAnchorBySlideChange()
   }
 
+  const yearsSlidersFns = () => {
+    const createYearsThumbs = () => {
+      const $thumbsWrapper = $('.js-years-thumbs-slider-wrapper')
+
+      $.each($('.js-detail-aside-date'), function (_, el) {
+        const $el = $(el)
+        const year = $el.clone().text().match(/\d+/g)
+
+        $thumbsWrapper.append(`
+             <button 
+             type="button"
+              class="btn btn--primary swiper-slide years-thumbs-slider__slide js-years-thumbs-slider-slide">
+              ${year}
+            </button>
+          `)
+      })
+    }
+
+    createYearsThumbs()
+
+    const yearsThumbsSlider = new Swiper('.js-years-thumbs-slider', {
+      spaceBetween: 28,
+      slidesPerView: 'auto',
+      speed: 200,
+      freeMode: true,
+      mousewheel: true,
+    })
+
+    $('.js-years-thumbs-slider-slide').on('click', function () {
+      const $t = $(this)
+      const slideIndex = $t.attr('aria-label').split('/')[0]
+      console.log('clicked')
+
+      yearsThumbsSlider.slideTo(slideIndex - 1, 200)
+    })
+
+    const yearsSlider = new Swiper('.js-years-slider', {
+      spaceBetween: 0,
+      effect: 'fade',
+      slidesPerView: 1,
+      autoHeight: true,
+      speed: 200,
+      thumbs: { swiper: yearsThumbsSlider },
+      navigation: {
+        prevEl: '.js-years-btn-prev',
+        nextEl: '.js-years-btn-next',
+      },
+    })
+  }
+
   partitionSliderFns()
   partnersSliderFns()
   navPageSliderFns()
   gallerySliderFns()
+  yearsSlidersFns()
   bonusSliderFns()
 }
 

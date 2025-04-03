@@ -2,7 +2,7 @@
 
 .params {
   display: grid;
-  align-items: start;
+  align-items: flex-start;
   gap: 13px;
   grid-template-columns: 583px 1fr;
   grid-template-areas: 'title accord'
@@ -112,7 +112,7 @@
 
     @media @l-mobile {
       .f-column(5);
-      align-items: start;
+      align-items: flex-start;
     }
 
     &:last-child {
@@ -125,7 +125,7 @@
 
       @media @l-mobile {
         .f-column(5);
-        align-items: start;
+        align-items: flex-start;
       }
 
       &--no-column {

@@ -95,17 +95,17 @@
 
   &__title-shell {
     .f-between(16);
-    align-items: end;
+    align-items: flex-end;
     grid-area: title;
 
     @media @tablet {
-      align-items: start;
+      align-items: flex-start;
       flex-direction: column;
     }
 
     &--top-title {
       .f-column(40);
-      align-items: start;
+      align-items: flex-start;
 
       @media @tablet {
         gap: @offset24;
@@ -184,11 +184,11 @@
 
   &__link-btn {
     .h9();
-    align-self: end;
+    align-self: flex-end;
     font-weight: 700;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     gap: @offset8;
     color: @text-brand;
     grid-area: btn;
@@ -206,7 +206,7 @@
 
     .section__shell--top-title-with-link & {
       width: calc(50% - @offset6);
-      justify-content: start;
+      justify-content: flex-start;
       margin-left: auto;
 
       @media @tablet {
