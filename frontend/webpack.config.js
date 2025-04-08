@@ -325,6 +325,14 @@ module.exports = {
         collapseWhitespace: IS_PROD,
       },
     }),
+    new HTMLWebpackPlugin({
+      template: './public/spare-parts.html',
+      inject: 'body',
+      filename: 'spare-parts.html',
+      minify: {
+        collapseWhitespace: IS_PROD,
+      },
+    }),
     new CopyPlugin({
       patterns: [
         { from: './src/assets/favicon', to: './assets/favicon' },

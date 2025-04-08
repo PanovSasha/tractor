@@ -18,6 +18,21 @@
   text-align: left;
   padding: 0;
   margin: 0;
+
+
+  &:focus-visible {
+    outline: 2px solid transparent;
+  }
+
+  &:hover {
+    @media @large-than-tablet {
+      background-color: transparent;
+    }
+  }
+
+  &:active {
+    background-color: transparent;
+  }
 }
 
 .btn-default() {

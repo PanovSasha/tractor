@@ -19,7 +19,7 @@
       gap: @offset16;
       padding: @offset20 0;
     }
-    
+
     &:last-child {
       border: none;
     }
@@ -50,5 +50,25 @@
 
   &__row-data-content {
     .f-column(24);
+  }
+
+  h3 {
+    .h6();
+  }
+
+  a {
+    .h7();
+    .accessibility-link();
+    .Inter();
+    font-weight: 600;
+  }
+
+  p {
+    .p1();
+    color: @text-secondary;
+  }
+
+  b {
+    font-weight: 500;
   }
 }

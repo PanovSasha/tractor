@@ -1,16 +1,7 @@
-// тут пример данных http://moidom.xyz/catalog/
-// url для запроса данных http://moidom.xyz/api/v1/getCatalogList
-// параметры currentPage, filter, sort
-// currentPage это номер страницы для пагинации
-// filter массив с фильтрами
-// sort принимает asc и desc
-// когда будешь записывать в адресную строку фильтр обязательно множественный выбор у параметра указывай со скобками []
-// "Api-Key": "tUKdAP2Gmv/?VyvCI16rAB=UN7yFpQvirTa5Ix21BzP4w6lFfqrSoySJfKVhXCpH"
-
 import 'paginationjs/dist/pagination.min'
 import qs from 'qs'
 
-import { deleteSpinner, morph, renderSpinner } from '../lib/utils'
+import { deleteSpinner, isEnterPressed, morph, renderSpinner } from '../lib/utils'
 import {
   $WINDOW,
   CHECKED_CLASS,
@@ -24,364 +15,340 @@ import {
 
 const $CATALOG = $('.js-catalog')
 
+// Отправить выбранные детали
+// /api/v1/add_order
+// все тоже самое что и с parts
+// принимает параметры в json
+// {
+//   "name": "Иван",
+//   "phone": "56456456456",
+//   "parts": ["90.32.031-01СБ", "20005493AAFG", "100.71.011СБ"]
+// }
+
 export const catalogFns = (data) => {
   if ($CATALOG.length) {
     const $CATALOG_ASIDE = $('.js-catalog-aside')
-    const $CATALOG_RESULT = $CATALOG.find('.js-catalog-result')
-    const $CATALOG_LIST = $CATALOG.find('.js-catalog-result-list')
+    const $CATALOG_RESULT = $CATALOG.find('.js-catalog-results')
+    const $CATALOG_LIST = $CATALOG.find('.js-catalog-results-items')
 
-    const $CATALOG_FILTER_SHELLS = $CATALOG_ASIDE.find('[data-filter-type]')
-    const $CATALOG_FILTER_INPUTS = $CATALOG_FILTER_SHELLS.find('input')
-    const $ASIDE_SHOW_BTN = $CATALOG_ASIDE.find('.js-catalog-aside-open-shell-btn')
-    const $CATALOG_APPLY_FILTER_BTN = $CATALOG_ASIDE.find('.js-aside-filters-apply-btn')
-    const $CATALOG_APPLY_CLEAR_BTN = $CATALOG_ASIDE.find('.js-aside-filters-clear-btn')
+    const $CART = $CATALOG.find('.js-catalog-aside-cart')
+    const $CART_LIST = $CATALOG.find('.js-catalog-aside-cart-list')
+    const $CART_SUM = $CATALOG.find('.js-catalog-aside-cart-sum')
 
-    const $MIN_INPUT = $CATALOG_ASIDE.find('.js-aside-filters-block-input-min')
-    const $MIN_INPUT_ERASE_BTN = $MIN_INPUT.parent().find('.js-input-erase-btn')
-    const $MAX_INPUT = $CATALOG_ASIDE.find('.js-aside-filters-block-input-max')
-    const $MAX_INPUT_ERASE_BTN = $MAX_INPUT.parent().find('.js-input-erase-btn')
+    const $ARTICLE_INPUT = $CATALOG.find('[name="article"]')
+    const $ARTICLE_INPUT_SHELL = $ARTICLE_INPUT.parent('.js-catalog-filters-input-box')
+    const $ARTICLE_INPUT_ERASE_BTN = $ARTICLE_INPUT_SHELL.find('.js-input-erase-btn')
+    const $ARTICLE_INPUT_SEARCH_BTN = $ARTICLE_INPUT_SHELL.find('.js-input-search-btn')
 
-    const $SORT_ASK_BTN = $CATALOG.find('.js-select-option-up')
-    const $SORT_DESC_BTN = $CATALOG.find('.js-select-option-down')
+    const $NAME_INPUT = $CATALOG.find('[name="name"]')
+    const $NAME_INPUT_SHELL = $NAME_INPUT.parent('.js-catalog-filters-input-box')
+    const $NAME_INPUT_ERASE_BTN = $NAME_INPUT_SHELL.find('.js-input-erase-btn')
+    const $NAME_INPUT_SEARCH_BTN = $NAME_INPUT_SHELL.find('.js-input-search-btn')
 
-    const $TITLE_COUNT = $CATALOG.find('.js-catalog-result-title-text-count')
+    const $SELECT = $CATALOG.find('.js-catalog-filters-select')
+    const $SELECT_CURRENT_BTN = $SELECT.find('.js-select-current-btn')
 
-    const $range = $('#range')
-
-    const minVal = $range.attr('min')
-    const maxVal = $range.attr('max')
+    const $TITLE_COUNT = $CATALOG.find('.js-catalog-results-count')
 
     const $PAGINATION = $('.js-catalog-result-pagination')
 
+    let STORE = []
+
     const scrollToTopCatalog = () => {
-      $('html, body').stop().animate(
-        {
-          scrollTop: $CATALOG.offset().top,
-        },
-        600
+      $('html, body')
+        .stop()
+        .animate(
+          {
+            scrollTop: $CATALOG.offset().top - 100,
+          },
+          300
+        )
+    }
+
+    const addItemToCart = (article, name, price) => {
+      const deleteItemByPressDelCartBtn = () => {
+        const $delBtns = $('.js-catalog-aside-cart-list-item-del')
+
+        $delBtns.on('click', function () {
+          const $cartItem = $(this).parents('.js-catalog-aside-cart-list-item')
+          const article = $cartItem.attr('data-article')
+
+          deleteItemFromStores(article)
+          deleteItemFromCart(article)
+
+          if ($CART_LIST.children().length === 0) {
+            $CART.removeClass(SHOW_CLASS)
+          }
+
+          $.each($('.js-catalog-results-item'), function (_, el) {
+            const $el = $(el)
+
+            if ($el.attr('data-article') === article) {
+              $el.attr('data-condition', 'add')
+            }
+          })
+
+          console.log(STORE, 'Store')
+        })
+      }
+
+      $CART.addClass(SHOW_CLASS)
+
+      $CART_LIST.append(
+        `
+               <div
+                data-article="${article}"
+                class="catalog__aside-cart-list-item js-catalog-aside-cart-list-item">
+                <p class="catalog__aside-cart-item-name">
+                  ${name.toLowerCase()}
+                </p>
+                
+                <p class="catalog__aside-cart-item-price-name">
+                  Цена с&nbsp;НДС
+                </p>
+                
+                <p class="catalog__aside-cart-item-price js-catalog-aside-cart-item-price">
+                  ${price}
+                </p>
+                
+                <button
+                  class="catalog__aside-cart-list-item-del js-catalog-aside-cart-list-item-del btn btn--primary">
+                </button>
+              </div>
+          `
       )
+
+      deleteItemByPressDelCartBtn()
     }
 
-    const toggleOpenFilters = () => {
-      $ASIDE_SHOW_BTN.on('click', function () {
-        $CATALOG.toggleClass(OPEN_CLASS)
+    const setAddConditionForItemsFromStore = () => {
+      const $currentItems = $('.js-catalog-results-item')
 
-        if (!$CATALOG.hasClass(OPEN_CLASS)) {
-          $CATALOG.addClass(CLOSE_CLASS).removeClass(SHOW_CLASS)
-        } else {
-          scrollToTopCatalog()
-          $CATALOG.removeClass(CLOSE_CLASS)
-        }
+      $.each(STORE, function (_, elemStore) {
+        $.each($currentItems, function (_, el) {
+          const $el = $(el)
+
+          if (elemStore.article === $el.attr('data-article')) {
+            $el.attr('data-condition', 'del')
+
+            const article = $el.attr('data-article')
+            const name = $el.find('.js-catalog-results-item-name').text()
+            const price = $el.find('.js-catalog-results-item-price-value').text()
+          }
+        })
       })
     }
 
-    const toggleShowAsideBtns = () => {
-      $CATALOG_FILTER_INPUTS.on('click', function () {
-        if (isInputsEmpty()) {
-          $CATALOG_ASIDE.removeClass(CHECKED_CLASS)
-        } else {
-          $CATALOG_ASIDE.addClass(CHECKED_CLASS)
-        }
-      })
-    }
+    const initStores = () => {
+      const items = window.localStorage.getItem('items')
 
-    const isInputsEmpty = () => {
-      if (
-        ($MIN_INPUT.val() === '' && $MAX_INPUT.val() === '' && !$CATALOG_FILTER_SHELLS.find('input:checked').length) ||
-        ($MIN_INPUT.val() === minVal &&
-          $MAX_INPUT.val() === maxVal &&
-          !$CATALOG_FILTER_SHELLS.find('input:checked').length) ||
-        ($MIN_INPUT.val() === '' &&
-          $MAX_INPUT.val() === maxVal &&
-          !$CATALOG_FILTER_SHELLS.find('input:checked').length) ||
-        ($MIN_INPUT.val() === minVal && $MAX_INPUT.val() === '' && !$CATALOG_FILTER_SHELLS.find('input:checked').length)
-      ) {
-        return true
-      }
-    }
-
-    const doubleRangeInputFns = () => {
-      class DualRange {
-        constructor(a, e) {
-          document.querySelectorAll(a).forEach((a) => {
-            const t = a.parentNode,
-              n = a.className
-            ;(a.className = ''),
-              a.classList.add('aside-filters__dualrange-input-max'),
-              a.max || (a.max = 100),
-              a.min || (a.min = 0),
-              a.setAttribute('value', a.max || 100),
-              a.setAttribute('step', a.step || 1),
-              a.setAttribute('data-dualrange-max', ''),
-              (a.outerHTML = `<div class="aside-filters__dualrange ${n}" data-dualrange-valmin="${a.min}" data-dualrange-valmax="${a.max}"><input data-dualrange-min step="0.1" type="range" min="${a.min}" max="${a.max}" value="${a.min}" class="aside-filters__dualrange-input-min">${a.outerHTML}<div class="aside-filters__dualrange-min" style="left: 0%; transform: translate(0%, -50%);"></div><div class="aside-filters__dualrange-max" style="left: 100%; transform: translate(-100%, -50%);"></div><div class="aside-filters__dualrange-range"></div></div>`),
-              this.init(t, e)
-          })
-        }
-
-        init(a, e) {
-          a.querySelectorAll('.aside-filters__dualrange input').forEach((a, t) => {
-            ;(a.step = 0 === t ? a.nextElementSibling.step : a.step), this.range(a, e)
-          })
-        }
-
-        range(a, e) {
-          const t = a.parentNode,
-            n = t.children
-
-          a.addEventListener('input', (t) => {
-            const l = (100 / (a.max - a.min)) * (a.value - a.min),
-              r = parseFloat(n[0].value),
-              s = parseFloat(n[1].value),
-              i = parseFloat(n[0].step),
-              u = new Event('input')
-
-            if (r > s)
-              return (
-                (n[0].value = r - Math.max(1, i)),
-                (n[1].value = s + Math.max(1, i)),
-                n[0].dispatchEvent(u),
-                n[1].dispatchEvent(u),
-                !1
-              )
-            ;(n[a.hasAttribute('data-dualrange-max') ? 3 : 2].style.left = `${l}%`),
-              (n[a.hasAttribute('data-dualrange-max') ? 3 : 2].style.transform = `translate(-${l}%, -50%)`),
-              e &&
-                (clearTimeout(window.dualRangeCallback),
-                (window.dualRangeCallback = setTimeout(() => {
-                  e({
-                    min: parseFloat(a.parentNode.children[0].value),
-                    max: parseFloat(a.parentNode.children[1].value),
-                  })
-                }, 10)))
-          }),
-            (a.name =
-              'aside-filters__dualrange-input-min' === a.className ? `${a.nextElementSibling.name}[]` : `${a.name}[]`),
-            t.addEventListener('mousemove', (a) => {
-              const e = a.offsetX,
-                n = t.clientWidth,
-                l = parseFloat(t.querySelector('.aside-filters__dualrange-min').style.left),
-                r = parseFloat(t.querySelector('.aside-filters__dualrange-max').style.left),
-                s = parseInt((100 * e) / n) - l < Math.abs((100 * e) / n - r)
-
-              t
-                .querySelector(s ? '.aside-filters__dualrange-input-min' : '.aside-filters__dualrange-input-max')
-                .classList.add('aside-filters__dualrange-zindex'),
-                t
-                  .querySelector(s ? '.aside-filters__dualrange-input-max' : '.aside-filters__dualrange-input-min')
-                  .classList.remove('aside-filters__dualrange-zindex')
-
-              if (isInputsEmpty()) {
-                $CATALOG_ASIDE.removeClass(CHECKED_CLASS)
-              } else {
-                $CATALOG_ASIDE.addClass(CHECKED_CLASS)
-              }
-            })
-        }
-
-        callback(a, e) {
-          e()
-        }
+      if (items) {
+        STORE = JSON.parse(items)
       }
 
-      new DualRange('#range', (e) => {
-        $MIN_INPUT.attr('value', e.min).val(e.min)
-        $MAX_INPUT.attr('value', e.max).val(e.max)
+      $.each(STORE, function (_, el) {
+        changeCartSum(el.price, 'add')
+        addItemToCart(el.article, el.name, el.price)
       })
 
-      const $minRangeThumb = $('.aside-filters__dualrange-min')
-      const $maxRangeThumb = $('.aside-filters__dualrange-max')
+      console.log(STORE)
+    }
 
-      const setMinThumbsPosition = () => {
-        if (Number($MIN_INPUT.val()) < Number(minVal) && Number($MAX_INPUT.val()) > Number($MIN_INPUT.val())) {
-          $maxRangeThumb.css('left', `0`)
-          $maxRangeThumb.css('transform', `translate(0, -50%)`)
-        } else {
-          if (Number($MAX_INPUT.val()) > Number($MIN_INPUT.val())) {
-            const l = (100 / (maxVal - minVal)) * ($MIN_INPUT.val() - minVal)
-            $minRangeThumb.css('left', `${l}%`)
-            $minRangeThumb.css('transform', `translate(-${l}%, -50%)`)
-          } else {
-            const l = (100 / (maxVal - minVal)) * ($MAX_INPUT.val() - minVal)
-            $maxRangeThumb.css('left', `${l}%`)
-            $maxRangeThumb.css('transform', `translate(-${l}%, -50%)`)
+    const changeCartSum = (price, operation) => {
+      const cartSum = Number($CART_SUM.text().replaceAll(' ', '').replaceAll(',', '.').replaceAll('₽', ''))
+
+      const clearPrise = Number(price.replaceAll(' ', '').replaceAll(',', '.').replaceAll('₽', ''))
+
+      let finalSum
+
+      if (operation === 'add') {
+        finalSum = cartSum + clearPrise
+      }
+
+      if (operation === 'del') {
+        finalSum = cartSum - clearPrise
+      }
+
+      finalSum = finalSum.toFixed(2).toString().replaceAll('.', ', ')
+
+      $CART_SUM.text(`${finalSum} ₽`)
+    }
+
+    const addItemToStores = (article, name, price) => {
+      let isItemInStore = false
+
+      if (STORE.length) {
+        console.log('yui')
+
+        console.log(STORE, ' STORESTORE')
+
+        $.each(STORE, function (_, el) {
+          console.log(el.article, 'el.article')
+          console.log(article, 'article')
+
+          if (el.article === article) {
+            isItemInStore = true
           }
+        })
+
+        if (!isItemInStore) {
+          STORE.push({ article, name, price })
         }
+      } else {
+        STORE.push({ article, name, price })
       }
 
-      const setMaxThumbsPosition = () => {
-        if (Number($MAX_INPUT.val()) >= Number(maxVal) && Number($MAX_INPUT.val()) > Number($MIN_INPUT.val())) {
-          $maxRangeThumb.css('left', `100%`)
-          $maxRangeThumb.css('transform', `translate(-100%, -50%)`)
-        } else {
-          if (Number($MAX_INPUT.val()) > Number($MIN_INPUT.val())) {
-            const l = (100 / (maxVal - minVal)) * ($MAX_INPUT.val() - minVal)
-            $maxRangeThumb.css('left', `${l}%`)
-            $maxRangeThumb.css('transform', `translate(-${l}%, -50%)`)
-          } else {
-            const l = (100 / (maxVal - minVal)) * ($MIN_INPUT.val() - minVal)
-            $maxRangeThumb.css('left', `${l}%`)
-            $maxRangeThumb.css('transform', `translate(-${l}%, -50%)`)
-          }
+      console.log(STORE, 'store')
+
+      window.localStorage.setItem('items', JSON.stringify(STORE))
+
+      addItemToCart(article, name, price)
+      changeCartSum(price, 'add')
+    }
+
+    const deleteItemFromCart = (article) => {
+      const $cartItems = $('.js-catalog-aside-cart-list-item')
+
+      $.each($cartItems, function (_, el) {
+        const $el = $(el)
+        const price = $el.find('.js-catalog-aside-cart-item-price').text()
+
+        if ($el.attr('data-article') === article) {
+          $el.remove()
+          changeCartSum(price, 'del')
         }
+      })
+
+      if ($CART_LIST.children().length === 0) {
+        $CART.removeClass(SHOW_CLASS)
       }
+    }
 
-      const resetRangeThumbsPosition = () => {
-        $CATALOG_APPLY_CLEAR_BTN.on('click', function () {
-          $MIN_INPUT.val(minVal)
-          $MAX_INPUT.val(maxVal)
-          setMinThumbsPosition()
-          setMaxThumbsPosition()
-        })
-      }
+    const deleteItemFromStores = (item) => {
+      const tempStore = []
 
-      const setRangeThumbsPositionByInput = () => {
-        $MIN_INPUT.on('input', function () {
-          setMinThumbsPosition()
+      $.each(STORE, function (_, el) {
+        if (el.article !== item) {
+          tempStore.push(el)
+        }
+      })
 
-          if ($MIN_INPUT.val() !== minVal && $MIN_INPUT.val() !== '') {
-            $CATALOG_ASIDE.addClass(CHECKED_CLASS)
-          }
+      STORE = tempStore
 
-          if (isInputsEmpty()) {
-            $CATALOG_ASIDE.removeClass(CHECKED_CLASS)
-          }
-        })
+      window.localStorage.setItem('items', JSON.stringify(STORE))
+    }
 
-        $MIN_INPUT_ERASE_BTN.on('click', function () {
-          setMinThumbsPosition()
+    const itemsFn = () => {
+      const $items = $('.js-catalog-results-item')
 
-          if (isInputsEmpty()) {
-            $CATALOG_ASIDE.removeClass(CHECKED_CLASS)
-          }
-        })
+      $.each($items, function (_, el) {
+        const $item = $(el)
+        const article = $item.attr('data-article')
+        const name = $item.find('.js-catalog-results-item-name').text()
+        const price = $item.find('.js-catalog-results-item-price-value').text()
 
-        $MIN_INPUT.on('focusout', function () {
-          if (Number($MIN_INPUT.val()) < Number(minVal) && Number($MAX_INPUT.val()) > Number($MIN_INPUT.val())) {
-            $MIN_INPUT.val(minVal)
-            $maxRangeThumb.css('left', `0`)
-            $maxRangeThumb.css('transform', `translate(0, -50%)`)
-          } else {
-            if (Number($MAX_INPUT.val()) < Number($MIN_INPUT.val())) {
-              $MIN_INPUT.val($MAX_INPUT.val())
-              const l = (100 / (maxVal - minVal)) * ($MAX_INPUT.val() - minVal)
-              $minRangeThumb.css('left', `${l}%`)
-              $minRangeThumb.css('transform', `translate(-${l}%, -50%)`)
-            }
-          }
+        const $itemAddBtn = $item.find('.js-catalog-results-item-add-to-cart')
+        const $itemDelBtn = $item.find('.js-catalog-results-item-del-from-cart')
+
+        $itemAddBtn.on('click', function () {
+          addItemToStores(article, name, price)
+          $item.attr('data-condition', 'del')
         })
 
-        $MAX_INPUT.on('input', function () {
-          setMaxThumbsPosition()
+        $itemDelBtn.on('click', function () {
+          deleteItemFromStores(article)
+          deleteItemFromCart(article)
+          $item.attr('data-condition', 'add')
         })
-
-        $MAX_INPUT_ERASE_BTN.on('click', function () {
-          setMaxThumbsPosition()
-
-          if (isInputsEmpty()) {
-            $CATALOG_ASIDE.removeClass(CHECKED_CLASS)
-          }
-        })
-
-        $MAX_INPUT.on('focusout', function () {
-          if (Number($MAX_INPUT.val()) >= Number(maxVal) && Number($MAX_INPUT.val()) > Number($MIN_INPUT.val())) {
-            $MAX_INPUT.val(maxVal)
-            $maxRangeThumb.css('left', `100%`)
-            $maxRangeThumb.css('transform', `translate(-100%, -50%)`)
-          } else {
-            if (Number($MAX_INPUT.val()) < Number($MIN_INPUT.val())) {
-              setTimeout(() => {
-                $MAX_INPUT.val($MIN_INPUT.val())
-                const l = (100 / (maxVal - minVal)) * ($MAX_INPUT.val() - minVal)
-                $maxRangeThumb.css('left', `${l}%`)
-                $maxRangeThumb.css('transform', `translate(-${l}%, -50%)`)
-              }, 10)
-            }
-          }
-        })
-      }
-
-      setRangeThumbsPositionByInput()
-      resetRangeThumbsPosition()
-      setMinThumbsPosition()
-      setMaxThumbsPosition()
+      })
     }
 
     const renderData = (data) => {
+      const renderTime = (productTime) => {
+        if (/^\d+$/.test(productTime)) {
+          return `
+            ${productTime}
+            
+             <p class="catalog-results__item-time-descr">
+              Срок изготовления
+             </p>
+          `
+        }
+
+        return productTime
+      }
+
       const renderDataItem = (data) => {
         let items = ''
 
         $.each(data, function (_, el) {
-          const {
-            name,
-            code,
-            constructionTechnology,
-            houseSize,
-            id,
-            livingArea,
-            numberFloors,
-            numberRooms,
-            previewPicture,
-            url,
-          } = el
-
-          const { src } = previewPicture
+          const { code, name, priceVat, priceWithVat, productTime, technics } = el
 
           items =
             items +
             `
-                <a
-                href="${url}"
-                class="houses__card accessibility-link">
-                <div class="houses__card-picture picture picture--scale">
-                  <img
-                    class="picture__img"
-                    loading="lazy" src="${src}" alt="">
+              <div
+                data-condition=""
+                data-article="${code}"
+                class="catalog-results__item download js-catalog-results-item">
+                <div class="catalog-results__item-body">
+                  <h3 class="catalog-results__item-name js-catalog-results-item-name">${name}</h3>
                   
-                  <div class="houses__card-props">
-                    <span class="houses__card-prop">
-                      ${numberFloors}
-                    </span>
+                  <div class="catalog-results__item-props">
+                    <div class="catalog-results__item-article">
+                      ${code}
+                    </div>
                     
-                    <span class="houses__card-prop">
-                      ${morph(numberRooms, ['комната', 'комнаты', 'комнат'])}
-                    </span>
+                    <div class="catalog-results__item-time">
+                      ${renderTime(productTime)}
+                    </div>
+                    
+                    <div class="catalog-results__item-tractor-name">
+                      ${technics}
+                    </div>
+                    
+                    <div class="catalog-results__item-price">
+                      Цена без НДС
+                      
+                      <p
+                        class="catalog-results__item-price-value">
+                        ${priceVat}&nbsp;₽
+                      </p>
+                    </div>
+                    
+                    <div class="catalog-results__item-price">
+                      Цена с&nbsp;НДС
+                      
+                      <p
+                        class="catalog-results__item-price-value js-catalog-results-item-price-value">${priceWithVat}&nbsp;₽</p>
+                    </div>
                   </div>
                 </div>
                 
-                <div class="houses__card-title-shell">
-                  <h3 class="h5 houses__card-title">
-                    ${name}
-                  </h3>
+                <button
+                class="catalog-results__item-add-to-cart js-catalog-results-item-add-to-cart"
+                type="button">
+                  <svg class="icon icon--24">
+                    <use xlink:href="/assets/sprite/sprite.svg#cart"></use>
+                  </svg>
                   
-                  <div class="houses__card-title-types">
-                    <p class="houses__card-title-type">
-                      ${constructionTechnology}
-                    </p>
-                  </div>
-                </div>
+                  <span class="only-tablet">
+                    Добавить в&nbsp;корзину
+                  </span>
+                </button>
                 
-                <div class="houses__card-data">
-                  <p>
-                    Площадь дома: ${livingArea}&nbsp;м²
-                  </p>
-                  
-                  <p>
-                    Размеры: ${houseSize}
-                  </p>
-                </div>
+                <button class="btn btn--primary catalog-results__item-del-from-cart js-catalog-results-item-del-from-cart">
+                  Удалить
+                </button>
                 
-                <div class="houses__card-tags">
-                  <p
-                    class="btn btn--primary-text houses__card-tag houses__card-tag--year">
-                    Подробнее
-                    
-                    <svg class="icon icon--16">
-                      <use
-                        xlink:href="/assets/sprite/sprite.svg#arrow-right"></use>
-                    </svg>
-                  </p>
-                </div>
-              </a>
+                <button 
+                class="catalog-results__item-add-to-cart catalog-results__item-add-to-cart--absolute js-catalog-results-item-add-to-cart"
+                type="button">
+                </button>
+                
+                <button class="btn btn--primary catalog-results__item-del-from-cart catalog-results__item-del-from-cart--absolute js-catalog-results-item-del-from-cart">
+                </button>
+              </div>
           `
         })
 
@@ -389,37 +356,16 @@ export const catalogFns = (data) => {
       }
 
       $CATALOG_LIST.removeClass(NO_RESULT_CLASS).append(renderDataItem(data))
+
+      itemsFn()
     }
 
     const getDataParams = () => {
-      const filterData = {}
       const data = {}
 
-      data.sort = $CATALOG.find('.active.js-select-option').attr('data-sort')
-
-      $.each($CATALOG_FILTER_SHELLS, function (_, shell) {
-        const $shell = $(shell)
-
-        const type = $shell.attr('data-filter-type')
-        const $checkedInputs = $shell.find('input:checked')
-
-        if ($checkedInputs.length) {
-          let checkedFilters = []
-
-          $.each($checkedInputs, function (_, el) {
-            const $el = $(el)
-
-            checkedFilters.push($el.attr('name'))
-          })
-
-          filterData[type] = checkedFilters
-        }
-      })
-
-      filterData['square-min'] = [$MIN_INPUT.val()]
-      filterData['square-max'] = [$MAX_INPUT.val()]
-
-      data.filter = filterData
+      data.article = $ARTICLE_INPUT.val()
+      data.name = $NAME_INPUT.val()
+      data.tractor = $SELECT_CURRENT_BTN.attr('data-tractor')
 
       return data
     }
@@ -429,24 +375,8 @@ export const catalogFns = (data) => {
 
       const url = new URL(window.location.href)
 
-      const { filter, currentPage, sort } = filters
-
-      if (currentPage) {
-        url.searchParams.set('currentPage', currentPage)
-      }
-
-      if (sort) {
-        url.searchParams.set('sort', sort)
-      }
-
-      $.each(filter, function (i, el) {
-        if (el.length > 1) {
-          $.each(el, function (_, elem) {
-            url.searchParams.append(`${i}[]`, elem)
-          })
-        } else {
-          url.searchParams.set(i, el)
-        }
+      $.each(filters, function (i, el) {
+        url.searchParams.set(i, el)
       })
 
       window.history.replaceState({}, document.title, url)
@@ -454,34 +384,37 @@ export const catalogFns = (data) => {
 
     const dataQuery = (currentPage = 1) => {
       data = getDataParams()
-      data.currentPage = currentPage
+      data.page = currentPage
 
       addFiltersValueToUrl(data)
+      scrollToTopCatalog()
 
-      $CATALOG_LIST.html('').addClass(NO_RESULT_CLASS)
-      $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
-      renderSpinner($CATALOG_LIST)
+      setTimeout(() => {
+        $CATALOG_LIST.html('').addClass(NO_RESULT_CLASS)
+        $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
+        renderSpinner($CATALOG_LIST)
+      }, 400)
 
       $.ajax({
-        type: 'POST',
-        url: '/api/v1/getCatalogList',
+        type: 'post',
+        url: '/api/v1/parts',
         headers: {
-          'Api-Key': 'tUKdAP2Gmv/?VyvCI16rAB=UN7yFpQvirTa5Ix21BzP4w6lFfqrSoySJfKVhXCpH',
+          'Api-Key': 'tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH',
         },
-        data: data,
-        processData: true,
+        data: JSON.stringify(data),
+        dataType: 'json',
+        contentType: 'application/json',
         success: (data) => {
-          scrollToTopCatalog()
+          const { codes, items, names, countRecord, nav: { page, pageCount, pageEnd, pageSize } = {} } = data.data
           deleteSpinner()
 
-          const { countRecord, endList, items, pageCount, pageSize } = data.data
-
           if (countRecord) {
-            $TITLE_COUNT.text(`Найдено проектов: ${countRecord}`)
+            $TITLE_COUNT.text(countRecord)
           } else {
-            $TITLE_COUNT.text(`Найдено проектов: 0`)
+            $TITLE_COUNT.text(0)
 
-            $CATALOG_LIST.html(`Проекты по&nbsp;вашим параметрам не&nbsp;найдены, измените условия поиска.`)
+            $CATALOG_LIST.html(`Запчасти по&nbsp;вашим параметрам не&nbsp;найдены, измените условия поиска.`)
+            $CATALOG_LIST.removeClass(NO_RESULT_CLASS)
           }
 
           if (items.length) {
@@ -498,40 +431,9 @@ export const catalogFns = (data) => {
           } else {
             $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
           }
+
+          setAddConditionForItemsFromStore()
         },
-      })
-    }
-
-    const dataQueryByApplyFilterBtnPress = () => {
-      $CATALOG_APPLY_FILTER_BTN.on('click', function () {
-        dataQuery()
-
-        if ($WINDOW.width() <= TABLET_WIDTH) {
-          $CATALOG.removeClass(OPEN_CLASS)
-        }
-      })
-    }
-
-    const dataQueryBySortBtnPress = () => {
-      $SORT_ASK_BTN.on('click', function () {
-        dataQuery()
-      })
-
-      $SORT_DESC_BTN.on('click', function () {
-        dataQuery()
-      })
-    }
-
-    const resetFilters = () => {
-      $CATALOG_APPLY_CLEAR_BTN.on('click', function () {
-        setTimeout(() => {
-          $CATALOG_FILTER_SHELLS.find('input:checked').prop('checked', false)
-          $CATALOG_ASIDE.removeClass(CHECKED_CLASS)
-
-          if ($WINDOW.width() > TABLET_WIDTH) {
-            dataQuery()
-          }
-        }, 100)
       })
     }
 
@@ -548,34 +450,12 @@ export const catalogFns = (data) => {
 
     const firstRenderPagination = () => {
       const $lastPageNum = $PAGINATION.find('.paginationjs-last').attr('data-num')
-      const maxPageElem = 12
+      const maxPageElem = 10
 
       renderPagination($lastPageNum * maxPageElem)
     }
 
-    const renderPagination = (items, pageSize = 14) => {
-      const renderPaginationTertiaryShell = () => {
-        const add = (elem) => {
-          $.each(elem, function (_, el) {
-            const $el = $(el)
-            $el.find('a').addClass('btn btn--tertiary')
-
-            $el.append(`
-            <div class="btn-tertiary-bg"></div>
-            <div class="btn-tertiary-border"></div>
-           `)
-          })
-        }
-
-        const $pageBtns = $('.J-paginationjs-page')
-        const $prevBtn = $('.paginationjs-prev')
-        const $btns = $('.paginationjs-next')
-
-        add($pageBtns)
-        add($prevBtn)
-        add($btns)
-      }
-
+    const renderPagination = (items, pageSize = 10) => {
       const itemsArr = []
       let pageNumber = 1
 
@@ -597,30 +477,23 @@ export const catalogFns = (data) => {
         dataSource: itemsArr,
         afterNextOnClick: () => {
           queryDataByActivePaginationElem()
-          renderPaginationTertiaryShell(items)
         },
         afterPreviousOnClick: () => {
           queryDataByActivePaginationElem()
-          renderPaginationTertiaryShell(items)
         },
         afterGoButtonOnClick: () => {
           queryDataByActivePaginationElem()
-          renderPaginationTertiaryShell(items)
         },
         afterGoInputOnEnter: () => {
           queryDataByActivePaginationElem()
-          renderPaginationTertiaryShell(items)
         },
         afterPageOnClick: () => {
           queryDataByActivePaginationElem()
-          renderPaginationTertiaryShell(items)
         },
         callback: function (data, pagination) {
           paginationFns()
         },
       })
-
-      renderPaginationTertiaryShell(items)
     }
 
     const queryDataByActivePaginationElem = () => {
@@ -629,12 +502,46 @@ export const catalogFns = (data) => {
       dataQuery(activeElemNum)
     }
 
+    const queryBySearchBtns = () => {
+      $ARTICLE_INPUT_SEARCH_BTN.on('click', function () {
+        dataQuery()
+      })
+
+      $NAME_INPUT_SEARCH_BTN.on('click', function () {
+        dataQuery()
+      })
+    }
+
+    const queryByEraseBtn = () => {
+      $ARTICLE_INPUT_ERASE_BTN.on('click', function () {
+        dataQuery()
+      })
+
+      $NAME_INPUT_ERASE_BTN.on('click', function () {
+        dataQuery()
+      })
+    }
+
+    const queryByEnterPressInInputs = () => {
+      $ARTICLE_INPUT.on('keyup', (event) => {
+        if (isEnterPressed(event)) {
+          dataQuery()
+        }
+      })
+
+      $NAME_INPUT.on('keyup', (event) => {
+        if (isEnterPressed(event)) {
+          dataQuery()
+        }
+      })
+    }
+
+    itemsFn()
+    initStores()
+    queryByEraseBtn()
+    queryBySearchBtns()
     firstRenderPagination()
-    dataQueryByApplyFilterBtnPress()
-    dataQueryBySortBtnPress()
-    toggleShowAsideBtns()
-    resetFilters()
-    toggleOpenFilters()
-    doubleRangeInputFns()
+    queryByEnterPressInInputs()
+    setAddConditionForItemsFromStore()
   }
 }
