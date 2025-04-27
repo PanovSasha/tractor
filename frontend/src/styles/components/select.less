@@ -21,10 +21,12 @@
     .transition(border-color);
     .transition(background-color);
     .transition(color);
+    .ellipsis();
     border: 1px solid @border-primary;
     width: 100%;
     position: relative;
     padding: 12px @offset16;
+    height: 48px;
 
     &::after {
       .absY-alignment();
@@ -47,6 +49,12 @@
 
       &::after {
         opacity: 0.4;
+      }
+    }
+
+    .catalog__filters & {
+      @media @xxl-tablet {
+        .p2();
       }
     }
   }
@@ -102,27 +110,12 @@
 
   &__option {
     .radius(8);
-    .f-between();
     .ellipsis();
+    .f-between();
+    .btn-transition();
+    .btn-primary-inv();
     flex: none;
-    //color: @neutral900;
     padding: 9px;
-
-    &:hover {
-      @media @large-than-tablet {
-        //background-color: @blue5;
-      }
-    }
-
-    &:active {
-      @media @tablet {
-        //background-color: @blue5;
-      }
-    }
-
-    .active& {
-      //background-color: @blue5;
-    }
   }
 
   &__native {

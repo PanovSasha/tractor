@@ -924,7 +924,7 @@
 
 <aside class="overlay js-overlay" aria-label="Site overlays">
   <div data-overlay="order-call" class="call overlay__item js-overlay-item">
-    <div class="call__form-shell js-call-form-shell">
+    <div data-form-type="call" class="call__form-shell js-call-form-shell">
       <button class="call__close overlay__close-btn js-overlay-close-btn">
       </button>
       
@@ -968,7 +968,7 @@
             
             <input
               class="input js-input"
-              id="phone" name="fullName" type="text">
+              id="phone" name="phone" type="text">
             
             <button type="button"
                     class="input__erase-btn js-input-erase-btn">
@@ -980,6 +980,7 @@
         </div>
         
         <button
+          type="button"
           class="btn btn--primary call__form-submit-btn js-call-form-submit-btn">
           Отправить
         </button>

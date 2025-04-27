@@ -90,12 +90,14 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex: none;
   max-width: @char-count;
 }
 
 .ellipsis-char(@char-count:unset) {
   white-space: nowrap;
   overflow: hidden;
+  flex: none;
   text-overflow: ellipsis;
   max-width: @char-count;
 }
@@ -103,6 +105,7 @@
 .ellipsis-max-width(@max-width:100%) {
   white-space: nowrap;
   overflow: hidden;
+  flex: none;
   text-overflow: ellipsis;
   max-width: @max-width;
 }
@@ -111,6 +114,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: @line-count;
+  flex: none;
   overflow: hidden;
 }
 

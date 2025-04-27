@@ -12,7 +12,13 @@
   }
 
   &--no-top-padding {
-    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  &--no-mobile-top-padding {
+    @media @l-mobile {
+      padding-top: 0;
+    }
   }
 
   &--no-bottom-padding {

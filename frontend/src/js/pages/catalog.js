@@ -1,29 +1,29 @@
 import 'paginationjs/dist/pagination.min'
 import qs from 'qs'
 
-import { deleteSpinner, isEnterPressed, morph, renderSpinner } from '../lib/utils'
 import {
+  debounce,
+  deleteSpinner,
+  isEnterPressed, isEscPressed,
+  numberAddSpace,
+  renderSpinner,
+  runFnByWinResize,
+} from '../lib/utils'
+import {
+  $BODY, $DOCUMENT,
   $WINDOW,
-  CHECKED_CLASS,
-  CLOSE_CLASS,
-  NO_RESULT_CLASS,
-  OPEN_CLASS,
+  BODY_LOCK_CLASS,
+  HIDDEN_CLASS,
+  NO_RESULT_CLASS, OPEN_CLASS,
   PAGINATION_CLASS,
+  SHOW_CART_BTN_CLASS,
   SHOW_CLASS,
   TABLET_WIDTH,
 } from '../lib/constants'
+import { selectFunctions } from '../common/select'
 
 const $CATALOG = $('.js-catalog')
-
-// Отправить выбранные детали
-// /api/v1/add_order
-// все тоже самое что и с parts
-// принимает параметры в json
-// {
-//   "name": "Иван",
-//   "phone": "56456456456",
-//   "parts": ["90.32.031-01СБ", "20005493AAFG", "100.71.011СБ"]
-// }
+const $FOOTER = $('.js-footer')
 
 export const catalogFns = (data) => {
   if ($CATALOG.length) {
@@ -34,21 +34,25 @@ export const catalogFns = (data) => {
     const $CART = $CATALOG.find('.js-catalog-aside-cart')
     const $CART_LIST = $CATALOG.find('.js-catalog-aside-cart-list')
     const $CART_SUM = $CATALOG.find('.js-catalog-aside-cart-sum')
+    const $CART_CLOSE_BTN = $CATALOG.find('.js-catalog-aside-cart-close')
 
     const $ARTICLE_INPUT = $CATALOG.find('[name="article"]')
     const $ARTICLE_INPUT_SHELL = $ARTICLE_INPUT.parent('.js-catalog-filters-input-box')
     const $ARTICLE_INPUT_ERASE_BTN = $ARTICLE_INPUT_SHELL.find('.js-input-erase-btn')
     const $ARTICLE_INPUT_SEARCH_BTN = $ARTICLE_INPUT_SHELL.find('.js-input-search-btn')
+    const $ARTICLE_HINT_SHELL = $ARTICLE_INPUT_SHELL.find('.js-catalog-filters-input-hints')
 
     const $NAME_INPUT = $CATALOG.find('[name="name"]')
     const $NAME_INPUT_SHELL = $NAME_INPUT.parent('.js-catalog-filters-input-box')
     const $NAME_INPUT_ERASE_BTN = $NAME_INPUT_SHELL.find('.js-input-erase-btn')
     const $NAME_INPUT_SEARCH_BTN = $NAME_INPUT_SHELL.find('.js-input-search-btn')
+    const $NAME_HINT_SHELL = $NAME_INPUT_SHELL.find('.js-catalog-filters-input-hints')
 
     const $SELECT = $CATALOG.find('.js-catalog-filters-select')
     const $SELECT_CURRENT_BTN = $SELECT.find('.js-select-current-btn')
 
     const $TITLE_COUNT = $CATALOG.find('.js-catalog-results-count')
+    const $SHOW_MORE_BTN = $CATALOG.find('.js-catalog-result-show-more-btn')
 
     const $PAGINATION = $('.js-catalog-result-pagination')
 
@@ -61,38 +65,119 @@ export const catalogFns = (data) => {
           {
             scrollTop: $CATALOG.offset().top - 100,
           },
-          300
+          300,
         )
+    }
+
+    const filterInputFns = () => {
+      const $filterInputsBox = $CATALOG.find('.js-catalog-filters-input-box')
+
+      $.each($filterInputsBox, function(_, el) {
+        const debounceFn = () => {
+          queryFilterData()
+
+          if ($inputOptions.children().length) {
+            $inputOptions.addClass(SHOW_CLASS)
+          }
+        }
+
+        const $el = $(el)
+
+        const $input = $el.find('.js-catalog-filters-input-filters-input')
+        const $inputPlaceholder = $el.find('.js-input-placeholder')
+        const $inputOptions = $el.find('.js-catalog-filters-input-hints')
+        const $inputOption = $el.find('.js-catalog-filters-input-hints-btn')
+
+        $input.on('input', debounce(debounceFn, 1200))
+
+        $inputOption.on('click', function() {
+          const $t = $(this)
+
+          $inputPlaceholder.addClass(HIDDEN_CLASS)
+          $input.val($t.text().trim())
+          $input.focus()
+          console.log($input.attr('name'), 'ewrwer')
+          queryData()
+        })
+      })
+
+      // const closeSelects = () => {
+      //   $DOCUMENT.on('click', ({ target }) => {
+      //     if ($(target).closest($SELECTS).length) {
+      //       return false
+      //     }
+      //
+      //     $select.removeClass(OPEN_CLASS)
+      //   })
+      //
+      //   $DOCUMENT.on('keyup.select', (event) => {
+      //     if (isEscPressed(event)) {
+      //       $select.removeClass(OPEN_CLASS)
+      //     }
+      //   })
+      // }
+    }
+
+    const filterSelectFns = () => {
+      const $options = $SELECT.find('.js-select-option')
+
+      $options.on('click', function() {
+        const $t = $(this)
+
+        $SELECT_CURRENT_BTN.attr('data-tractor', $t.attr('data-tractor'))
+        queryData()
+      })
+    }
+
+    const closeFilterHints = () => {
+      $ARTICLE_HINT_SHELL.removeClass(SHOW_CLASS)
+      $NAME_HINT_SHELL.removeClass(SHOW_CLASS)
+    }
+
+    const openMobileCart = () => {
+      const $btn = $('.js-catalog-cart-open-btn')
+
+      $btn.on('click', function() {
+        $CATALOG_ASIDE.addClass(SHOW_CLASS)
+        $BODY.addClass(BODY_LOCK_CLASS)
+      })
+    }
+
+    const closeMobileCart = () => {
+      $CATALOG_ASIDE.removeClass(SHOW_CLASS)
+      $BODY.removeClass(BODY_LOCK_CLASS)
+    }
+
+    const closeMobileCartByCloseBtnClick = () => {
+      $CART_CLOSE_BTN.on('click', function() {
+        closeMobileCart()
+      })
     }
 
     const addItemToCart = (article, name, price) => {
       const deleteItemByPressDelCartBtn = () => {
         const $delBtns = $('.js-catalog-aside-cart-list-item-del')
 
-        $delBtns.on('click', function () {
+        $delBtns.on('click', function() {
           const $cartItem = $(this).parents('.js-catalog-aside-cart-list-item')
           const article = $cartItem.attr('data-article')
 
           deleteItemFromStores(article)
           deleteItemFromCart(article)
 
-          if ($CART_LIST.children().length === 0) {
+          if ($CART_LIST.children().length === 0 && $WINDOW.width() > TABLET_WIDTH) {
             $CART.removeClass(SHOW_CLASS)
           }
 
-          $.each($('.js-catalog-results-item'), function (_, el) {
+          $.each($('.js-catalog-results-item'), function(_, el) {
             const $el = $(el)
 
             if ($el.attr('data-article') === article) {
               $el.attr('data-condition', 'add')
             }
           })
-
-          console.log(STORE, 'Store')
         })
       }
-
-      $CART.addClass(SHOW_CLASS)
 
       $CART_LIST.append(
         `
@@ -103,20 +188,26 @@ export const catalogFns = (data) => {
                   ${name.toLowerCase()}
                 </p>
                 
-                <p class="catalog__aside-cart-item-price-name">
-                  Цена с&nbsp;НДС
-                </p>
-                
-                <p class="catalog__aside-cart-item-price js-catalog-aside-cart-item-price">
-                  ${price}
-                </p>
+                <div class="catalog__aside-cart-item-price-shell">
+                  <p class="catalog__aside-cart-item-price-name">
+                    Цена с&nbsp;НДС
+                  </p>
+                  
+                  <p class="catalog__aside-cart-item-price js-catalog-aside-cart-item-price">
+                    ${price}
+                  </p>
+                </div>
                 
                 <button
                   class="catalog__aside-cart-list-item-del js-catalog-aside-cart-list-item-del btn btn--primary">
                 </button>
               </div>
-          `
+          `,
       )
+
+      if ($WINDOW.width() > TABLET_WIDTH) {
+        $CART.addClass(SHOW_CLASS)
+      }
 
       deleteItemByPressDelCartBtn()
     }
@@ -124,16 +215,12 @@ export const catalogFns = (data) => {
     const setAddConditionForItemsFromStore = () => {
       const $currentItems = $('.js-catalog-results-item')
 
-      $.each(STORE, function (_, elemStore) {
-        $.each($currentItems, function (_, el) {
+      $.each(STORE, function(_, elemStore) {
+        $.each($currentItems, function(_, el) {
           const $el = $(el)
 
           if (elemStore.article === $el.attr('data-article')) {
             $el.attr('data-condition', 'del')
-
-            const article = $el.attr('data-article')
-            const name = $el.find('.js-catalog-results-item-name').text()
-            const price = $el.find('.js-catalog-results-item-price-value').text()
           }
         })
       })
@@ -146,18 +233,17 @@ export const catalogFns = (data) => {
         STORE = JSON.parse(items)
       }
 
-      $.each(STORE, function (_, el) {
-        changeCartSum(el.price, 'add')
+      $.each(STORE, function(_, el) {
+        const finalPrice = changeCartSum(el.price, 'add')
         addItemToCart(el.article, el.name, el.price)
+        addTabletShowCartBtn(finalPrice)
       })
-
-      console.log(STORE)
     }
 
     const changeCartSum = (price, operation) => {
-      const cartSum = Number($CART_SUM.text().replaceAll(' ', '').replaceAll(',', '.').replaceAll('₽', ''))
+      let cartSum = Number($CART_SUM.text().trim().replaceAll(',', '.').replaceAll('₽', '').replaceAll(' ', ''))
 
-      const clearPrise = Number(price.replaceAll(' ', '').replaceAll(',', '.').replaceAll('₽', ''))
+      const clearPrise = Number(price.replaceAll(' ', '').trim().replaceAll(',', '.').replaceAll('₽', ''))
 
       let finalSum
 
@@ -169,23 +255,49 @@ export const catalogFns = (data) => {
         finalSum = cartSum - clearPrise
       }
 
-      finalSum = finalSum.toFixed(2).toString().replaceAll('.', ', ')
+      finalSum = finalSum.toFixed(2).split('.')
 
-      $CART_SUM.text(`${finalSum} ₽`)
+      finalSum[0] = numberAddSpace(finalSum[0])
+
+      const clearFinalSum = `${finalSum[0]}, ${finalSum[1]} ₽`
+
+      $CART_SUM.text(clearFinalSum)
+
+      return clearFinalSum
+    }
+
+    const addTabletShowCartBtn = (price) => {
+      if ($WINDOW.width() < TABLET_WIDTH) {
+        const $showCartBtnShell = $('.js-catalog-cart-open-btn-shell')
+        const $showCartBtn = $showCartBtnShell.find('.js-catalog-cart-open-btn')
+
+        if ($showCartBtnShell.length) {
+          $showCartBtn.text(price)
+        } else {
+          $BODY.append(`
+              <div class="catalog__cart-open-btn-shell js-catalog-cart-open-btn-shell">
+                <button
+                  class="btn btn--primary catalog__cart-open-btn js-catalog-cart-open-btn">
+                   ${price}
+                </button>
+              </div>
+            `)
+        }
+
+        openMobileCart()
+
+        if ($WINDOW.width() < TABLET_WIDTH) {
+          $FOOTER.addClass(SHOW_CART_BTN_CLASS)
+          $CATALOG.addClass(SHOW_CART_BTN_CLASS)
+        }
+      }
     }
 
     const addItemToStores = (article, name, price) => {
       let isItemInStore = false
 
       if (STORE.length) {
-        console.log('yui')
-
-        console.log(STORE, ' STORESTORE')
-
-        $.each(STORE, function (_, el) {
-          console.log(el.article, 'el.article')
-          console.log(article, 'article')
-
+        $.each(STORE, function(_, el) {
           if (el.article === article) {
             isItemInStore = true
           }
@@ -198,36 +310,44 @@ export const catalogFns = (data) => {
         STORE.push({ article, name, price })
       }
 
-      console.log(STORE, 'store')
-
       window.localStorage.setItem('items', JSON.stringify(STORE))
 
       addItemToCart(article, name, price)
-      changeCartSum(price, 'add')
+      const cartPrice = changeCartSum(price, 'add')
+      addTabletShowCartBtn(cartPrice)
     }
 
     const deleteItemFromCart = (article) => {
       const $cartItems = $('.js-catalog-aside-cart-list-item')
 
-      $.each($cartItems, function (_, el) {
+      $.each($cartItems, function(_, el) {
         const $el = $(el)
         const price = $el.find('.js-catalog-aside-cart-item-price').text()
 
         if ($el.attr('data-article') === article) {
           $el.remove()
-          changeCartSum(price, 'del')
+          const cartPrice = changeCartSum(price, 'del')
+          addTabletShowCartBtn(cartPrice)
         }
       })
 
       if ($CART_LIST.children().length === 0) {
-        $CART.removeClass(SHOW_CLASS)
+        $FOOTER.removeClass(SHOW_CART_BTN_CLASS)
+        $CATALOG.removeClass(SHOW_CART_BTN_CLASS)
+        $('.js-catalog-cart-open-btn-shell').remove()
+
+        if ($WINDOW.width() > TABLET_WIDTH) {
+          $CART.removeClass(SHOW_CLASS)
+        } else {
+          closeMobileCart()
+        }
       }
     }
 
     const deleteItemFromStores = (item) => {
       const tempStore = []
 
-      $.each(STORE, function (_, el) {
+      $.each(STORE, function(_, el) {
         if (el.article !== item) {
           tempStore.push(el)
         }
@@ -241,7 +361,7 @@ export const catalogFns = (data) => {
     const itemsFn = () => {
       const $items = $('.js-catalog-results-item')
 
-      $.each($items, function (_, el) {
+      $.each($items, function(_, el) {
         const $item = $(el)
         const article = $item.attr('data-article')
         const name = $item.find('.js-catalog-results-item-name').text()
@@ -250,18 +370,82 @@ export const catalogFns = (data) => {
         const $itemAddBtn = $item.find('.js-catalog-results-item-add-to-cart')
         const $itemDelBtn = $item.find('.js-catalog-results-item-del-from-cart')
 
-        $itemAddBtn.on('click', function () {
+        $itemAddBtn.on('click', function() {
           addItemToStores(article, name, price)
           $item.attr('data-condition', 'del')
         })
 
-        $itemDelBtn.on('click', function () {
+        $itemDelBtn.on('click', function() {
           deleteItemFromStores(article)
           deleteItemFromCart(article)
           $item.attr('data-condition', 'add')
         })
       })
     }
+
+    const renderNames = (names) => {
+      $NAME_HINT_SHELL.text('')
+
+      $.each(names, function(_, el) {
+        const elem = el.toLocaleLowerCase()
+
+        $NAME_HINT_SHELL.append(
+          `
+            <button
+              data-btn-article='${elem}'
+              class="catalog__filters-input-hints-btn js-catalog-filters-input-hints-btn">
+                ${elem}
+            </button>
+          `,
+        )
+      })
+    }
+
+    const renderCodes = (codes) => {
+      $ARTICLE_HINT_SHELL.text('')
+
+      $.each(codes, function(_, el) {
+        const elem = el.toLocaleLowerCase()
+
+        $ARTICLE_HINT_SHELL.append(
+          `
+            <button
+              data-btn-article='${elem}'
+              class="catalog__filters-input-hints-btn js-catalog-filters-input-hints-btn">
+                ${elem}
+            </button>
+          `,
+        )
+      })
+    }
+
+    const renderTechnics = (technics) => {
+      const $options = $SELECT.find('.select__options')
+      const $nativeSelect = $SELECT.find('.js-select-native-select')
+
+      $options.text('')
+      $nativeSelect.text('')
+      $nativeSelect.append(`
+          <option value="0">all</option>
+        `)
+
+      $.each(technics, function(i, el) {
+        $options.append(`
+            <button type="button" data-id="${i}" data-tractor="${i}"
+                        class="select__option js-select-option">
+              ${el}
+            </button>
+        `)
+
+        $nativeSelect.append(`
+            <option value="${i}">${i}</option>
+        `)
+      })
+
+      $SELECT_CURRENT_BTN.off()
+      selectFunctions()
+    }
+
 
     const renderData = (data) => {
       const renderTime = (productTime) => {
@@ -281,8 +465,15 @@ export const catalogFns = (data) => {
       const renderDataItem = (data) => {
         let items = ''
 
-        $.each(data, function (_, el) {
-          const { code, name, priceVat, priceWithVat, productTime, technics } = el
+        $.each(data, function(_, el) {
+          const {
+            code,
+            name,
+            priceVat,
+            priceWithVat,
+            productTime,
+            technics,
+          } = el
 
           items =
             items +
@@ -307,20 +498,22 @@ export const catalogFns = (data) => {
                       ${technics}
                     </div>
                     
-                    <div class="catalog-results__item-price">
-                      Цена без НДС
+                    <div class="catalog-results__item-price-shell">
+                      <div class="catalog-results__item-price">
+                        Цена без НДС
+                        
+                        <p
+                          class="catalog-results__item-price-value">
+                          ${priceVat}&nbsp;₽
+                        </p>
+                      </div>
                       
-                      <p
-                        class="catalog-results__item-price-value">
-                        ${priceVat}&nbsp;₽
-                      </p>
-                    </div>
-                    
-                    <div class="catalog-results__item-price">
-                      Цена с&nbsp;НДС
-                      
-                      <p
-                        class="catalog-results__item-price-value js-catalog-results-item-price-value">${priceWithVat}&nbsp;₽</p>
+                      <div class="catalog-results__item-price">
+                        Цена с&nbsp;НДС
+                        
+                        <p
+                          class="catalog-results__item-price-value js-catalog-results-item-price-value">${priceWithVat}&nbsp;₽</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -332,7 +525,7 @@ export const catalogFns = (data) => {
                     <use xlink:href="/assets/sprite/sprite.svg#cart"></use>
                   </svg>
                   
-                  <span class="only-tablet">
+                  <span class="only-mobile">
                     Добавить в&nbsp;корзину
                   </span>
                 </button>
@@ -375,14 +568,16 @@ export const catalogFns = (data) => {
 
       const url = new URL(window.location.href)
 
-      $.each(filters, function (i, el) {
+      $.each(filters, function(i, el) {
         url.searchParams.set(i, el)
       })
 
       window.history.replaceState({}, document.title, url)
     }
 
-    const dataQuery = (currentPage = 1) => {
+    const queryData = (currentPage = 1) => {
+      closeFilterHints()
+
       data = getDataParams()
       data.page = currentPage
 
@@ -393,9 +588,93 @@ export const catalogFns = (data) => {
         $CATALOG_LIST.html('').addClass(NO_RESULT_CLASS)
         $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
         renderSpinner($CATALOG_LIST)
+
+        $.ajax({
+          type: 'post',
+          url: '/api/v1/parts',
+          headers: {
+            'Api-Key': 'tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH',
+          },
+          data: JSON.stringify(data),
+          dataType: 'json',
+          contentType: 'application/json',
+          success: (data) => {
+            deleteSpinner()
+
+            if (data?.data) {
+              const {
+                codes,
+                items,
+                names,
+                technics,
+                countRecord,
+                nav: { page, pageCount, pageEnd, pageSize } = {},
+              } = data.data
+
+              if (names && Object.keys(names).length !== 0) {
+                renderNames(names)
+              }
+
+              if (codes && Object.keys(codes).length !== 0) {
+                renderCodes(codes)
+              }
+
+              if ((names && Object.keys(names).length !== 0) || (codes && Object.keys(codes).length !== 0)) {
+                filterInputFns()
+              }
+
+              if (technics && Object.keys(technics).length !== 0) {
+                renderTechnics(technics)
+                filterSelectFns()
+              }
+
+              if (pageEnd) {
+                $SHOW_MORE_BTN.addClass(HIDDEN_CLASS)
+              } else {
+                $SHOW_MORE_BTN.removeClass(HIDDEN_CLASS)
+                $SHOW_MORE_BTN.attr('data-page', currentPage + 1)
+              }
+
+              if (countRecord) {
+                $TITLE_COUNT.text(countRecord)
+              } else {
+                $TITLE_COUNT.text(0)
+
+                $CATALOG_LIST.html(`Запчасти по&nbsp;вашим параметрам не&nbsp;найдены, измените условия поиска.`)
+                $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
+                $CATALOG_LIST.removeClass(NO_RESULT_CLASS)
+              }
+
+              if (items && items.length) {
+                renderData(items)
+
+                if (countRecord > pageSize) {
+                  if (currentPage === 1 && pageCount > 1) {
+                    $CATALOG_RESULT.addClass(PAGINATION_CLASS)
+                    renderPagination(countRecord, pageSize)
+                  }
+                } else {
+                  $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
+                }
+              } else {
+                $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
+              }
+
+              setAddConditionForItemsFromStore()
+            }
+          },
+          error: () => {
+            deleteSpinner()
+          },
+        })
       }, 400)
+    }
+
+    const queryFilterData = () => {
+      data = getDataParams()
 
       $.ajax({
+        async: false,
         type: 'post',
         url: '/api/v1/parts',
         headers: {
@@ -405,34 +684,29 @@ export const catalogFns = (data) => {
         dataType: 'json',
         contentType: 'application/json',
         success: (data) => {
-          const { codes, items, names, countRecord, nav: { page, pageCount, pageEnd, pageSize } = {} } = data.data
-          deleteSpinner()
+          if (data?.data) {
+            const {
+              codes,
+              names,
+            } = data.data
 
-          if (countRecord) {
-            $TITLE_COUNT.text(countRecord)
-          } else {
-            $TITLE_COUNT.text(0)
-
-            $CATALOG_LIST.html(`Запчасти по&nbsp;вашим параметрам не&nbsp;найдены, измените условия поиска.`)
-            $CATALOG_LIST.removeClass(NO_RESULT_CLASS)
-          }
-
-          if (items.length) {
-            renderData(items)
-
-            if (countRecord > pageSize) {
-              if (currentPage === 1 && pageCount > 1) {
-                $CATALOG_RESULT.addClass(PAGINATION_CLASS)
-                renderPagination(countRecord, pageSize)
-              }
+            if (names && Object.keys(names).length !== 0) {
+              renderNames(names)
             } else {
-              $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
+              $NAME_HINT_SHELL.text('')
+              closeFilterHints()
             }
-          } else {
-            $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
-          }
 
-          setAddConditionForItemsFromStore()
+            if (codes && Object.keys(codes).length !== 0) {
+              renderCodes(codes)
+
+            } else {
+              $ARTICLE_HINT_SHELL.text('')
+              closeFilterHints()
+            }
+
+            filterInputFns()
+          }
         },
       })
     }
@@ -442,7 +716,7 @@ export const catalogFns = (data) => {
       const $goInput = $PAGINATION.find('.paginationjs-go-input')
       const $goBtn = $PAGINATION.find('.paginationjs-go-button')
 
-      $range.on('click', function () {
+      $range.on('click', function() {
         $goInput.toggleClass(SHOW_CLASS)
         $goBtn.toggleClass(SHOW_CLASS)
       })
@@ -490,7 +764,7 @@ export const catalogFns = (data) => {
         afterPageOnClick: () => {
           queryDataByActivePaginationElem()
         },
-        callback: function (data, pagination) {
+        callback: function(data, pagination) {
           paginationFns()
         },
       })
@@ -499,49 +773,80 @@ export const catalogFns = (data) => {
     const queryDataByActivePaginationElem = () => {
       const activeElemNum = $PAGINATION.find('.active').attr('data-num')
 
-      dataQuery(activeElemNum)
+      queryData(activeElemNum)
     }
 
     const queryBySearchBtns = () => {
-      $ARTICLE_INPUT_SEARCH_BTN.on('click', function () {
-        dataQuery()
+      $ARTICLE_INPUT_SEARCH_BTN.on('click', function() {
+        $ARTICLE_INPUT.focus()
+        queryData()
       })
 
-      $NAME_INPUT_SEARCH_BTN.on('click', function () {
-        dataQuery()
+      $NAME_INPUT_SEARCH_BTN.on('click', function() {
+        $NAME_INPUT.focus()
+        queryData()
+      })
+    }
+
+    const queryByShowMoreBtn = () => {
+      $SHOW_MORE_BTN.on('click', function() {
+        const $t = $(this)
+
+        queryData(Number($t.attr('data-page')))
       })
     }
 
     const queryByEraseBtn = () => {
-      $ARTICLE_INPUT_ERASE_BTN.on('click', function () {
-        dataQuery()
+      $ARTICLE_INPUT_ERASE_BTN.on('click', function() {
+        queryData()
       })
 
-      $NAME_INPUT_ERASE_BTN.on('click', function () {
-        dataQuery()
+      $NAME_INPUT_ERASE_BTN.on('click', function() {
+        queryData()
       })
     }
 
     const queryByEnterPressInInputs = () => {
       $ARTICLE_INPUT.on('keyup', (event) => {
         if (isEnterPressed(event)) {
-          dataQuery()
+          queryData()
         }
       })
 
       $NAME_INPUT.on('keyup', (event) => {
         if (isEnterPressed(event)) {
-          dataQuery()
+          queryData()
         }
       })
     }
 
     itemsFn()
     initStores()
+    filterInputFns()
+    filterSelectFns()
     queryByEraseBtn()
     queryBySearchBtns()
+    queryByShowMoreBtn()
     firstRenderPagination()
     queryByEnterPressInInputs()
+    closeMobileCartByCloseBtnClick()
     setAddConditionForItemsFromStore()
+
+    runFnByWinResize(() => {
+      if ($WINDOW.width() > TABLET_WIDTH) {
+        //выполнить когда переходим на десктоп
+        closeMobileCart()
+        $CATALOG.removeClass(SHOW_CART_BTN_CLASS)
+
+        if ($('.js-catalog-cart-open-btn-shell').length) {
+          $CART.addClass(SHOW_CLASS)
+        }
+      } else {
+        //выполнить когда переходим на мобилку
+        if ($CART.hasClass(SHOW_CLASS)) {
+          addTabletShowCartBtn($CART_SUM.text())
+        }
+      }
+    })
   }
 }

@@ -1,4 +1,11 @@
-import { $BODY, $TOPLINE, $WINDOW, BODY_LOCK_CLASS, MOBILE_CLASS, TABLET_WIDTH } from './constants'
+import {
+  $BODY,
+  $TOPLINE,
+  $WINDOW,
+  BODY_LOCK_CLASS,
+  MOBILE_CLASS,
+  TABLET_WIDTH,
+} from './constants'
 import qs from 'qs'
 
 export const isEscPressed = ({ which }) => which === 27
@@ -17,7 +24,7 @@ export const smoothScrollTo = (anchorOffset, behavior = 'smooth') => {
 }
 
 export const animateScrollWhileClickToAnchor = () => {
-  $('.js-animate-scroll').on('click', function (e) {
+  $('.js-animate-scroll').on('click', function(e) {
     e.preventDefault()
     const $t = $(this)
 
@@ -30,7 +37,7 @@ export const animateScrollWhileClickToAnchor = () => {
           {
             scrollTop: $(anchor).offset().top - 130,
           },
-          600
+          600,
         )
     }
   })
@@ -82,7 +89,7 @@ export const swipeFunction = (elems, elemFunction, swipeDirection = 'upToDown') 
 
   const minSwipeLength = 10
 
-  $.each(elems, function (_, elem) {
+  $.each(elems, function(_, elem) {
     elem.addEventListener('mousedown', (e) => {
       startX = e.clientX
       startY = e.clientY
@@ -147,6 +154,10 @@ export const runFnByWinResize = (fn, size = TABLET_WIDTH) => {
 
 export const IS_DEV = () => {
   return window.location.hostname === 'localhost'
+}
+
+export const numberAddSpace = (value) => {
+  return String(value).replace(/(\d)(?=(\d{3})+\b)/g, '$1 ')
 }
 
 export function debounce(callee, timeoutMs) {

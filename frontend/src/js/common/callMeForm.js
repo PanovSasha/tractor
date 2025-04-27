@@ -1,37 +1,31 @@
-import { DISABLE_CLASS, ERROR_CLASS } from '../lib/constants'
+import { ERROR_CLASS, SHOW_CLASS } from '../lib/constants'
+import { deleteSpinner, renderSpinner } from '../lib/utils'
 
 export const CallMeFormFns = () => {
-  // http://x92617p0.beget.tech/api/v1/add_consultation
-  //
-  //   это для формы принимает массив params - в нем поля fullName и phone и bot - проверка на бота если пользователь вводил что-то с клавиатуры тогда 0 иначе 1
-  //
-  // в заголовке Api-Key - tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH
-  //
-  //   Content-Type - application/json
-  //
-  // параметры отправлять в x-www-from-urlencoded
+  const $formShell = $('.js-call-form-shell')
 
-  const $form = $('.js-order-form')
+  $.each($formShell, function(_, el) {
+    const $formShellEl = $(el)
 
-  if ($form.length) {
-    const regExpEmail = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+\.[A-Z]{2,4}$/i
-    const regExpPhone = /^\d+$/
+    const $form = $formShellEl.find('.js-call-form')
+    const $formSuccess = $formShellEl.find('.js-call-form-success')
+    const $formError = $formShellEl.find('.js-call-form-error')
 
-    const $agreeCheckbox = $form.find('.js-order-form-agree-input')
-    const $inputs = $form.find('.js-order-form-input')
+    const formTypeSpare = $formShellEl.attr('data-form-type') === 'spare'
+    const formTypeCall = $formShellEl.attr('data-form-type') === 'call'
+
+    const regExpPhone = /^[-+\d(), ]+$/
+    const regExpPhoneAlphabet = /^[-+\d(), ]+$/
+
+    const $inputs = $form.find('.js-input')
     const name = $form.find('[name="fullName"]')
     const phone = $form.find('[name="phone"]')
-    const email = $form.find('[name="email"]')
 
-    const $botCheckInput = $form.find('.js-bot-check')
-
-    const $SUBMIT_BTN = $form.find('.js-order-submit-btn')
+    const $SUBMIT_BTN = $form.find('.js-call-form-submit-btn')
 
     const ERROR_PHONE = 'error-phone'
-    const ERROR_MAIL = 'error-mail'
 
     let isPhoneValid = false
-    let isEmailValid = false
 
     const clearInputs = () => {
       $inputs.val('')
@@ -39,22 +33,23 @@ export const CallMeFormFns = () => {
 
     const isInputsValues = (submitBtnClick) => {
       let inputsWithVal = true
+      console.log(inputsWithVal, 'inputsWithVal')
 
-      $.each($inputs, function (_, el) {
+      $.each($inputs, function(_, el) {
         const $el = $(el)
+
+        console.log($el.val(), 'val')
 
         if ($el.val().trim() === '') {
           if (submitBtnClick) {
-            $el.parent().find('.js-order-form-input-placeholder').addClass(ERROR_CLASS)
+            $el.parent().addClass(ERROR_CLASS)
 
             if ($el[0].name === 'phone') {
               phone.parent().removeClass(ERROR_PHONE)
             }
-
-            if ($el[0].name === 'email') {
-              email.parent().removeClass(ERROR_MAIL)
-            }
           }
+
+          console.log($el.val().trim(), '$el.val().trim()')
 
           inputsWithVal = false
         }
@@ -64,19 +59,15 @@ export const CallMeFormFns = () => {
     }
 
     const checkInputValByFocusout = () => {
-      $.each($inputs, function (_, el) {
+      $.each($inputs, function(_, el) {
         const $el = $(el)
 
-        $el.on('focusout', function () {
+        $el.on('focusout', function() {
           if ($el.val().trim() === '') {
-            $el.parent().find('.js-order-form-input-placeholder').addClass(ERROR_CLASS)
+            $el.parent().addClass(ERROR_CLASS)
 
             if ($el[0].name === 'phone') {
               phone.parent().removeClass(ERROR_PHONE)
-            }
-
-            if ($el[0].name === 'email') {
-              email.parent().removeClass(ERROR_MAIL)
             }
           }
         })
@@ -84,70 +75,104 @@ export const CallMeFormFns = () => {
     }
 
     const sendData = () => {
-      // адрес http://moidom.xyz/api/v1/addFormRecord
-      // параметры params, type, bot
-      //
-      // params это объект содержит fullName, phone, email
-      // type строка может иметь значение consultation или calculation иначе ошибка
-      // bot нужен для проверки на бота если 0 то все хорошо иначе ошибка
-      //
-      // проверку на бота можешь навесить на событие input обязательного поля если оно произошло то это не бот и отправляем 0 иначе отправляем 1 или любое удобное для тебя значение
-      const params = {
-        fullName: name.val(),
-        phone: `+7${phone.val()}`,
-        email: email.val(),
+
+      // http://x92617p0.beget.tech/api/v1/add_consultation
+      //   это для формы принимает массив params - в нем поля fullName и phone и bot - проверка на бота если пользователь вводил что-то с клавиатуры тогда 0 иначе 1
+      // в заголовке Api-Key - tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH
+      //   Content-Type - application/json
+      // параметры отправлять в x-www-from-urlencoded
+      // params[fullName]=Иван&params[phone]=4454555&bot=0
+
+      $form.removeClass(SHOW_CLASS)
+      renderSpinner($formShellEl)
+
+      if (formTypeCall) {
+        $.ajax({
+          type: 'post',
+          url: '/api/v1/add_consultation',
+          headers: {
+            'Api-Key': 'tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH',
+          },
+          data: `params[fullName]=${name.val()}&params[phone]=${phone.val()}&bot=0`,
+          contentType: 'application/x-www-form-urlencoded',
+          success: (data) => {
+            console.log(data)
+            deleteSpinner()
+            name.val('')
+            phone.val('')
+            $formSuccess.addClass(SHOW_CLASS)
+          },
+          error: () => {
+            deleteSpinner()
+            $formError.addClass(SHOW_CLASS)
+          },
+        })
       }
 
-      const data = {}
+      // --------------------------------------------------
 
-      data.params = params
-      data.type = $form.attr('data-form-type')
-      data.bot = $botCheckInput.val() || $botCheckInput.attr('placeholder') || 0
+      // Отправить выбранные детали
+      // /api/v1/add_order
+      // все тоже самое что и с parts
+      // принимает параметры в json
+      // {
+      //   "name": "Иван",
+      //   "phone": "56456456456",
+      //   "parts": ["90.32.031-01СБ", "20005493AAFG", "100.71.011СБ"]
+      // }
+      if (formTypeSpare) {
+        const data = {}
+        data.name = name.val()
+        data.phone = phone.val()
 
-      $.ajax({
-        url: '/api/v1/addFormRecord',
-        method: 'post',
-        username: 'user',
-        password: 'AdsgdX32ga@',
-        headers: {
-          'Api-Key': 'tUKdAP2Gmv/?VyvCI16rAB=UN7yFpQvirTa5Ix21BzP4w6lFfqrSoySJfKVhXCpH',
-        },
-        data: data,
-        success: function ({ errors }) {
-          let isError = false
+        let items = window.localStorage.getItem('items')
+        items = JSON.parse(items)
 
-          if (errors.length) {
-            errors.forEach(({ code }) => {
-              isError = true
+        const parts = []
 
-              if (code === 6) {
-                console.log('ошибка капчи')
-              }
-            })
-          } else {
-            if (window.location.hostname === 'localhost') {
-              window.location.href = 'success-message.html'
-            } else {
-              window.location.href = '/success-message'
-            }
-          }
-        },
-      })
+        if (items) {
+          $.each(items, function(_, el) {
+            console.log(el)
+
+            parts.push(el.article)
+          })
+
+          data.parts = parts
+        }
+
+        $.ajax({
+          type: 'post',
+          url: '/api/v1/add_order',
+          headers: {
+            'Api-Key': 'tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH',
+          },
+          data: JSON.stringify(data),
+          dataType: 'json',
+          contentType: 'application/json',
+          success: (data) => {
+            console.log(data)
+            deleteSpinner()
+            name.val('')
+            phone.val('')
+            $formSuccess.addClass(SHOW_CLASS)
+          },
+          error: () => {
+            deleteSpinner()
+            $formError.addClass(SHOW_CLASS)
+          },
+        })
+      }
     }
 
     const checkFormFields = (submitBtnClick) => {
-      const isPrivateAccept = $agreeCheckbox.prop('checked')
       const allInputsWithValues = isInputsValues(submitBtnClick)
 
-      if (allInputsWithValues && isPrivateAccept && isPhoneValid && isEmailValid) {
-        $SUBMIT_BTN.removeClass(DISABLE_CLASS)
+      if (allInputsWithValues && isPhoneValid) {
         return true
-      } else {
-        $SUBMIT_BTN.addClass(DISABLE_CLASS)
       }
     }
 
-    const checkInputValue = function (value, regexp) {
+    const checkInputValue = function(value, regexp) {
       if (regexp.test(value)) return true
     }
 
@@ -163,30 +188,22 @@ export const CallMeFormFns = () => {
       }
     }
 
-    const checkEmailValue = (submitBtnClick) => {
-      const checkEmail = checkInputValue(email.val(), regExpEmail)
-
-      if (!checkEmail) {
-        if (!submitBtnClick && email.val().trim() !== '') {
-          email.parent().addClass(ERROR_MAIL)
-          isEmailValid = false
-        }
-      } else {
-        email.parent().removeClass(ERROR_MAIL)
-        isEmailValid = true
-      }
-    }
-
     const checkInputValueByInput = () => {
-      $inputs.on('input', function () {
+      $inputs.on('input', function() {
         const $t = $(this)
+        const $tVal = $t.val()
 
-        const $tPlaceholder = $t.parent().find('.js-order-form-input-placeholder')
-        if ($t.val().trim() === '') {
-          $tPlaceholder.show()
-        } else {
-          $tPlaceholder.hide().removeClass(ERROR_CLASS)
+        const $inputBox = $t.parent()
+        if ($tVal.trim() !== '') {
+          $inputBox.removeClass(ERROR_CLASS)
         }
+
+        if (checkInputValue($tVal, regExpPhone) && $t.attr('name') === 'phone') {
+          if ($tVal.charAt(0) !== '+') {
+            $t.val(`+${$tVal}`)
+          }
+        }
+
 
         setTimeout(() => {
           checkFormFields()
@@ -195,19 +212,15 @@ export const CallMeFormFns = () => {
     }
 
     const checkSpecialInputsForError = () => {
-      email.on('input', () => {
-        checkEmailValue()
-      })
-
       phone.on('input', () => {
         checkPhoneValue()
       })
     }
 
     const checkAllFieldsFormBySubmitBtnPress = () => {
-      $SUBMIT_BTN.on('click', function (e) {
+      $SUBMIT_BTN.on('click', function(e) {
+
         checkPhoneValue(true)
-        checkEmailValue(true)
 
         if (checkFormFields(true)) {
           sendData()
@@ -215,14 +228,12 @@ export const CallMeFormFns = () => {
       })
     }
 
-    $agreeCheckbox.on('click', function () {
-      checkFormFields()
-    })
-
     clearInputs()
     checkInputValueByInput()
     checkInputValByFocusout()
     checkSpecialInputsForError()
     checkAllFieldsFormBySubmitBtnPress()
-  }
+  })
+
+
 }

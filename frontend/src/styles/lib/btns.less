@@ -1,5 +1,14 @@
 @import "descriptions";
 
+.btn-transition() {
+  .transition(background-color);
+  .transition(background);
+  .transition(border-color);
+  .transition(box-shadow);
+  .transition(color);
+  .transition(opacity);
+}
+
 .btn-reset() {
   .Inter();
   font-size: @offset16;
@@ -37,12 +46,7 @@
 
 .btn-default() {
   .btn-reset();
-  .transition(background-color);
-  .transition(background);
-  .transition(border-color);
-  .transition(box-shadow);
-  .transition(color);
-  .transition(opacity);
+  .btn-transition();
   .f-center(8);
   .radius(22);
   .h9();
