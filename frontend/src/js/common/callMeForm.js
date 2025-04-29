@@ -33,12 +33,9 @@ export const CallMeFormFns = () => {
 
     const isInputsValues = (submitBtnClick) => {
       let inputsWithVal = true
-      console.log(inputsWithVal, 'inputsWithVal')
 
       $.each($inputs, function(_, el) {
         const $el = $(el)
-
-        console.log($el.val(), 'val')
 
         if ($el.val().trim() === '') {
           if (submitBtnClick) {
@@ -48,8 +45,6 @@ export const CallMeFormFns = () => {
               phone.parent().removeClass(ERROR_PHONE)
             }
           }
-
-          console.log($el.val().trim(), '$el.val().trim()')
 
           inputsWithVal = false
         }
@@ -96,7 +91,6 @@ export const CallMeFormFns = () => {
           data: `params[fullName]=${name.val()}&params[phone]=${phone.val()}&bot=0`,
           contentType: 'application/x-www-form-urlencoded',
           success: (data) => {
-            console.log(data)
             deleteSpinner()
             name.val('')
             phone.val('')
@@ -132,8 +126,6 @@ export const CallMeFormFns = () => {
 
         if (items) {
           $.each(items, function(_, el) {
-            console.log(el)
-
             parts.push(el.article)
           })
 
@@ -150,7 +142,6 @@ export const CallMeFormFns = () => {
           dataType: 'json',
           contentType: 'application/json',
           success: (data) => {
-            console.log(data)
             deleteSpinner()
             name.val('')
             phone.val('')
@@ -228,7 +219,7 @@ export const CallMeFormFns = () => {
       })
     }
 
-    clearInputs()
+    // clearInputs()
     checkInputValueByInput()
     checkInputValByFocusout()
     checkSpecialInputsForError()

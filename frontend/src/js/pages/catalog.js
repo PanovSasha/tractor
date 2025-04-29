@@ -96,7 +96,6 @@ export const catalogFns = (data) => {
           $inputPlaceholder.addClass(HIDDEN_CLASS)
           $input.val($t.text().trim())
           $input.focus()
-          console.log($input.attr('name'), 'ewrwer')
           queryData()
         })
       })
