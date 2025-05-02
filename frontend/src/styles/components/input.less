@@ -122,7 +122,7 @@
     transition: box-shadow .2s ease-in-out;
     position: relative;
 
-    &.error-phone, &.error {
+    &.error-phone, &.error, &.error-pass {
       &:after {
         .fs12-16();
         position: absolute;
@@ -141,6 +141,12 @@
     &.error {
       &:after {
         content: 'Заполните поле';
+      }
+    }
+
+    &.error-pass {
+      &:after {
+        content: 'Неверный логин или пароль';
       }
     }
   }

@@ -13,6 +13,7 @@ export const CallMeFormFns = () => {
 
     const formTypeSpare = $formShellEl.attr('data-form-type') === 'spare'
     const formTypeCall = $formShellEl.attr('data-form-type') === 'call'
+    const formTypeLKLogin = $formShellEl.attr('data-form-type') === 'lk-login'
 
     const regExpPhone = /^[-+\d(), ]+$/
     const regExpPhoneAlphabet = /^[-+\d(), ]+$/
@@ -20,10 +21,14 @@ export const CallMeFormFns = () => {
     const $inputs = $form.find('.js-input')
     const name = $form.find('[name="fullName"]')
     const phone = $form.find('[name="phone"]')
+    const pass = $form.find('[name="pass"]')
+
+    const $passShell = pass.parent()
 
     const $SUBMIT_BTN = $form.find('.js-call-form-submit-btn')
 
     const ERROR_PHONE = 'error-phone'
+    const ERROR_PASS = 'error-pass'
 
     let isPhoneValid = false
 
@@ -36,6 +41,8 @@ export const CallMeFormFns = () => {
 
       $.each($inputs, function(_, el) {
         const $el = $(el)
+
+        $passShell.removeClass(ERROR_PASS)
 
         if ($el.val().trim() === '') {
           if (submitBtnClick) {
@@ -78,10 +85,10 @@ export const CallMeFormFns = () => {
       // параметры отправлять в x-www-from-urlencoded
       // params[fullName]=Иван&params[phone]=4454555&bot=0
 
-      $form.removeClass(SHOW_CLASS)
-      renderSpinner($formShellEl)
-
       if (formTypeCall) {
+        $form.removeClass(SHOW_CLASS)
+        renderSpinner($formShellEl)
+
         $.ajax({
           type: 'post',
           url: '/api/v1/add_consultation',
@@ -115,6 +122,9 @@ export const CallMeFormFns = () => {
       //   "parts": ["90.32.031-01СБ", "20005493AAFG", "100.71.011СБ"]
       // }
       if (formTypeSpare) {
+        $form.removeClass(SHOW_CLASS)
+        renderSpinner($formShellEl)
+
         const data = {}
         data.name = name.val()
         data.phone = phone.val()
@@ -153,12 +163,37 @@ export const CallMeFormFns = () => {
           },
         })
       }
+      console.log('sadfa')
+
+      if (formTypeLKLogin) {
+        $.ajax({
+          type: 'post',
+          url: '/api/v1/login',
+          headers: {
+            'Api-Key': 'tUKdAP2Gmv/?Vyv23CI16rDsAB=UN7yFpQvirTa5Ix21BzP4w6lFfqr1qSoySJfKVhXCpH',
+          },
+          data: `login=${name.val()}&password=${pass.val()}`,
+          // data: 'login=test&password=123456',
+          contentType: 'application/x-www-form-urlencoded',
+          success: (response) => {
+            console.log(response, 'wewe')
+
+            if (response.status === 'success' && response.data.personal_link) {
+              window.location.href = response.data.personal_link
+            }
+
+            if (response.status === 'error') {
+              $passShell.addClass(ERROR_PASS)
+            }
+          },
+        })
+      }
     }
 
     const checkFormFields = (submitBtnClick) => {
       const allInputsWithValues = isInputsValues(submitBtnClick)
 
-      if (allInputsWithValues && isPhoneValid) {
+      if (((formTypeSpare || formTypeCall) && allInputsWithValues && isPhoneValid) || (formTypeLKLogin && allInputsWithValues)) {
         return true
       }
     }

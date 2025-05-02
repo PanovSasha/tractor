@@ -1533,10 +1533,12 @@
                 Стать дилером
               </a>
               
-              <a class="f-links__accord-link accessibility-link"
-                 href="personal-account.html">
+              <button
+                type="button"
+                data-overlay-anchor="lk-login"
+                class="f-links__accord-link accessibility-link accessibility-link js-show-overlay-btn">
                 Личный кабинет дилера
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -1685,6 +1687,63 @@
           Попробую позже
         </button>
       </div>
+    </div>
+  </div>
+  
+  <div data-overlay="lk-login" class="call overlay__item js-overlay-item">
+    <div data-form-type="lk-login" class="call__form-shell js-call-form-shell">
+      <button class="call__close overlay__close-btn js-overlay-close-btn">
+      </button>
+      
+      <form class="call__form js-call-form show">
+        <p class="call__title">
+          Личный кабинет дилера
+        </p>
+        
+        <div class="call__inputs">
+          <div class="input__box js-input-box">
+            <label for="fullLKName"
+                   class="input__placeholder js-input-placeholder">
+              Имя пользователя
+            </label>
+            
+            <input
+              class="input js-input"
+              id="fullLKName" name="fullName" type="text">
+            
+            <button type="button"
+                    class="input__erase-btn js-input-erase-btn">
+              <svg class="icon icon--20">
+                <use xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="input__box js-input-box">
+            <label for="passLK"
+                   class="input__placeholder js-input-placeholder">
+              Пароль
+            </label>
+            
+            <input
+              class="input js-input"
+              id="passLK" name="pass" type="text">
+            
+            <button type="button"
+                    class="input__erase-btn js-input-erase-btn">
+              <svg class="icon icon--20">
+                <use xlink:href="assets/sprite/sprite.svg#delete-cross"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <button
+          type="button"
+          class="btn btn--primary call__form-submit-btn js-call-form-submit-btn">
+          Войти
+        </button>
+      </form>
     </div>
   </div>
   
