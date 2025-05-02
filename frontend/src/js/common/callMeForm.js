@@ -163,7 +163,6 @@ export const CallMeFormFns = () => {
           },
         })
       }
-      console.log('sadfa')
 
       if (formTypeLKLogin) {
         $.ajax({
@@ -176,8 +175,6 @@ export const CallMeFormFns = () => {
           // data: 'login=test&password=123456',
           contentType: 'application/x-www-form-urlencoded',
           success: (response) => {
-            console.log(response, 'wewe')
-
             if (response.status === 'success' && response.data.personal_link) {
               window.location.href = response.data.personal_link
             }

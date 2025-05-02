@@ -52,7 +52,7 @@ export const swiperFunctions = () => {
     const $slides = $('.js-nav-page-slide')
 
     const toggleActiveSlideByClick = () => {
-      $slides.on('click', function () {
+      $slides.on('click', function() {
         const $t = $(this)
         $slides.removeClass(CLICKED_CLASS)
         $slides.removeClass('swiper-slide-active')
@@ -69,7 +69,7 @@ export const swiperFunctions = () => {
         }
 
         let observer = new IntersectionObserver((entries, obs) => {
-          entries.forEach(function (entry) {
+          entries.forEach(function(entry) {
             if (!entry.isIntersecting) return
             // obs.unobserve(entry.target)
             callback()
@@ -83,11 +83,11 @@ export const swiperFunctions = () => {
 
       let visibleSlideNumber
 
-      $.each($anchors, function (_, el) {
+      $.each($anchors, function(_, el) {
         const $anchor = $(el)
 
         toggleActiveSlide($anchor, () => {
-          $.each(partitionSlider.slides, function (i, slide) {
+          $.each(partitionSlider.slides, function(i, slide) {
             if ($(slide).attr('href').substring(1, $(slide).attr('href').length) === $anchor.attr('data-page-anchor')) {
               visibleSlideNumber = i
 
@@ -95,7 +95,8 @@ export const swiperFunctions = () => {
               $slides.removeClass('swiper-slide-active')
               $(slide).addClass(CLICKED_CLASS)
               $(slide).addClass('swiper-slide-active')
-              partitionSlider.slideTo(visibleSlideNumber, 100, () => {})
+              partitionSlider.slideTo(visibleSlideNumber, 100, () => {
+              })
             }
           })
         })
@@ -114,7 +115,7 @@ export const swiperFunctions = () => {
 
       const $newSlides = $slides.clone()
 
-      $.each($newSlides, function (_, el) {
+      $.each($newSlides, function(_, el) {
         const $slide = $(el)
 
         const $img = $slide.find('.js-gallery-slide-img')
@@ -161,7 +162,7 @@ export const swiperFunctions = () => {
     })
 
     const setActiveLaySlideByGallerySlideClick = () => {
-      $slides.on('click', function () {
+      $slides.on('click', function() {
         const $t = $(this)
         const slideIndex = $t.attr('aria-label').split('/')[0]
 
@@ -195,7 +196,7 @@ export const swiperFunctions = () => {
     })
 
     const toggleActiveSlideByAnchorPress = () => {
-      $anchors.on('click', function () {
+      $anchors.on('click', function() {
         const $t = $(this)
         const anchorIndex = $t.attr('data-bonus-img-anchor-number')
         $anchors.removeClass(ACTIVE_CLASS)
@@ -207,8 +208,8 @@ export const swiperFunctions = () => {
     const toggleActiveAnchorBySlideChange = () => {
       const $activeNumberShell = $('.js-bonus-slider-active-number')
 
-      bonusSlider.on('transitionEnd', function () {
-        $.each(bonusSlider.slides, function (_, el) {
+      bonusSlider.on('transitionEnd', function() {
+        $.each(bonusSlider.slides, function(_, el) {
           const $slide = $(el)
 
           if ($slide.hasClass('swiper-slide-active')) {
@@ -230,7 +231,7 @@ export const swiperFunctions = () => {
     const createYearsThumbs = () => {
       const $thumbsWrapper = $('.js-years-thumbs-slider-wrapper')
 
-      $.each($('.js-detail-aside-date'), function (_, el) {
+      $.each($('.js-detail-aside-date'), function(_, el) {
         const $el = $(el)
         const year = $el.clone().text().match(/\d+/g)
 
@@ -254,10 +255,9 @@ export const swiperFunctions = () => {
       mousewheel: true,
     })
 
-    $('.js-years-thumbs-slider-slide').on('click', function () {
+    $('.js-years-thumbs-slider-slide').on('click', function() {
       const $t = $(this)
       const slideIndex = $t.attr('aria-label').split('/')[0]
-      console.log('clicked')
 
       yearsThumbsSlider.slideTo(slideIndex - 1, 200)
     })
