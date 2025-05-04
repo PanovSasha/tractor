@@ -461,6 +461,25 @@ export const catalogFns = (data) => {
         return productTime
       }
 
+      const renderTechnics = (technics) => {
+        let str = ''
+
+        console.log(technics)
+
+        $.each(technics, function(i, el) {
+          let clearEl = el.replaceAll(' ', '&nbsp;')
+
+          if (i) {
+            str = str + `, ${clearEl}`
+          } else {
+            str = clearEl
+          }
+        })
+
+        return str
+      }
+
+
       const renderDataItem = (data) => {
         let items = ''
 
@@ -494,7 +513,7 @@ export const catalogFns = (data) => {
                     </div>
                     
                     <div class="catalog-results__item-tractor-name">
-                      ${technics}
+                      ${renderTechnics(technics)}
                     </div>
                     
                     <div class="catalog-results__item-price-shell">
