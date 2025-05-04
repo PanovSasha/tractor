@@ -585,7 +585,6 @@ export const catalogFns = (data) => {
 
       setTimeout(() => {
         $CATALOG_LIST.html('').addClass(NO_RESULT_CLASS)
-        $CATALOG_RESULT.removeClass(PAGINATION_CLASS)
         renderSpinner($CATALOG_LIST)
 
         $.ajax({
@@ -648,8 +647,9 @@ export const catalogFns = (data) => {
                 renderData(items)
 
                 if (countRecord > pageSize) {
+                  $CATALOG_RESULT.addClass(PAGINATION_CLASS)
+
                   if (currentPage === 1 && pageCount > 1) {
-                    $CATALOG_RESULT.addClass(PAGINATION_CLASS)
                     renderPagination(countRecord, pageSize)
                   }
                 } else {

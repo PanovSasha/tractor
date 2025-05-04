@@ -177,10 +177,10 @@
   &__item-price {
     .f-column(4);
     .p3();
+    justify-content: center;
     color: @text-secondary;
     flex: 0 1;
     display: flex;
-    justify-content: flex-end;
     align-items: flex-start;
     min-width: max-content;
     padding-inline: @offset10;
@@ -276,6 +276,10 @@
 
     .catalog__results.pagination-show & {
       display: block;
+
+      @media @s-tablet {
+        display: none;
+      }
     }
 
     @media @s-tablet {
