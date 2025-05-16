@@ -38,6 +38,10 @@
       background: url("/assets/svg/icons/arrow-down.svg") center center /  20px 20px no-repeat;
     }
 
+    &:hover {
+      border: 1px solid @border-hover;
+    }
+
     .select.open &:after {
       rotate: -180deg;
     }
@@ -74,7 +78,6 @@
     padding: @offset8;
     max-height: 204px;
     display: none;
-    scrollbar-gutter: stable;
 
     @media @large-than-tablet {
       &::-webkit-scrollbar {

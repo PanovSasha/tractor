@@ -1,5 +1,6 @@
 import 'paginationjs/dist/pagination.min'
 import qs from 'qs'
+import counterUp from '../common/counterUp2'
 
 import {
   debounce,
@@ -10,11 +11,11 @@ import {
   runFnByWinResize,
 } from '../lib/utils'
 import {
-  $BODY, $DOCUMENT,
+  $BODY,
   $WINDOW,
   BODY_LOCK_CLASS,
   HIDDEN_CLASS,
-  NO_RESULT_CLASS, OPEN_CLASS,
+  NO_RESULT_CLASS,
   PAGINATION_CLASS,
   SHOW_CART_BTN_CLASS,
   SHOW_CLASS,
@@ -281,6 +282,11 @@ export const catalogFns = (data) => {
                 </button>
               </div>
             `)
+          //
+          // counterUp($('.js-catalog-cart-open-btn')[0], {
+          //   duration: 400,
+          //   delay: 16,
+          // })
         }
 
         openMobileCart()
@@ -445,7 +451,6 @@ export const catalogFns = (data) => {
       selectFunctions()
     }
 
-
     const renderData = (data) => {
       const renderTime = (productTime) => {
         if (/^\d+$/.test(productTime)) {
@@ -463,8 +468,6 @@ export const catalogFns = (data) => {
 
       const renderTechnics = (technics) => {
         let str = ''
-
-        console.log(technics)
 
         $.each(technics, function(i, el) {
           let clearEl = el.replaceAll(' ', '&nbsp;')
@@ -593,17 +596,25 @@ export const catalogFns = (data) => {
       window.history.replaceState({}, document.title, url)
     }
 
-    const queryData = (currentPage = 1) => {
+    const queryData = (currentPage = 1, showMoreBtn = false) => {
       closeFilterHints()
 
       data = getDataParams()
       data.page = currentPage
 
       addFiltersValueToUrl(data)
-      scrollToTopCatalog()
+
+      if (!showMoreBtn) {
+        scrollToTopCatalog()
+      }
 
       setTimeout(() => {
-        $CATALOG_LIST.html('').addClass(NO_RESULT_CLASS)
+        if (!showMoreBtn) {
+          $CATALOG_LIST.html('').addClass(NO_RESULT_CLASS)
+        } else {
+          $CATALOG_LIST.addClass(NO_RESULT_CLASS)
+        }
+
         renderSpinner($CATALOG_LIST)
 
         $.ajax({
@@ -810,7 +821,7 @@ export const catalogFns = (data) => {
       $SHOW_MORE_BTN.on('click', function() {
         const $t = $(this)
 
-        queryData(Number($t.attr('data-page')))
+        queryData(Number($t.attr('data-page')), true)
       })
     }
 

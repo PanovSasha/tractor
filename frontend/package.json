@@ -42,7 +42,6 @@
   "dependencies": {
     "@nrwl/nx-plugin": "^19.3.1",
     "air-datepicker": "^3.4.0",
-    "counterup2": "^2.0.2",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-import": "^2.26.0",
