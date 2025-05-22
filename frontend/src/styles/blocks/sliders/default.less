@@ -16,6 +16,20 @@
   background-color: @bg-brand;
   color: @white;
 
+  &:focus-visible {
+    outline: 2px solid @border-focus;
+  }
+
+  &:hover {
+    @media @large-than-tablet {
+      background-color: @bg-hover;
+    }
+  }
+
+  &:active {
+    background-color: @bg-active;
+  }
+
   .swiper-btns--white & {
     background-color: @bg-primary;
     color: @black;
